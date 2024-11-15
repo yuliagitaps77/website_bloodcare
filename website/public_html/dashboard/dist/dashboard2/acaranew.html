@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MaterializeCSS Admin Dashboard</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons|Poppins'>
+  <link rel="stylesheet" href="acaranew.css"> <!-- Link ke file CSS terpisah -->
+</head>
+<body>
+
+  <!-- Sidebar dan Konten -->
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col s12 m12 l3">
+      <ul id="slide-out" class="sidenav sidenav-fixed sidebar-clear-parent">
+        <li class="sidebar-clear"></li>
+        <div class="profile-row">
+          <div class="profile-image">
+            <img src="https://via.placeholder.com/80" alt="Profile Image" class="circle"> 
+          </div>
+          <div class="profile-text">
+            <p class="text-header">Natasya</p>
+            <p class="text-desc">lengkapi profil anda</p>
+          </div>
+        </div>
+        
+        <li id="dashboard" class="bordered"><a class="waves-effect left-align" href="#!"><i class="material-icons">home</i>DASHBOARD</a></li> 
+        <li id="acara-donor" class="bordered selected"><a class="waves-effect left-align" href="#!"><i class="material-icons">event</i>ACARA DONOR</a></li>
+        <li id="formulir-donor" class="bordered"><a class="waves-effect left-align" href="#!"><i class="material-icons">assignment</i>FORMULIR DONOR</a></li>
+        <li id="stok-darah" class="bordered"><a class="waves-effect left-align" href="#!"><i class="material-icons">invert_colors</i>STOK DARAH</a></li>
+        <li id="riwayat-donor" class="bordered"><a class="waves-effect left-align" href="#!"><i class="material-icons">history</i>RIWAYAT DONOR</a></li>
+        <li id="keluar" class="bordered"><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>KELUAR</a></li>
+      </ul>
+    </div>
+
+    <!-- Content Area -->
+    <div class="col s12 m12 l9">
+      <div class="container admin-content">
+        <h1 class="hero-title">ACARA DONOR</h1>
+        <div class="divider"></div>
+    
+        <!-- Tabel Kosong Besar -->
+        <div class="table-container">
+          <div class="empty-box-table">
+            <span class="table-text"></span>
+          </div>
+        </div>
+      </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+  <script src="./script.js"></script>
+  <script>function toggleSidebar() {
+    const sidebar = document.querySelector('.sidenav');
+    sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+</body>
+</html>

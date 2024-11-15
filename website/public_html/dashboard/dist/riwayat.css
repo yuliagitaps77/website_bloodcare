@@ -1,0 +1,231 @@
+body,html{
+	font-family: "Poppins";
+	margin: 0;
+	padding: 0;
+}
+.colored{
+	background-color: transparent;
+}
+.navbar-fixed{
+	z-index: 9999;
+}
+.sidebar-clear-parent {
+    background-color: rgb(255, 120, 120); /* Background sidebar */
+}
+.sidebar-item.active {
+    background-color: rgb(255, 255, 255); /* Warna putih untuk item aktif */
+    color: #000; /* Warna teks untuk item aktif */
+    border-radius: 5px;
+}
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #e0f7fa; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the highlighted item */
+    border-radius: 5px;
+}
+
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #FF7878; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the selected item */
+}
+
+/* Optional: Wave effect styling for a ripple on hover */
+.waves-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.waves-effect:after {
+    content: "";
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+}
+
+.waves-effect:hover:after {
+    transform: translate(-50%, -50%) scale(1);
+}
+/* Default style for all sidebar items */
+.bordered a {
+    color: white !important; /* Text color for unselected items with higher specificity */
+}
+.nav-wrapper .sidenav-trigger i.material-icons {
+    color: black !important; /* Ensures the icon is black */
+}
+/* Style for the selected (highlighted) item */
+.bordered.selected a {
+    background-color: #ffffff; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black !important; /* Text color for the selected item with higher specificity */
+    border-radius: 10px;
+}
+/* Icon color changes to black when item is selected */
+.bordered.selected i.material-icons {
+    color: black !important; /* Icon color for the selected item */
+}
+.sidebar-item:hover {
+    background-color: rgb(255, 255, 255); /* Warna putih saat di-hover */
+    color: #ffffff; /* Warna teks saat di-hover */
+    border-radius: 5px; /* Opsional: memberikan sedikit radius */
+    transition: background-color 0.3s; /* Transisi halus */
+}
+
+.sidebar-item {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-clear{
+	margin-top: 0px;
+}
+.bordered i.material-icons {
+    color: white !important; /* Icon color set to white */
+}
+/* Add spacing between sidebar items */
+.bordered {
+    margin: 5 0; /* Vertical spacing between items */
+    padding: 4px 8px; /* Horizontal padding inside each item */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+.img-thumb {
+    height: 150px;
+    justify-content: center;
+    background-color: #803c3c; /* Background color for the profile image section */
+    background-image: url('https://maxcdn.icons8.com/app/uploads/2016/03/material-1-1000x563.jpg');
+    background-size: cover;
+    background-position: center;
+}
+/* Main container for the row structure */
+.profile-row {
+    display: flex;
+    align-items: center; /* Centers the content vertically */
+    background-color: #803c3c; /* Background color for the entire row */
+    padding: 16px; /* Optional: Adds padding for spacing */
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+/* Profile image styling */
+.profile-image img {
+    width: 60px; /* Adjust the size as needed */
+    height: 60px;
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 12px; /* Space between image and text */
+}
+
+/* Text column styling */
+.profile-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for the header text */
+.text-header {
+    font-weight: bold;
+    margin: 0;
+    color: white; /* Adjust color as needed */
+}
+
+/* Styling for the description text */
+.text-desc {
+    margin: 0;
+    color: white; /* Adjust color as needed */
+    font-size: 0.9em; /* Slightly smaller font for description */
+}
+.text-upper{
+	text-transform: uppercase;
+}
+.admin-content{
+	margin-top: 20px;
+	text-align: justify;
+	z-index: -2;
+}
+.hero-title{
+    font-size: 24px;
+    font-family: "Poppins", serif;
+    font-weight: 1000;
+    font-style: normal;
+    margin-top: 30px;
+}
+@media only screen and (min-width: 1100px) {
+	.container {
+	    width: 90% !important;
+	}
+}
+@media only screen and (max-width: 992px) {
+	.sidebar-clear{
+		margin-top: 0px !important;
+	}
+	.sidebar-clear-parent{
+		z-index: 99999 !important;
+	}
+}
+/* Table Style for Riwayat Donor */
+.riwayat-donor {
+    width: 100%;
+    border-collapse: separate; /* Allows space between rows */
+    border-spacing: 0 20px; /* Adds vertical space between rows */
+    margin-top: 40px;
+    
+}
+
+.riwayat-donor td {
+    padding: 10px;
+    background-color: #e5e5e5;
+    text-align: left;
+    border-bottom: 2px solid white;
+  
+}
+
+.riwayat-donor .btn-unduh {
+    display: inline-block;
+    padding: 7px 10px;
+    background-color: #C73F3F;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 750px;
+}
+
+.riwayat-donor .btn-unduh:hover {
+    background-color: #FF3D3D;
+}
+
+@media (max-width: 768px) {
+    /* Stack table rows for smaller screens */
+    .riwayat-donor {
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Add spacing between rows */
+    }
+
+    .riwayat-donor td {
+        display: block;
+        width: 100%; /* Full width for each cell */
+        text-align: center; /* Center-align text for smaller screens */
+        border-bottom: none; /* Remove bottom border */
+        margin-bottom: 10px; /* Add spacing between rows */
+    }
+
+    .riwayat-donor .btn-unduh {
+        width: 100%; /* Full width button */
+        margin: 10px 0 0 0; /* Add spacing above and below button */
+        padding: 10px; /* Increase padding for better touch interaction */
+        font-size: 14px; /* Adjust font size */
+    }
+}

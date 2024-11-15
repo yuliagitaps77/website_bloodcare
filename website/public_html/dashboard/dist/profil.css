@@ -1,0 +1,298 @@
+body,html{
+	font-family: "Poppins";
+	margin: 0;
+	padding: 0;
+}
+.colored{
+	background-color: transparent;
+}
+.navbar-fixed{
+	z-index: 9999;
+}
+.sidebar-clear-parent {
+    background-color: rgb(255, 120, 120); /* Background sidebar */
+}
+.sidebar-item.active {
+    background-color: rgb(255, 255, 255); /* Warna putih untuk item aktif */
+    color: #000; /* Warna teks untuk item aktif */
+    border-radius: 5px;
+}
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #e0f7fa; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the highlighted item */
+    border-radius: 5px;
+}
+
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #FF7878; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the selected item */
+}
+
+/* Optional: Wave effect styling for a ripple on hover */
+.waves-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.waves-effect:after {
+    content: "";
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+}
+
+.waves-effect:hover:after {
+    transform: translate(-50%, -50%) scale(1);
+}
+/* Default style for all sidebar items */
+.bordered a {
+    color: white !important; /* Text color for unselected items with higher specificity */
+}
+.nav-wrapper .sidenav-trigger i.material-icons {
+    color: black !important; /* Ensures the icon is black */
+}
+/* Style for the selected (highlighted) item */
+.bordered.selected a {
+    background-color: #ffffff; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black !important; /* Text color for the selected item with higher specificity */
+    border-radius: 10px;
+}
+/* Icon color changes to black when item is selected */
+.bordered.selected i.material-icons {
+    color: black !important; /* Icon color for the selected item */
+}
+.sidebar-item:hover {
+    background-color: rgb(255, 255, 255); /* Warna putih saat di-hover */
+    color: #ffffff; /* Warna teks saat di-hover */
+    border-radius: 5px; /* Opsional: memberikan sedikit radius */
+    transition: background-color 0.3s; /* Transisi halus */
+}
+
+.sidebar-item {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-clear{
+	margin-top: 0px;
+}
+.bordered i.material-icons {
+    color: white !important; /* Icon color set to white */
+}
+/* Add spacing between sidebar items */
+.bordered {
+    margin: 5 0; /* Vertical spacing between items */
+    padding: 4px 8px; /* Horizontal padding inside each item */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+.img-thumb {
+    height: 150px;
+    justify-content: center;
+    background-color: #803c3c; /* Background color for the profile image section */
+    background-image: url('https://maxcdn.icons8.com/app/uploads/2016/03/material-1-1000x563.jpg');
+    background-size: cover;
+    background-position: center;
+}
+/* Main container for the row structure */
+.profile-row {
+    display: flex;
+    align-items: center; /* Centers the content vertically */
+    background-color: #803c3c; /* Background color for the entire row */
+    padding: 16px; /* Optional: Adds padding for spacing */
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+/* Profile image styling */
+.profile-image img {
+    width: 60px; /* Adjust the size as needed */
+    height: 60px;
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 12px; /* Space between image and text */
+}
+
+/* Text column styling */
+.profile-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for the header text */
+.text-header {
+    font-weight: bold;
+    margin: 0;
+    color: white; /* Adjust color as needed */
+}
+
+/* Styling for the description text */
+.text-desc {
+    margin: 0;
+    color: white; /* Adjust color as needed */
+    font-size: 0.9em; /* Slightly smaller font for description */
+}
+.text-upper{
+	text-transform: uppercase;
+}
+.admin-content{
+	margin-top: 20px;
+	text-align: justify;
+	z-index: -2;
+}
+.hero-title{
+    font-size: 24px;
+    font-family: "Poppins", serif;
+    font-weight: 1000;
+    font-style: normal;
+    margin-top: 30px;
+}
+@media only screen and (min-width: 1100px) {
+	.container {
+	    width: 90% !important;
+	}
+}
+@media only screen and (max-width: 992px) {
+	.sidebar-clear{
+		margin-top: 0px !important;
+	}
+	.sidebar-clear-parent{
+		z-index: 99999 !important;
+	}
+}
+/* Container styling */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #ff5b5b; /* Bright red background */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Card styling */
+.profile-card {
+    background-color: #ff5b5b; /* Matches the container background */
+    border-radius: 0px;
+    padding: 20px;
+    width: 500px;
+    
+    text-align: center;
+}
+
+/* Profile picture styling */
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 60%;
+    background-color: #fff;
+}
+
+/* Form styling */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between form elements */
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 0px;
+    outline: none;
+    background-color: #fff; /* White background for inputs */
+    color: #958788; /* Dark gray text color */
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    border-radius: 4px;
+    outline: none;
+    height: 3rem;
+    width: 100%;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    padding: 0 2px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transition: border .3s, -webkit-box-shadow .3s;
+    transition: border .3s, -webkit-box-shadow .3s;
+    transition: box-shadow .3s, border .3s;
+    transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+}
+.form-input::placeholder {
+    color: #958788; /* Placeholder text color */
+}
+
+/* Buttons container */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Save button */
+.btn-save {
+    background-color: #c73f3f; /* Red background */
+    color: #fff; /* White text */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 48%; /* Adjust width for alignment */
+    font-size: 14px;
+}
+
+.btn-save:hover {
+    background-color: #b73232; /* Darker red on hover */
+}
+
+/* Edit button */
+.btn-edit {
+    background-color: #c73f3f; /* Slightly muted red */
+    color: #fff; /* White text */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 48%; /* Adjust width for alignment */
+    font-size: 14px;
+}
+
+.btn-edit:hover {
+    background-color: #b73232; /* Darker muted red on hover */
+}
+/* Active state (when pressed) */
+.btn-edit:active {
+    background-color: #c73f3f; /* Ensure it stays red when pressed */
+}

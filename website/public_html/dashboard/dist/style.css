@@ -1,0 +1,402 @@
+body,html{
+	font-family: "Poppins";
+	margin: 0;
+	padding: 0;
+}
+.colored{
+	background-color: transparent;
+}
+.navbar-fixed{
+	z-index: 9999;
+}
+.sidebar-clear-parent {
+    background-color: #DF3232; /* Background sidebar */
+    border-radius: 10px;
+}
+.sidebar-item.active {
+    background-color: rgb(255, 255, 255); /* Warna putih untuk item aktif */
+    color: #000; /* Warna teks untuk item aktif */
+    border-radius: 10px;
+}
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #e0f7fa; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the highlighted item */
+    border-radius: 5px;
+}
+
+
+
+/* Style for the selected (highlighted) item */
+.bordered.selected {
+    background-color: #DF3232; /* Light highlight background */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black; /* Text color for the selected item */
+}
+
+/* Optional: Wave effect styling for a ripple on hover */
+.waves-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.waves-effect:after {
+    content: "";
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+}
+
+.waves-effect:hover:after {
+    transform: translate(-50%, -50%) scale(1);
+}
+/* Default style for all sidebar items */
+.bordered a {
+    color: white !important; /* Text color for unselected items with higher specificity */
+}
+.nav-wrapper .sidenav-trigger i.material-icons {
+    color: black !important; /* Ensures the icon is black */
+}
+/* Style for the selected (highlighted) item */
+.bordered.selected a {
+    background-color: rgba(255, 255, 255, 0.9); /* Warna latar belakang putih dengan 80% opasitas */
+    border-left: 4px solid #ffffff; /* Highlight border */
+    color: black !important; /* Text color for the selected item with higher specificity */
+    border-radius: 30px;
+}
+/* Icon color changes to black when item is selected */
+.bordered.selected i.material-icons {
+    color: black !important; /* Icon color for the selected item */
+}
+.sidebar-item:hover {
+    background-color: rgb(255, 255, 255); /* Warna putih saat di-hover */
+    color: #ffffff; /* Warna teks saat di-hover */
+    border-radius: 5px; /* Opsional: memberikan sedikit radius */
+    transition: background-color 0.3s; /* Transisi halus */
+}
+
+.sidebar-item {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-clear{
+	margin-top: 0px;
+}
+.bordered i.material-icons {
+    color: white !important; /* Icon color set to white */
+}
+/* Add spacing between sidebar items */
+.bordered {
+    margin: 5 0; /* Vertical spacing between items */
+    padding: 4px 8px; /* Horizontal padding inside each item */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+.img-thumb {
+    height: 150px;
+    justify-content: center;
+    background-color: #803c3c; /* Background color for the profile image section */
+    background-image: url('https://maxcdn.icons8.com/app/uploads/2016/03/material-1-1000x563.jpg');
+    background-size: cover;
+    background-position: center;
+}
+/* Main container for the row structure */
+.profile-row {
+    display: flex;
+    align-items: center; /* Centers the content vertically */
+    background-color: rgba(70, 18, 18, 0.5); /* Warna merah tua (#461212) dengan opasitas 50% */
+    padding: 16px; /* Optional: Adds padding for spacing */
+    border-radius: 10px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+/* Profile image styling */
+.profile-image img {
+    width: 90px; /* Adjust the size as needed */
+    height: 60px;
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 12px; /* Space between image and text */
+}
+
+/* Text column styling */
+/* Profile Card Container */
+.profile-card {
+    background-color: #8A1717; /* Warna latar belakang merah tua */
+    border-radius: 15px; /* Membuat sudut membulat */
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Susunan vertikal (kolom) */
+    align-items: center; /* Rata tengah secara horizontal */
+    width: 200px; /* Sesuaikan ukuran lebar */
+    margin: auto; /* Posisikan di tengah */
+}
+.profile-image {
+    position: absolute;
+    top: 30px; /* Setengah dari tinggi gambar untuk memposisikannya di tengah atas */
+    left: 50%;
+    transform: translateX(-50%); /* Pusatkan secara horizontal */
+}
+/* Profile Image Styling */
+.profile-image img {
+    width: 70px; /* Ukuran gambar profil */
+    height: 70px;
+    border-radius: 50%; /* Membuat gambar berbentuk lingkaran */
+    margin-bottom: 12px; /* Jarak antara gambar dan teks */
+}
+
+/* Text column styling */
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Rata tengah teks */
+    margin-top: 80px;
+    margin-left: 50px; /* Geser teks ke kanan untuk menyesuaikan posisi */
+}
+
+/* Styling for the header text */
+.text-header {
+    font-weight: bold;
+    margin: 0;
+    color: white; /* Warna putih untuk header */
+    font-size: 1em; /* Ukuran teks header */
+}
+
+/* Styling for the description text */
+.text-desc {
+    margin: 0;
+    color: rgb(255, 254, 254); /* Warna putih untuk deskripsi */
+    font-size: 0.9em; /* Ukuran teks deskripsi sedikit lebih kecil */
+    margin-top: 4px; /* Jarak antara header dan deskripsi */
+}
+
+.text-upper{
+	text-transform: uppercase;
+}
+.admin-content{
+	margin-top: 20px;
+	text-align: justify;
+	z-index: -2;
+}
+.hero-title{
+    font-size: 24px;
+    font-family: "Poppins", serif;
+    font-weight: 1000;
+    font-style: normal;
+    margin-top: 30px;
+}
+@media only screen and (min-width: 1100px) {
+	.container {
+	    width: 90% !important;
+	}
+}
+@media only screen and (max-width: 992px) {
+	.sidebar-clear{
+		margin-top: 0px !important;
+	}
+	.sidebar-clear-parent{
+		z-index: 99999 !important;
+	}
+}
+.card.pink.lighten-4 {
+    background-color: #ffffff; /* Updated light pink background color */
+    padding: 30px;
+    border-radius: 0px;
+    min-width: 100px;
+    margin-top: 45px;
+}
+.pink.lighten-4 {
+    background-color: #fff !important;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.card-title h5 {
+    display: block;
+    text-decoration: underline;
+}
+
+button.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    margin-left: -5px;
+    margin-bottom: 10px;
+    padding: 10px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #C73F3F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Outer container to hold the gray background */
+.container-background {
+    background-color: #e0e0e0; /* Light gray background */
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Wrapper to create spacing for each card */
+.card-wrapper {
+    background-color: #e0e0e0; /* Matches the background */
+    padding: 10px; /* Padding around the card */
+    border-radius: 8px; /* Matches outer container's radius */
+    margin: 10px; /* Space between the cards */
+}
+
+/* Card styling */
+.card.grey.lighten-3 {
+    background-color: #ffffff; /* White card background */
+    border-radius: 4px; /* Subtle rounding */
+    box-shadow: none;
+}
+
+/* Styling untuk card UL */
+.card-ul {
+    background-color: #e3f2fd; /* Light blue */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 20px; /* Space between the two cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-ul .card-title {
+    background-color: #bbdefb; /* Slightly darker blue for header */
+    color: #0d47a1; /* Dark blue text */
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* Styling untuk ul list di card UL */
+.card-ul ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #0d47a1;
+}
+
+.card-ul ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+
+.btn-secondary {
+    background-color: #d32f2f; /* Red background color */
+    color: #ffffff; /* White text color */
+    font-weight: bold;
+    padding: 10px 20px; /* Padding for comfortable button size */
+    font-size: 16px; /* Font size for readability */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Slightly rounded corners */
+    cursor: pointer;
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    width: 100%; /* Makes the button full width of its container */
+    max-width: 500px; /* Optional: set a max width */
+    display: block; /* Ensures the button takes up full width if needed */
+    margin: 0 auto; /* Center the button horizontally within its container */
+    
+}
+
+/* Hover effect */
+.btn-secondary:hover {
+    background-color: #b71c1c; /* Darker red on hover */
+}
+
+/* Active/click effect */
+.btn-secondary:active {
+    background-color: #a31616; /* Even darker red on click */
+    transform: scale(0.95); /* Slightly shrink the button on click */
+}
+
+/* Focus outline for accessibility */
+.btn-secondary:focus {
+    outline: 2px solid #ffffff; /* White outline on focus */
+    outline-offset: 2px;
+}
+
+
+/* Placeholder styling for chart */
+.chart-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    color: #333;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    margin-left: 50;
+}
+
+.row .col.m6 {
+    width: 480px;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
+
+/* Media queries for responsiveness */
+
+/* For tablets and smaller devices */
+@media (max-width: 768px) {
+    .card.pink.lighten-4 {
+        padding: 20px;
+        max-width: 95%; /* Reduce max width to fit smaller screens */
+        margin: 30px auto; /* Maintain margin */
+    }
+    .card-title {
+        text-align: center; /* Center align title for smaller screens */
+    }
+    button.btn {
+        padding: 10px 15px;
+        font-size: 14px; /* Reduce font size for buttons */
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+    .card.pink.lighten-4 {
+        padding: 15px;
+        max-width: 100%; /* Full width for small screens */
+        margin: 20px auto; /* Reduce margin */
+    }
+    .card-title {
+        text-align: center; /* Center title alignment */
+        font-size: 16px; /* Smaller font size for titles */
+    }
+    .card-title h5 {
+        font-size: 14px; /* Adjust heading font size */
+    }
+    button.btn {
+        padding: 8px 10px;
+        font-size: 12px; /* Further reduce font size */
+        margin: 10px auto; /* Reduce margins */
+    }
+}

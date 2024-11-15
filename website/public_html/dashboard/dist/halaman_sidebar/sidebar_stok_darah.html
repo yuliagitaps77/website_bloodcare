@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="col s12 m12 l9 offset-10">
+        <div class="content">
+        </div>
+				<div class="hero-title"><strong>STOK DARAH</strong></div>
+				 <!-- Donation Call-to-Action Card -->
+         <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">No.</th>
+                <th rowspan="2">Jenis Darah</th>
+                <th colspan="8">Golongan</th>
+              </tr>
+              <tr>
+                <th colspan="2">A</th>
+                <th colspan="2">B</th>
+                <th colspan="2">AB</th>
+                <th colspan="2">O</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+              <tr><td colspan="10" class="empty-row"></td></tr>
+            </tbody>
+          </table>
+        </div>
+				<div class="info-box">
+          <p>INFORMASI KEBUTUHAN DARAH</p>
+        </div>
+      </main>
+    </div>
+				</div>
+			</div>
+    
+      <style>
+        .hero-title {
+         font-size: 30px;
+         font-family: "Poppins", serif;
+         font-weight: 1000;
+         font-style: normal;
+         margin-bottom: 40px;
+        } 
+     
+     .main-content {
+         flex: 1;
+         padding: 50px;
+         background-color: #ffffff;
+     }
+     
+     .main-content h1 {
+         flex-grow: 1;
+         padding: 30px;
+         background-color: #fff;
+         margin-top: 10px;
+         color: #343a40;
+         font-size: 35px;
+         margin-left: -90px;
+     
+     }
+     
+     /* Table Styling */
+     .table-container {
+         margin-bottom: 50px;
+     }
+     
+     table {
+         width: 120%;
+         border-collapse: collapse;
+         margin-bottom: 0px;
+       
+     }
+     
+     thead th {
+         background-color: #C73F3F;
+         color: white;
+         padding: 5px;
+         font-weight: bold;
+         border: 2px solid #C73F3F;
+     }
+     
+     tbody tr:nth-child(odd) {
+    background-color: #f0f0f0; /* Warna abu-abu untuk baris ganjil */
+    
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Warna putih untuk baris genap */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc; /* Tambahkan garis pembatas antar sel */
+}
+     th, td {
+         padding: 20px;
+         text-align: center;
+     }
+     
+     
+     /* Info Box Styling */
+    .info-box {
+    background-color: #FFFFFF;
+    border: 2px solid #be7070; /* Warna dan ketebalan border */
+    border-radius: 10px;
+    padding: 0px 90px 80px 20px ;
+    color: black;
+    text-align: left;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-start;
+    height: 280px;
+    margin-left: -0px;
+    width: 1130px;
+    box-shadow: inset 0 0 10px rgba(207, 121, 121, 0.25);
+}
+     
+     
+     /* Paragraph Styling */
+     p {
+         display: block;
+         margin-block-start: 1em;
+         margin-block-end: 1em;
+         margin-inline-start: 0px;
+         margin-inline-end: 10px;
+         margin-bottom: 30px;
+         margin-top: 30px;
+         unicode-bidi: isolate;
+     }
+     
+     
+     /* Small screens */
+     @media only screen and (max-width: 768px) {
+         .sidenav.sidenav-fixed {
+             position: absolute;
+             width: 100%;
+             height: auto;
+             display: none; /* Hide sidebar by default on small screens */
+         }
+         .sidenav.sidenav-fixed.active {
+             display: block;
+         }
+         .main-content {
+             margin-left: 0; /* Main content takes full width */
+             padding: 20px;
+         }
+         .profile-row {
+             flex-direction: column;
+             text-align: center;
+         }
+         .profile-image img {
+             margin: 0 auto;
+         }
+         .table-container, .info-box {
+             margin-left: 0;
+         }
+     }
+     
+     /* Extra small screens */
+     @media only screen and (max-width: 576px) {
+         .main-content h1 {
+             font-size: 24px;
+         }
+         .info-box {
+             flex-direction: column;
+             padding: 10px;
+         }
+         .table-container {
+             overflow-x: auto;
+         }
+     }
+        </style>
+  
+</body>
+</html>
