@@ -10,13 +10,13 @@
     <div class="col s12 m12 l9 offset-10">
         <div class="content">
         </div>
-				<div class="hero-title"><strong>DASHBOARD</strong></div>
+				<div class="hero-title"><strong>Beranda</strong></div>
 				 <!-- Donation Call-to-Action Card -->
-				 <div class="card pink lighten-4">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+				
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-left: 75px;">
                         <!-- Kolom untuk Teks dan Tombol -->
                         <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; align-items: flex-start;">
-                            <h5 style="margin: 0;">DONORKAN DARAHMU UNTUK</h5>
+                            <h5 style="margin: 0; margin-bottom: 10px;">DONORKAN DARAHMU UNTUK</h5>
                             <h5 style="margin: 0;">MENYELAMATKAN HIDUP SESEORANG</h5>
                             <div class="button-container" style="margin-top: 10px;">
                                 <button class="btn btn-primary">ISI FORMULIR</button>
@@ -30,7 +30,7 @@
                     
                     
                     <div class="cards-container">
-                    <div class="card pink lighten-4 card-jadwal" style="background-color: #ffffff; padding: 30px; border-radius: 15px;">
+                    <div class="card pink lighten-4 card-jadwal" style="background-color: #ffffff; padding: 30px; border-radius: 15px; margin-left: 50px ">
                     <div class="card-content">
                         <h6 class="card-title">JADWAL ACARA DONOR</h6>
                         <table class="jadwal-tabel">
@@ -59,7 +59,7 @@
                 </div>
             
                 <!-- Card 2: Stok Darah (Grafik) -->
-                <div class="card pink lighten-4 card-stok" style="background-color: #ffffff; padding: 30px; border-radius: 15px;">
+                <div class="card pink lighten-4 card-stok" style="background-color: #ffffff; padding: 30px; border-radius: 15px; ">
                     <div class="card-content">
                         <h6 class="card-title">STOK DARAH</h6>
                         <div class="chart-container">
@@ -71,21 +71,22 @@
 				
             
             <style>
+      
                 /* Container for title and image */
-.card-title-container {
-    display: flex;
-    align-items: center; /* Rata tengah secara vertikal */
-    justify-content: space-between; /* Ruang antara teks dan gambar */
-}
+                .card-title-container {
+                    display: flex;
+                    align-items: center; /* Rata tengah secara vertikal */
+                    justify-content: space-between; /* Ruang antara teks dan gambar */
+                }
 
-/* Styling for the image */
-.card-title-image {
-    width: 100%;            /* Gambar akan memenuhi lebar elemen induknya */
-    max-width: 300px;       /* Membatasi ukuran maksimum gambar menjadi 300px */
-    height: auto;           /* Mempertahankan rasio aspek gambar */
-    margin: 0 auto;         /* Memusatkan gambar secara horizontal */
-    display: block;         /* Menghilangkan spasi putih di bawah gambar jika diperlukan */
-}
+                /* Styling for the image */
+                .card-title-image {
+                    width: 100%;           
+                    max-width: 300px;       
+                    height: auto;           
+                    margin: 0 auto;        
+                    display: block;         
+                }
 
 
                 /* Pastikan konten memiliki margin kiri sesuai ukuran sidebar */
@@ -114,6 +115,7 @@
 }
                 .hero-title {
                     font-size: 2rem;
+                    margin-left: 70px;
                     font-weight: bold;
                     margin-bottom: 1rem;
                 }
@@ -134,13 +136,20 @@
                     }
                 }
 
+                h5 {
+                font-size: 1.64rem;
+                font-weight: 800;
+                line-height: 110%;
+                margin: 1.0933333333rem 0 .656rem 0;
+                color: #CA2424;
+            }
 
                 button.btn {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 margin: 20px;
-                margin-left: -5px;
+                margin-left: 5px;
                 margin-bottom: 10px;
                 padding: 10px 40px;
                 font-size: 16px;
@@ -172,121 +181,125 @@
                 }
                 
             
-   .cards-container {
-    display: flex;
-    gap: 20px; /* Memberi jarak antara dua card */
-    margin-top: -30px;
-    justify-content: center; /* Memusatkan kedua card di dalam container */
-}
+                .cards-container {
+                    display: flex;
+                    gap: 20px; /* Memberi jarak antara dua card */
+                    margin-top: -30px;
+                    justify-content: center; /* Memusatkan kedua card di dalam container */
+                }
 
-.card {
-    border: 1px solid #d1d1d1; /* Garis tipis untuk memberikan batas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+                .card {
+                    border: 1px solid #d1d1d1; /* Garis tipis untuk memberikan batas */
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
 
-.card-jadwal {
-    flex: 0 1 400px; /* Mengatur card jadwal dengan lebar tetap 500px */
-}
+                .card-jadwal {
+                    flex: 0 1 400px; /* Mengatur card jadwal dengan lebar tetap 500px */
+                }
 
-.card-stok {
-    flex: 0 1 500px; /* Mengatur card stok dengan lebar tetap 400px */
-}
+                .card-stok {
+                    flex: 0 1 400px; /* Mengatur card stok dengan lebar tetap 400px */
+                }
 
-.jadwal-tabel {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1), -2px 0 5px rgba(0, 0, 0, 0.1); /* Box shadow kanan dan kiri */
-    border-radius: 20px;
-}
+                .jadwal-tabel {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1), -2px 0 5px rgba(0, 0, 0, 0.1); /* Box shadow kanan dan kiri */
+                    border-radius: 20px;
+                }
 
-.jadwal-tabel thead th {
-    background-color: #C73F3F; /* Warna merah untuk header tabel */
-    color: #FFFFFF; /* Warna teks putih */
-    padding: 5px;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 3px;
-}
-
-
-.jadwal-tabel tbody tr:nth-child(odd) {
-    background-color: #FFFFFF; /* Baris ganjil berwarna putih */
-}
-
-.jadwal-tabel tbody tr:nth-child(even) {
-    background-color: #F5F5F5; /* Baris genap berwarna abu-abu muda */
-}
-.jadwal-tabel thead th {
-    background-color: #DF3232; /* Warna merah header */
-    color: #FFFFFF; /* Warna teks putih */
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    border: none;
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-around; /* Agar teks tersebar dengan rapi */
-    align-items: center;
-    width: 100%;
-}
-
-.header-container span {
-    flex: 1; /* Membuat setiap elemen span memiliki lebar yang sama */
-    text-align: center; /* Agar teks di tengah */
-}
-
-.jadwal-tabel tbody tr td {
-    border-bottom: 5px solid #DF3232; /* Garis merah di bagian bawah setiap baris */
-    padding: 15px;
-    text-align: center;
-}
+                .jadwal-tabel thead th {
+                    background-color: #C73F3F; /* Warna merah untuk header tabel */
+                    color: #FFFFFF; /* Warna teks putih */
+                    padding: 5px;
+                    text-align: center;
+                    font-weight: bold;
+                    border-radius:0px;
+                }
 
 
-.card-title {
-    font-weight: bold;
-    color: #333333;
-    margin-bottom: 20px;
-    text-align: left;
-}
+                .jadwal-tabel tbody tr:nth-child(odd) {
+                    background-color: #FFFFFF; /* Baris ganjil berwarna putih */
+                }
 
-.chart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 250px; /* Menetapkan tinggi agar grafik tetap konsisten */
-}
+                .jadwal-tabel tbody tr:nth-child(even) {
+                    background-color: #F5F5F5; /* Baris genap berwarna abu-abu muda */
+                }
+                .jadwal-tabel thead th {
+                    background-color: #DF3232; /* Warna merah header */
+                    color: #FFFFFF; /* Warna teks putih */
+                    border-radius: 15px;
+                    padding: 10px;
+                    text-align: center;
+                    font-weight: bold;
+                    border: none;
+                }
 
-@media (max-width: 768px) {
-    .card {
-        flex: 1 1 100%; /* Pada layar lebih kecil dari 768px, card menempati seluruh lebar */
-        max-width: 100%; /* Memastikan card memenuhi lebar penuh */
-    }
+                .header-container {
+                    display: flex;
+                    justify-content: space-around; /* Agar teks tersebar dengan rapi */
+                    align-items: center;
+                    width: 100%;
+                }
 
-    .cards-container {
-        gap: 15px; /* Mengurangi jarak antar card pada layar kecil */
-    }
+                .header-container span {
+                    flex: 1; /* Membuat setiap elemen span memiliki lebar yang sama */
+                    text-align: center; /* Agar teks di tengah */
+                }
 
-    .jadwal-tabel thead th, .jadwal-tabel tbody tr td {
-        padding: 8px; /* Mengurangi padding untuk membuat tabel lebih responsif di layar kecil */
-        font-size: 13px; /* Mengurangi ukuran font untuk layar kecil */
-    }
+                .jadwal-tabel tbody tr td {
+                    border-bottom: 5px solid #DF3232; /* Garis merah di bagian bawah setiap baris */
+                    padding: 15px;
+                    text-align: center;
+                }
 
-    .card-title {
-        font-size: 16px; /* Mengurangi ukuran font judul card pada layar kecil */
-    }
-}
 
- 
-            </style>
-        </div>
-    </div>
-</div>
-</div>
-				</div>
-			</div>
-</body>
-</html>
+                .card-title {
+                    font-weight: bold;
+                    color: #333333;
+                    margin-bottom: 20px;
+                    text-align: left;
+                }
+
+                .chart-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 250px; /* Menetapkan tinggi agar grafik tetap konsisten */
+                }
+
+                @media (max-width: 768px) {
+                    .card {
+                        flex: 1 1 100%; /* Pada layar lebih kecil dari 768px, card menempati seluruh lebar */
+                        max-width: 100%; /* Memastikan card memenuhi lebar penuh */
+                    }
+
+                    .cards-container {
+                        gap: 15px; /* Mengurangi jarak antar card pada layar kecil */
+                    }
+
+                    .jadwal-tabel thead th, .jadwal-tabel tbody tr td {
+                        padding: 8px; /* Mengurangi padding untuk membuat tabel lebih responsif di layar kecil */
+                        font-size: 13px; /* Mengurangi ukuran font untuk layar kecil */
+                    }
+
+                    .card-title {
+                        font-size: 16px; /* Mengurangi ukuran font judul card pada layar kecil */
+                    }
+                }
+                .card .card-title {
+                    font-size: 20px;
+                    font-weight: 900;
+                }
+
+                
+                            </style>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                                </div>
+                            </div>
+                </body>
+                </html>
