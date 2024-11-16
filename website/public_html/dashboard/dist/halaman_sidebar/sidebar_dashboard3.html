@@ -104,15 +104,6 @@
                 }
     
 
-                .card.pink.lighten-4 {
-                    background-color: #ffffff;
-                    padding: 30px;
-                    border-radius: 15px;
-                    min-width: 100px;
-                    margin-top: 45px;
-                    
-                    
-}
                 .hero-title {
                     font-size: 2rem;
                     margin-left: 70px;
@@ -202,11 +193,11 @@
                 }
 
                 .jadwal-tabel {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1), -2px 0 5px rgba(0, 0, 0, 0.1); /* Box shadow kanan dan kiri */
-                    border-radius: 20px;
+                    width: 100%; /* Mengurangi lebar tabel agar tidak melebihi container card */
+    border-collapse: collapse;
+    margin: 20px auto; /* Memastikan tabel berada di tengah dengan margin atas dan bawah */
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1), -2px 0 5px rgba(0, 0, 0, 0.1); /* Box shadow kanan dan kiri */
+    border-radius: 20px;
                 }
 
                 .jadwal-tabel thead th {
@@ -215,7 +206,7 @@
                     padding: 5px;
                     text-align: center;
                     font-weight: bold;
-                    border-radius:0px;
+                    border-radius:5px;
                 }
 
 
@@ -229,7 +220,7 @@
                 .jadwal-tabel thead th {
                     background-color: #DF3232; /* Warna merah header */
                     color: #FFFFFF; /* Warna teks putih */
-                    border-radius: 15px;
+                    border-radius: 8px;
                     padding: 10px;
                     text-align: center;
                     font-weight: bold;
