@@ -93,9 +93,177 @@
     border-radius: 50%;
     flex-shrink: 0; /* Prevent icon from shrinking */
 }
+/* Navbar Umum */
+.nav-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Latar belakang semi-transparan */
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out; /* Animasi sembunyi/tampil */
+}
 
-/* Responsive adjustments */
+.nav-hidden {
+    transform: translateY(-100%); /* Geser ke atas untuk sembunyikan navbar */
+}
+
+/* Konten Navbar */
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 20px;
+}
+
+/* Logo */
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+}
+
+/* Tombol Toggle (Hanya untuk Mobile) */
+.nav-toggle {
+    display: none; /* Sembunyikan pada desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.nav-toggle-icon {
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+}
+
+.nav-toggle-icon::before {
+    top: -8px;
+}
+
+.nav-toggle-icon::after {
+    top: 8px;
+}
+
+/* Link Navigasi */
+.nav-links {
+    display: flex; /* Default: Horizontal untuk Desktop */
+    flex-direction: row; /* Baris */
+    margin-left: auto;
+    align-items: center;
+    position: static;
+    background-color: transparent; /* Tidak ada latar belakang pada desktop */
+    padding: 0;
+    overflow: visible; /* Tidak sembunyikan elemen */
+}
+
+/* Menu Item */
+.nav-menu {
+    display: flex; /* Baris horizontal */
+    align-items: center;
+    list-style: none;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+.nav-link:hover {
+    color: #ddd;
+}
+
+/* Tombol Navigasi */
+.nav-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(237, 62, 62);
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+.sign-up-button {
+    background-color: rgb(253, 254, 255);
+    color: black;
+}
+
+/* Responsif: Mobile */
 @media (max-width: 768px) {
+    .nav-toggle {
+        display: block; /* Tampilkan tombol toggle */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Vertikal pada mobile */
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        max-height: 0;
+        overflow: hidden; /* Sembunyikan konten saat tertutup */
+        transition: max-height 0.5s ease-in-out;
+    }
+
+    .nav-links.active {
+        max-height: 500px; /* Tinggi maksimum saat terbuka */
+    }
+
+    .nav-menu {
+        flex-direction: column; /* Vertikal pada mobile */
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .nav-link {
+        text-align: left;
+        width: 100%; /* Link memenuhi lebar sidebar */
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-button {
+        display: block; /* Full width di mobile */
+        width: 100%; /* Tombol memenuhi lebar */
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 768px) {
+
     .requirements-container {
         flex-direction: column;
         align-items: center;
@@ -121,45 +289,109 @@
     .requirement-item span {
         min-width: 0; /* Remove fixed width for better flexibility */
     }
+/*buat nyembunyiin nav top bar */
+    .hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
 }
 
 
 </style>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
-    <nav id="scrollspy" class="navbar navbar-light bg-light navbar-expand-lg fixed-top" data-spy="affix" data-offset-top="20">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/imgs/logo pmi bloodcare.png" alt="" class="brand-img"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav id="topNavbar" class="nav-container">
+    <div class="nav-content">
+        <!-- Logo -->
+        <a href="#" class="nav-logo">
+            <img src="assets/imgs/logo pmi bloodcare.png" alt="Logo" class="logo-image">
+        </a>
+        <!-- Tombol toggle untuk mobile -->
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span class="nav-toggle-icon"></span>
+        </button>
+        <!-- Link Navigasi -->
+        <div class="nav-links">
+    <ul class="nav-menu">
+        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="auth/login.html" class="nav-button sign-in-button">Sign In</a></li>
+        <li class="nav-item"><a href="auth/signup.html" class="nav-button sign-up-button">Sign Up</a></li>
+    </ul>
+</div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">ABOUT</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">SERVICE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testmonial">CONTACT</a>
-                    </li>
+    </div>
+</nav>
 
-                    <li class="nav-item ml-0 ml-lg-4">
-                    <a class="nav-link btn btn-primary" href="auth/Masuk.html">Sign In</a>
-                    </li>
-                    <li class="nav-item ml-0 ml-lg-4">
-                    <a class="nav-link btn btn-secondary" href="auth/daftar.html">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const navContainer = document.querySelector('.nav-container');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-link'); // Semua link
+
+    let lastScrollTop = 0;
+
+    // Scroll behavior untuk desktop
+    window.addEventListener('scroll', function () {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (window.innerWidth > 768) {
+            // Desktop: sembunyikan navbar saat scroll ke bawah
+            if (scrollTop > lastScrollTop) {
+                navContainer.classList.add('nav-hidden');
+            } else {
+                navContainer.classList.remove('nav-hidden');
+            }
+        } else {
+            // Mobile: pastikan navbar tetap terlihat
+            navContainer.classList.remove('nav-hidden');
+        }
+
+        lastScrollTop = scrollTop;
+    });
+
+    // Toggle menu navigasi di mobile
+    navToggle.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+    });
+
+    // Tutup menu setelah item dipilih (khusus untuk mobile)
+    navItems.forEach(item => {
+        item.addEventListener('click', function (event) {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+            }
+
+            // Prevent default jump
+            event.preventDefault();
+
+            // Ambil target dari href
+            const targetId = item.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            // Scroll ke elemen dengan animasi halus
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            }
+        });
+    });
+
+    // Reset menu saat ukuran layar berubah
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            navLinks.classList.remove('active'); // Reset ke desktop
+        }
+    });
+});
+
+</script>
 
     <header id="home" class="header">
         <div class="overlay"></div>
