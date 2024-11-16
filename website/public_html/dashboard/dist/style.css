@@ -3,6 +3,10 @@ body,html{
 	margin: 0;
 	padding: 0;
 }
+body {
+    padding-top: 50px;
+    background-color: #F5F5F5; 
+}
 .colored{
 	background-color: transparent;
 }
@@ -11,7 +15,7 @@ body,html{
 }
 .sidebar-clear-parent {
     background-color: #DF3232; /* Background sidebar */
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .sidebar-item.active {
     background-color: rgb(255, 255, 255); /* Warna putih untuk item aktif */
@@ -116,7 +120,7 @@ body,html{
     align-items: center; /* Centers the content vertically */
     background-color: rgba(70, 18, 18, 0.5); /* Warna merah tua (#461212) dengan opasitas 50% */
     padding: 16px; /* Optional: Adds padding for spacing */
-    border-radius: 10px;
+    border-radius: 5px;
 	padding-top: 30px;
 	padding-bottom: 30px;
 	margin-bottom: 30px;
