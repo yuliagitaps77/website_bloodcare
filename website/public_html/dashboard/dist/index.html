@@ -87,43 +87,79 @@
   <script src="./script.js"></script>
   <script>
     $(document).ready(function(){
-      console.log("jQuery is loaded!");
+        console.log("jQuery is loaded and ready!");
 
-      // Klik pada menu Dashboard
-      $('#dashboard').click(function(){
-        $('.hero-title').text('Dashboard');
-        $('.admin-content').load('halaman_sidebar/sidebar_dashboard2.html'); // Path disesuaikan
-      });
-    
-      // Klik pada menu Acara Donor
-      $('#acara-donor').click(function(){
-        $('.hero-title').text('Acara Donor');
-        $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.html'); // Path disesuaikan
-      });
-    
-      // Klik pada menu Formulir Donor
-      $('#formulir-donor').click(function(){
-        $('.hero-title').text('Formulir Donor');
-        $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.html'); // Path disesuaikan
-      });
-    
-      // Klik pada menu Stok Darah
-      $('#stok-darah').click(function(){
-        $('.hero-title').text('Stok Darah');
-        $('.admin-content').load('halaman_sidebar/sidebar_stok_darah.html'); // Path disesuaikan
-      });
-    
-      // Klik pada menu Riwayat Donor
-      $('#riwayat-donor').click(function(){
-        $('.hero-title').text('Riwayat Donor');
-        $('.admin-content').load('halaman_sidebar/sidebar_riwayat_donor.html'); // Path disesuaikan
-      });
-    
-      // Klik pada menu Keluar
-      $('#keluar').click(function(){
-        window.location.href = 'logout.html'; // Path disesuaikan
-      });
+        // Klik pada menu Dashboard
+        $('#dashboard').click(function(){
+            console.log("Dashboard menu clicked.");
+            $('.hero-title').text('Dashboard');
+            $('.admin-content').load('halaman_sidebar/sidebar_dashboard3.html', function(response, status, xhr){
+                if (status == "error") {
+                    console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
+                } else {
+                    console.log("Dashboard page loaded successfully.");
+                }
+            });
+        });
+
+        // Klik pada menu Acara Donor
+        $('#acara-donor').click(function(){
+            console.log("Acara Donor menu clicked.");
+            $('.hero-title').text('Acara Donor');
+            $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.html', function(response, status, xhr){
+                if (status == "error") {
+                    console.error("Error loading Acara Donor page:", xhr.status, xhr.statusText);
+                } else {
+                    console.log("Acara Donor page loaded successfully.");
+                }
+            });
+        });
+
+        // Klik pada menu Formulir Donor
+        $('#formulir-donor').click(function(){
+            console.log("Formulir Donor menu clicked.");
+            $('.hero-title').text('Formulir Donor');
+            $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.html', function(response, status, xhr){
+                if (status == "error") {
+                    console.error("Error loading Formulir Donor page:", xhr.status, xhr.statusText);
+                } else {
+                    console.log("Formulir Donor page loaded successfully.");
+                }
+            });
+        });
+
+        // Klik pada menu Stok Darah
+        $('#stok-darah').click(function(){
+            console.log("Stok Darah menu clicked.");
+            $('.hero-title').text('Stok Darah');
+            $('.admin-content').load('halaman_sidebar/sidebar_stok_darah.html', function(response, status, xhr){
+                if (status == "error") {
+                    console.error("Error loading Stok Darah page:", xhr.status, xhr.statusText);
+                } else {
+                    console.log("Stok Darah page loaded successfully.");
+                }
+            });
+        });
+
+        // Klik pada menu Riwayat Donor
+        $('#riwayat-donor').click(function(){
+            console.log("Riwayat Donor menu clicked.");
+            $('.hero-title').text('Riwayat Donor');
+            $('.admin-content').load('halaman_sidebar/sidebar_riwayat_donor.html', function(response, status, xhr){
+                if (status == "error") {
+                    console.error("Error loading Riwayat Donor page:", xhr.status, xhr.statusText);
+                } else {
+                    console.log("Riwayat Donor page loaded successfully.");
+                }
+            });
+        });
+
+        // Klik pada menu Keluar
+        $('#keluar').click(function(){
+            console.log("Logout menu clicked.");
+            window.location.href = 'logout.html'; // Path disesuaikan
+        });
     });
-  </script>
+</script>
 </body>
 </html>
