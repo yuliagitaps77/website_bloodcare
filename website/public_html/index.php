@@ -206,11 +206,15 @@
     text-decoration: none;
     font-size: 16px;
     text-align: center;
+    transition: color 0.3s ease; /* Untuk animasi perubahan warna */
+}
+.nav-button:hover {
+    color: #4b4b4b; /* Ubah warna teks saat hover */
 }
 
 .sign-up-button {
     background-color: rgb(253, 254, 255);
-    color: black;
+    color: #FF2C2C;
 }
 
 /* Responsif: Mobile */
