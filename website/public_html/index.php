@@ -114,7 +114,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 90px;
     padding: 0 20px;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .logo-image {
-    height: 40px;
+    height: 80px;
 }
 
 /* Tombol Toggle (Hanya untuk Mobile) */
@@ -206,11 +206,15 @@
     text-decoration: none;
     font-size: 16px;
     text-align: center;
+    transition: color 0.3s ease; /* Untuk animasi perubahan warna */
+}
+.nav-button:hover {
+    color: #4b4b4b; /* Ubah warna teks saat hover */
 }
 
 .sign-up-button {
     background-color: rgb(253, 254, 255);
-    color: black;
+    color: #FF2C2C;
 }
 
 /* Responsif: Mobile */
@@ -317,8 +321,8 @@
         <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
         <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
         <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="auth/login.html" class="nav-button sign-in-button">Sign In</a></li>
-        <li class="nav-item"><a href="auth/signup.html" class="nav-button sign-up-button">Sign Up</a></li>
+        <li class="nav-item"><a href="auth/Masuk.html" class="nav-button sign-in-button">Sign In</a></li>
+        <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Sign Up</a></li>
     </ul>
 </div>
 
@@ -663,7 +667,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         <div class="footer-container">
             <!-- Address Column -->
-            <div class="footer-column">
+            <div class="footer-column"> 
                 <h3>Markas PMI Kabupaten Nganjuk</h3>
                 <p>Jl. Mayjen Sungkono No.10, Kauman,
                 Kec. Nganjuk, Kabupaten Nganjuk,
