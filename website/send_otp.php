@@ -27,15 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Fungsi untuk mengirim OTP
         function sendOTP($recipientEmail, $otp) {
             $mail = new PHPMailer(true);
-            $senderEmail = 'agfoodserviceemail@gmail.com'; // Ganti dengan email Anda
-            $senderName = 'Ag Food';     // Ganti dengan nama pengirim yang Anda inginkan
+            $senderEmail = 'BloodCareServicec3@gmail.com'; // Ganti dengan email Anda
+            $senderName = 'BloodCare';     // Ganti dengan nama pengirim yang Anda inginkan
 
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = $senderEmail;               
-                $mail->Password = 'wggy ykis hnfx rubj'; // Kata sandi Gmail atau App Password Anda
+                $mail->Password = 'bloodcare123*'; // Kata sandi Gmail atau App Password Anda
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
