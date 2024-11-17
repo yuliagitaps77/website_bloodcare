@@ -209,12 +209,16 @@ body {
 }
 .card.pink.lighten-4 {
     background-color: #ffffff; /* Updated light pink background color */
-    padding: 30px;
-    border-radius: 0px;
+    padding: 10px;
+    border-radius: 15px;
     min-width: 100px;
+    margin-left: 7%;
 }
+   
+    
 .pink.lighten-4 {
     background-color: #fff !important;
+    
 }
 
 .card-title {
