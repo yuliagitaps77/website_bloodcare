@@ -26,20 +26,13 @@ body {
 
 /* Style for the selected (highlighted) item */
 .bordered.selected {
-    background-color: #e0f7fa; /* Light highlight background */
-    border-left: 4px solid #ffffff; /* Highlight border */
+    border-left: 4px solid #ffffff00; /* Highlight border */
     color: black; /* Text color for the highlighted item */
     border-radius: 5px;
 }
 
 
 
-/* Style for the selected (highlighted) item */
-.bordered.selected {
-    background-color: #DF3232; /* Light highlight background */
-    border-left: 4px solid #ffffff; /* Highlight border */
-    color: black; /* Text color for the selected item */
-}
 
 /* Optional: Wave effect styling for a ripple on hover */
 .waves-effect {
@@ -74,7 +67,7 @@ body {
 /* Style for the selected (highlighted) item */
 .bordered.selected a {
     background-color: rgba(255, 255, 255, 0.9); /* Warna latar belakang putih dengan 80% opasitas */
-    border-left: 4px solid #ffffff; /* Highlight border */
+    border-left: 4px solid #ffffff00; /* Highlight border */
     color: black !important; /* Text color for the selected item with higher specificity */
     border-radius: 30px;
 }
@@ -219,7 +212,6 @@ body {
     padding: 30px;
     border-radius: 0px;
     min-width: 100px;
-    margin-top: 45px;
 }
 .pink.lighten-4 {
     background-color: #fff !important;

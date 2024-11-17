@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="col s12 m12 l9 offset-10">
+      <div class="hero-title"><strong>FORMULIR DONOR</strong></div>
+      <div class="profile-card">
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-picture">
+    </div>
+    <form class="profile-form">
+        <div class="form-group">
+            <label for="nama">Nama</label>
+            <input type="text" id="nama" class="form-input" placeholder="Masukkan nama">
+        </div>
+
+        <div class="form-group">
+            <label for="alamat">Alamat</label>
+            <input type="text" id="alamat" class="form-input" placeholder="Masukkan alamat">
+        </div>
+
+        <div class="form-group">
+            <label for="tanggal-lahir">Tanggal Lahir</label>
+            <input type="date" id="tanggal-lahir" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-input" placeholder="Masukkan email">
+        </div>
+
+        <div class="form-group">
+            <label for="nomor-telepon">Nomor Telepon</label>
+            <input type="tel" id="nomor-telepon" class="form-input" placeholder="Masukkan nomor telepon">
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn-save">SIMPAN</button>
+            <button type="button" class="btn-edit">EDIT</button>
+        </div>
+    </form>
+</div>
+    
+			</div>
+            <style>
+                /* General styling for the profile card */
+.profile-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for profile header including picture */
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+}
+
+/* Styling for form groups with label on left and input on right */
+.form-group {
+    display: inline-flex; /* Menggunakan inline-flex untuk membuat elemen fleksibel */
+    align-items: center; /* Vertikal rata tengah */
+    margin-bottom: 15px;
+    width: 100%; /* Agar elemen tetap menyesuaikan dengan lebar kontainer */
+    box-sizing: border-box; /* Pastikan padding dimasukkan dalam perhitungan lebar */
+}
+
+.profile-form label {
+    flex: 0 0 150px; /* Lebar tetap untuk label */
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px; /* Spasi antara label dan textfield */
+    text-align: left; /* Pastikan teks label rata kiri */
+}
+
+.profile-form .form-input {
+    flex: 1; /* Input akan mengambil sisa ruang */
+    width: 100%; /* Input akan mengisi penuh lebar kontainer */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Agar padding masuk hitungan width */
+}
+
+/* Styling for buttons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-save, .btn-edit {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-save {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+/* Button hover effects */
+.btn-save:hover {
+    background-color: #218838;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+                .main-content {
+                    margin-left: 300px; /* Sesuaikan dengan lebar sidebar */
+                    padding: 20px;
+                }
+        
+                .card-content p {
+                    font-size: 1.2rem;
+                }
+        
+                .hero-title {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    margin-bottom: 1rem;
+                }
+
+
+                .content {
+                    padding: 40px;
+                }
+                h1 {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-bottom: 30px;
+                }
+               .form-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    background: #fff;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                }
+        
+                h1 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                    color: #333;
+                }
+        
+             
+                textarea {
+                    resize: none;
+                    height: 90px;
+                }
+        
+                button.submit-btn {
+                    width: 20%;
+                    background-color: #d32f2f;
+                    color: #fff;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+        
+                button.submit-btn:hover {
+                    background-color: #b71c1c;
+                }
+        
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .form-group {
+        flex-direction: column; /* Pada layar kecil, elemen menjadi vertikal */
+        align-items: stretch; /* Input mengisi penuh */
+    }
+
+    .profile-form label {
+        flex: 0 0 auto; /* Label mengikuti tinggi kontainer */
+        margin-right: 0; /* Hapus spasi kanan */
+        margin-bottom: 5px; /* Tambah spasi bawah untuk label */
+    }
+
+    .profile-form .form-input {
+        width: 100%; /* Input memenuhi lebar penuh pada layar kecil */
+    }
+}
+
+        
+            </style>
+
+    
+</body>
+</html>
