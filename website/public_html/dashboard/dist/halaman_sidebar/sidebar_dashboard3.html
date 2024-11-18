@@ -164,7 +164,7 @@
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container">
+                                    <div class="chart-container-pie-chart">
                                         <canvas id="pieChart"></canvas>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container">
+                                    <div class="f">
                                         <canvas id="barChart"></canvas>
                                     </div>
                                 </div>
@@ -186,10 +186,18 @@
               
             <style>
 
+.chart-container-pie-chart{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}    
 .chart-container {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 100%;
+    padding: 10px;
+
 }
                         .reminer-title {
                 margin-top: 50px; /* Jarak dari elemen sebelumnya */
@@ -273,7 +281,7 @@
 
                 .hero-title {
                     font-size: 2rem;
-                    margin-left: 55px;
+                    margin-left: -20px;
                     font-weight: bold;
                     margin-bottom: 1rem;
                 }
