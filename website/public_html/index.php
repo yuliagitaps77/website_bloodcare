@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="landing page.">
     <meta name="author" content="Devcrud">
+    <title>Landing Page</title>
 
     
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
@@ -588,6 +589,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
     </section>
+    <div id="services" class="requirement-container"></div>
     <div class="main-container">
         <div class="content-wrapper">
             <div class="heading">SYARAT MELAKUKAN DONOR DARAH</div>
@@ -643,7 +645,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="button-container">
                 <button class="btn btn-primary">DONOR SEKARANG!</button>
                 </div>
-              
             </div>
             <div class="image-section">
                 <img src="assets/imgs/ayo donor darah.png" alt="Ayo Donor Darah">
@@ -651,9 +652,8 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 
-            <footer class="footer">
-        <!-- Logo Row -->
-         
+        <footer class="footer">
+        <div id="contact" class="footer"></div>
         <div class="footer-container">
         <div class="footer-logo-row">
             <div class="footer-logo"></div>
