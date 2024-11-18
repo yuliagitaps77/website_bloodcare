@@ -1,5 +1,31 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: text/html; charset=UTF-8");
+session_start(); // Mulai session
+
+// Cek apakah pengguna sudah login
+if (isset($_SESSION['user_id'])) {
+    echo "
+        <html>
+        <head>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Sudah Login',
+                    text: 'Anda sudah login, akan diarahkan ke dashboard.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => {
+                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+                });
+            </script>
+        </body>
+        </html>";
+    exit();
+}
 
 // Konfigurasi koneksi database
 $host = "localhost";
@@ -7,15 +33,22 @@ $username = "root";
 $password = "";
 $dbname = "bloodcarec3";
 
-// Koneksi ke database
 $conn = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Koneksi ke server gagal. Silakan coba lagi nanti!"]));
+    die("<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Koneksi ke server gagal. Silakan coba lagi nanti!',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.history.back();
+            });
+        </script>");
 }
 
-// Memeriksa metode request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = $conn->real_escape_string($_POST['email']);
@@ -29,39 +62,100 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (password_verify($password, $user['password'])) {
                 session_start();
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id'] = $user['id_akun'];
                 $_SESSION['email'] = $user['email'];
 
-                // Kirim respons JSON dengan URL redirect
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Login berhasil! Mengarahkan ke dashboard...",
-                    "redirect" => "http://localhost/bloodcare_website/website/public_html/dashboard/dist/index.html"
-                ]);
+                echo "
+                    <html>
+                    <head>
+                        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                    </head>
+                    <body>
+                        <script>
+                            let countdown = 3;
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Login Berhasil',
+                                html: 'Anda akan diarahkan ke dashboard dalam <b>' + countdown + '</b> detik.',
+                                timer: countdown * 1000,
+                                timerProgressBar: true,
+                                allowOutsideClick: false,
+                                didOpen: () => {
+                                    const content = Swal.getHtmlContainer();
+                                    const b = content.querySelector('b');
+                                    const interval = setInterval(() => {
+                                        countdown--;
+                                        if (b) b.textContent = countdown;
+                                        if (countdown <= 0) clearInterval(interval);
+                                    }, 1000);
+                                }
+                            }).then(() => {
+                                window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+                            });
+                        </script>
+                    </body>
+                    </html>";
                 exit();
             } else {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Oops! Password salah. Silakan coba lagi."
-                ]);
+                echo "
+                    <html>
+                    <head>
+                        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                    </head>
+                    <body>
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Password salah. Silakan coba lagi!',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.history.back();
+                            });
+                        </script>
+                    </body>
+                    </html>";
             }
         } else {
-            echo json_encode([
-                "success" => false,
-                "message" => "Email tidak ditemukan. Apakah Anda sudah mendaftar?"
-            ]);
+            echo "
+                <html>
+                <head>
+                    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                </head>
+                <body>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Email tidak ditemukan. Apakah Anda sudah mendaftar?',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.history.back();
+                        });
+                    </script>
+                </body>
+                </html>";
         }
     } else {
-        echo json_encode([
-            "success" => false,
-            "message" => "Email dan Password wajib diisi!"
-        ]);
+        echo "
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email dan Password wajib diisi!',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                </script>
+            </body>
+            </html>";
     }
-} else {
-    echo json_encode([
-        "success" => false,
-        "message" => "Metode request tidak valid."
-    ]);
 }
 
 $conn->close();

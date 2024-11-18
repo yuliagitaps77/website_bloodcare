@@ -1,3 +1,14 @@
+<?php
+session_start(); // Mulai session
+
+// Jika belum login, arahkan ke halaman login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: http://localhost/website_bloodcare/website/public_html/login.html");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -323,7 +334,7 @@
         <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
         <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
         <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="auth/Masuk.html" class="nav-button sign-in-button">Sign In</a></li>
+        <li class="nav-item"><a href="auth/masuk.php" class="nav-button sign-in-button">Sign In</a></li>
         <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Sign Up</a></li>
     </ul>
 </div>

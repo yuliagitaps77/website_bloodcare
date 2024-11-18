@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bloodcare";
+$dbname = "bloodcarec3";
 
 // Koneksi ke database
 $conn = new mysqli($host, $username, $password, $dbname);
