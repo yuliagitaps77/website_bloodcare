@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
                     <label for="password" class="form-box__label">PASSWORD</label>
                   </div>
 
-                  <a href="lupa_kata_sandi.html" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
+                  <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
 
                     <button type="submit" class="btn">MASUK</button>
                 </form>

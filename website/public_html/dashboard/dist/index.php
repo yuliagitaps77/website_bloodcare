@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
 // Ambil data pengguna dari database berdasarkan session
 $user_id = $_SESSION['user_id'];
-$query = "SELECT nama_lengkap FROM akun WHERE id_akun = ?";
+$query = "SELECT nama_lengkap, profile_picture FROM akun WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id); // Bind parameter
 $stmt->execute();
@@ -32,9 +32,12 @@ $result = $stmt->get_result();
 // Ambil data pengguna
 $user = $result->fetch_assoc();
 $nama_lengkap = $user['nama_lengkap'] ?? "Nama tidak tersedia"; // Default jika nama_lengkap null
+$base_url = "http://localhost/website_bloodcare/api/website/";
+$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
 
 $stmt->close();
 $conn->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +103,7 @@ $conn->close();
         <div class="profile-row">
           <!-- Profile Image -->
           <div class="profile-image">
-            <img src="https://via.placeholder.com/100" alt="Profile Image">
+          <img id="profile-picture-preview" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
           </div>
           <!-- Text Column with Header and Description -->
         <div class="profile-text">

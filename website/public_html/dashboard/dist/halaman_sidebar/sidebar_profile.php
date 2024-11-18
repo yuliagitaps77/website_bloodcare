@@ -1,18 +1,16 @@
 <?php
 session_start();
 
-// Debug: Periksa apakah session tersedia
+// Periksa session
 if (!isset($_SESSION['user_id'])) {
-    echo "<p>Session tidak ditemukan. Pengguna belum login.</p>";
     header("Location: public_html/auth/Masuk.html");
     exit();
 }
 
-// Debug: Tampilkan ID pengguna dari session
+// Ambil ID pengguna dari session
 $user_id = $_SESSION['user_id'];
 
-
-// Konfigurasi koneksi database
+// Konfigurasi database
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -26,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 // Ambil data pengguna dari database
-$query = "SELECT * FROM akun WHERE id_akun = ?";
+$query = "SELECT nama_lengkap, alamat, profile_picture FROM akun WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {
     die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
@@ -37,17 +35,15 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 if ($result->num_rows === 0) {
-    die("<p>Pengguna dengan ID $user_id tidak ditemukan di database.</p>");
+    die("<p>Pengguna tidak ditemukan di database.</p>");
 }
 
 $user = $result->fetch_assoc();
-if (!$user) {
-    die("<p>Data pengguna gagal diambil.</p>");
-}
-
-
 $stmt->close();
 $conn->close();
+
+$base_url = "http://localhost/website_bloodcare/api/website/";
+$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +57,13 @@ $conn->close();
     <div class="col s12 m12 l9 offset-10">
       <div class="hero-title"><strong>FORMULIR DONOR</strong></div>
       <div class="profile-card">
-  <div class="custom-profile-header" id="profile-header">
-        <img id="profile-picture-preview" src="https://via.placeholder.com/100" alt="Profile Picture" class="custom-profile-picture">
-        <div class="custom-upload-overlay">Ganti Foto</div>
-        <input type="file" id="profile-picture-input" class="custom-upload-input" accept="image/*">
-    </div>
+
+    <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST" enctype="multipart/form-data">
+        <div class="custom-profile-header" id="profile-header"> 
+    <img id="profile-picture-preview" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
+    <div class="custom-upload-overlay">Ganti Foto</div>
+    <input type="file" id="profile-picture-input" class="custom-upload-input" name="profile_picture" accept="image/*">
+</div>
     <script>
         // Ketika profile-header diklik, buka file picker
         document.getElementById('profile-header').addEventListener('click', function() {
@@ -83,37 +81,37 @@ $conn->close();
                 reader.readAsDataURL(file);
             }
         });
-    </script>
-    <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST">
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" id="nama" name="nama" class="form-input" placeholder="Masukkan nama" value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? 'asd'); ?>">
-                </div>
+        </script>
+    <div class="form-group">
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" name="nama" class="form-input" placeholder="Masukkan nama" value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>">
+    </div>
 
-                <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <input type="text" id="alamat" name="alamat" class="form-input" placeholder="Masukkan alamat" value="<?php echo htmlspecialchars($user['alamat'] ?? 'asd'); ?>">
-                </div>
+    <div class="form-group">
+        <label for="alamat">Alamat</label>
+        <input type="text" id="alamat" name="alamat" class="form-input" placeholder="Masukkan alamat" value="<?php echo htmlspecialchars($user['alamat'] ?? ''); ?>">
+    </div>
 
-                <div class="form-group">
-                    <label for="tanggal-lahir">Tanggal Lahir</label>
-                    <input type="date" id="tanggal-lahir" name="tanggal_lahir" class="form-input" value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>">
-                </div>
+    <div class="form-group">
+        <label for="tanggal-lahir">Tanggal Lahir</label>
+        <input type="date" id="tanggal-lahir" name="tanggal_lahir" class="form-input" value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>">
+    </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="Masukkan email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" readonly>
-                </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="Masukkan email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" readonly>
+    </div>
 
-                <div class="form-group">
-                    <label for="nomor-telepon">Nomor Telepon</label>
-                    <input type="tel" id="nomor-telepon" name="no_hp" class="form-input" placeholder="Masukkan nomor telepon" value="<?php echo htmlspecialchars($user['no_hp'] ?? ''); ?>">
-                </div>
+    <div class="form-group">
+        <label for="nomor-telepon">Nomor Telepon</label>
+        <input type="tel" id="nomor-telepon" name="no_hp" class="form-input" placeholder="Masukkan nomor telepon" value="<?php echo htmlspecialchars($user['no_hp'] ?? ''); ?>">
+    </div>
 
-                <div class="form-buttons">
-                    <button type="submit" class="btn-save">SIMPAN</button>
-                </div>
-            </form>
+    <div class="form-buttons">
+        <button type="submit" class="btn-save">SIMPAN</button>
+    </div>
+</form>
+
 </div>
     
 			</div>

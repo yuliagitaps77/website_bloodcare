@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'] ?? null;
+
+    if (empty($email)) {
+        echo "<script>
+            alert('Email wajib diisi!');
+            window.history.back();
+        </script>";
+        exit();
+    }
+
+    // Simpan email ke session
+    $_SESSION['email'] = $email;
+
+    // Redirect ke halaman OTP
+    header("Location: verifikasi_otp_website.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,6 +31,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -29,20 +53,14 @@
             
               <h2 class="form-box__title" style="margin-bottom: 40px;">Lupa kata sandi</h2> 
               <p class="form-box__subtitle"style="margin-bottom: 40px;">Masukan alamat email untuk mendapatkan kode OTP</p>
-                
-
-                  
-                  <div class="input-group"style="margin-bottom: 40px;">
+              <form action="http://localhost/website_bloodcare/api/website/send_otp_website.php" method="POST">
+                <div class="input-group" style="margin-bottom: 40px;">
                     <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
                     <label for="email" class="form-box__label">EMAIL</label>
-                  </div>
-                  
-                  
-                  
-                    <button type="submit" class="btn">KIRIM</button>
-                </form>
-               
-                
+                </div>
+                <button type="submit" class="btn">KIRIM</button>
+            </form>
+              
                 
             </div>
         </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Database connection
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -17,6 +18,7 @@ if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
+// Ambil data dari form
 $user_id = $_SESSION['user_id'];
 $nama = $_POST['nama'] ?? null;
 $alamat = $_POST['alamat'] ?? null;
@@ -26,23 +28,45 @@ $no_hp = $_POST['no_hp'] ?? null;
 // Proses unggahan gambar
 $profile_picture_path = null;
 if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-    $upload_dir = 'uploads/'; // Direktori untuk menyimpan gambar
+    $upload_dir = 'uploads/'; // Direktori penyimpanan file
     if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0755, true); // Buat direktori jika belum ada
+        mkdir($upload_dir, 0755, true); // Buat folder jika belum ada
+    }
+
+    // Validasi file
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $file_type = mime_content_type($_FILES['profile_picture']['tmp_name']);
+
+    if (!in_array($file_type, $allowed_types)) {
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            window.onload = function() {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'File yang diunggah harus berupa gambar (JPG, PNG, atau GIF).',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.history.back(); // Kembali ke halaman sebelumnya
+                });
+            };
+        </script>";
+        exit();
     }
 
     $file_name = basename($_FILES['profile_picture']['name']);
-    $target_file = $upload_dir . uniqid() . "_" . $file_name; // Tambahkan uniqid untuk menghindari nama file duplikat
+    $file_name = str_replace(' ', '_', $file_name); // Ganti spasi dengan underscore
+    $target_file = $upload_dir . uniqid() . "_" . $file_name;
 
     if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
         $profile_picture_path = $target_file; // Simpan path gambar untuk database
     } else {
-        echo "<p>Gagal mengunggah gambar.</p>";
-        exit();
+        die("Gagal mengunggah gambar. Periksa izin folder.");
     }
 }
 
-// Query update profil
+// Query untuk memperbarui profil
 $query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ?, profile_picture = ? WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {

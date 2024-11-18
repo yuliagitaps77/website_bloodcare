@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Periksa apakah email tersedia di session
+if (!isset($_SESSION['email'])) {
+    echo "<script>
+        alert('Email tidak ditemukan. Silakan coba lagi.');
+        window.location.href = 'lupa_password.php';
+    </script>";
+    exit();
+}
+
+$email = $_SESSION['email']; // Ambil email dari session
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -32,15 +46,18 @@
                 
 
                   
-                  <div class="input-group"style="margin-bottom: 40px;">
-                    <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
-                    <label for="email" class="form-box__label">OTP</label>
-                  </div>
-                  
-                  
-                  
-                    <button type="submit" class="btn">KONFIRMASI</button>
-                </form>
+              <form action="http://localhost/website_bloodcare/api/website/verifikasi_kode_otp_website.php" method="POST">
+        <!-- Email ditampilkan otomatis -->
+        <p>Email Anda: <strong><?php echo htmlspecialchars($email); ?></strong></p>
+
+        <!-- Input OTP -->
+        <div class="input-group" style="margin-bottom: 40px;">
+            <input type="text" id="otp" name="otp" class="form-box__input" required placeholder=" ">
+            <label for="otp" class="form-box__label">OTP</label>
+        </div>
+
+        <button type="submit" class="btn">KONFIRMASI</button>
+    </form>
                
                 
                 
