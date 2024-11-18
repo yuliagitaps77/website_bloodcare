@@ -5,9 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <!-- Materialize CSS -->
+
 </head>
 <body>
-    <div class="col s12 m12 l9 offset-10">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Tambahkan log untuk memastikan DOMContentLoaded sudah berjalan
+            console.log("DOMContentLoaded event triggered!");
+    
+            // Cek apakah Chart.js berhasil dimuat
+            if (typeof Chart === 'undefined') {
+                console.error("Chart.js tidak ditemukan. Pastikan library Chart.js sudah dimuat.");
+                return; // Hentikan eksekusi jika Chart.js tidak ditemukan
+            } else {
+                console.log("Chart.js berhasil dimuat:", Chart);
+            }
+    
+            // Cek elemen canvas untuk Pie Chart
+            const pieCanvas = document.getElementById('pieChart');
+            if (!pieCanvas) {
+                console.error("Canvas untuk Pie Chart tidak ditemukan. Pastikan ID 'pieChart' sesuai.");
+                return; // Hentikan eksekusi jika elemen tidak ditemukan
+            } else {
+                console.log("Canvas untuk Pie Chart ditemukan:", pieCanvas);
+            }
+    
+            // Cek elemen canvas untuk Bar Chart
+            const barCanvas = document.getElementById('barChart');
+            if (!barCanvas) {
+                console.error("Canvas untuk Bar Chart tidak ditemukan. Pastikan ID 'barChart' sesuai.");
+                return; // Hentikan eksekusi jika elemen tidak ditemukan
+            } else {
+                console.log("Canvas untuk Bar Chart ditemukan:", barCanvas);
+            }
+    
+            // Data untuk Pie Chart
+            const pieData = {
+                labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
+                datasets: [{
+                    data: [12, 19, 3, 5],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            };
+    
+            // Inisialisasi Pie Chart
+            try {
+                const ctxPie = pieCanvas.getContext('2d');
+                console.log("Context untuk Pie Chart ditemukan:", ctxPie);
+    
+                const pieChart = new Chart(ctxPie, {
+                    type: 'pie',
+                    data: pieData,
+                    options: {
+                        responsive: true
+                    }
+                });
+    
+                console.log("Pie Chart berhasil dibuat:", pieChart);
+            } catch (error) {
+                console.error("Gagal membuat Pie Chart:", error);
+            }
+    
+            // Data untuk Bar Chart
+            const barData = {
+                labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
+                datasets: [{
+                    label: 'Jumlah Stok Darah',
+                    data: [12, 19, 3, 5],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            };
+    
+            // Inisialisasi Bar Chart
+            try {
+                const ctxBar = barCanvas.getContext('2d');
+                console.log("Context untuk Bar Chart ditemukan:", ctxBar);
+    
+                const barChart = new Chart(ctxBar, {
+                    type: 'bar',
+                    data: barData,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+    
+                console.log("Bar Chart berhasil dibuat:", barChart);
+            } catch (error) {
+                console.error("Gagal membuat Bar Chart:", error);
+            }
+        });
+    </script>
+        <div class="col s12 m12 l9 offset-10">
         <div class="content">
         </div>
 				<div class="hero-title"><strong>Beranda</strong></div>
@@ -69,22 +164,33 @@
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container"></div>
+                                    <div class="chart-container">
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
-                    
+                            
                             <!-- Card Stok 2 -->
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container"></div>
+                                    <div class="chart-container">
+                                        <canvas id="barChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
 				
-            
+              
             <style>
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
                         .reminer-title {
                 margin-top: 50px; /* Jarak dari elemen sebelumnya */
                 padding: 15px; /* Padding agar teks terlihat lebih nyaman */

@@ -24,6 +24,8 @@
       z-index: 1000;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+
 </head>
 <body>
   <!-- Header Section -->
@@ -101,17 +103,99 @@
             });
         });
 
-        $('#dashboard').click(function(){
-            console.log("Dashboard menu clicked.");
-            $('.hero-title').text('Dashboard');
-            $('.admin-content').load('halaman_sidebar/sidebar_dashboard3.html', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Dashboard page loaded successfully.");
-                }
-            });
+        $('#dashboard').click(function() {
+    console.log("Dashboard menu clicked.");
+    $('.hero-title').text('Dashboard');
+    $('.admin-content').load('halaman_sidebar/sidebar_dashboard3.html', function(response, status, xhr) {
+        if (status == "error") {
+            console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
+        } else {
+            console.log("Dashboard page loaded successfully.");
+
+            // Setelah halaman dimuat, jalankan kode untuk inisialisasi Chart.js
+            initializeCharts();
+        }
+    });
+});
+
+// Fungsi untuk inisialisasi Chart.js
+function initializeCharts() {
+    console.log("Initializing charts...");
+
+    // Cek apakah Chart.js berhasil dimuat
+    if (typeof Chart === 'undefined') {
+        console.error("Chart.js tidak ditemukan. Pastikan library Chart.js sudah dimuat.");
+        return;
+    }
+
+    // Cek elemen canvas untuk Pie Chart
+    const pieCanvas = document.getElementById('pieChart');
+    if (!pieCanvas) {
+        console.error("Canvas untuk Pie Chart tidak ditemukan. Pastikan ID 'pieChart' ada di halaman.");
+        return;
+    }
+
+    // Cek elemen canvas untuk Bar Chart
+    const barCanvas = document.getElementById('barChart');
+    if (!barCanvas) {
+        console.error("Canvas untuk Bar Chart tidak ditemukan. Pastikan ID 'barChart' ada di halaman.");
+        return;
+    }
+
+    // Data untuk Pie Chart
+    const pieData = {
+        labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
+        datasets: [{
+            data: [12, 19, 3, 5],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        }]
+    };
+
+    // Inisialisasi Pie Chart
+    try {
+        const ctxPie = pieCanvas.getContext('2d');
+        const pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: true
+            }
         });
+        console.log("Pie Chart berhasil dibuat:", pieChart);
+    } catch (error) {
+        console.error("Gagal membuat Pie Chart:", error);
+    }
+
+    // Data untuk Bar Chart
+    const barData = {
+        labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
+        datasets: [{
+            label: 'Jumlah Stok Darah',
+            data: [12, 19, 3, 5],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        }]
+    };
+
+    // Inisialisasi Bar Chart
+    try {
+        const ctxBar = barCanvas.getContext('2d');
+        const barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: barData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        console.log("Bar Chart berhasil dibuat:", barChart);
+    } catch (error) {
+        console.error("Gagal membuat Bar Chart:", error);
+    }
+}
 
         // Klik pada menu Acara Donor
         $('#acara-donor').click(function(){
