@@ -1,53 +1,68 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json");
+session_start();
 
-// Konfigurasi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcare"; // Ganti dengan nama database Anda
+// Database credentials
+$servername = "localhost";
+$username = "root"; // Ganti dengan username database Anda
+$password = ""; // Ganti dengan password database Anda
+$dbname = "bloodcarec3"; // Ganti dengan nama database Anda
 
-// Koneksi ke database
-$conn = new mysqli($host, $username, $password, $dbname);
+// Create connection nnn
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Periksa koneksi
+// Check connection
 if ($conn->connect_error) {
-    echo json_encode(array("status" => "error", "message" => "Connection failed"));
-    exit();
+    die(json_encode(["status" => "error", "message" => "Database connection failed: " . $conn->connect_error]));
 }
 
-// Mendapatkan data dari input JSON (username/email dan password)
-$data = json_decode(file_get_contents("php://input"), true);
-$user_input = $data["username_or_email"];
-$password_input = $data["password"];
+// Handle POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
 
-// Query untuk mengecek keberadaan akun dengan username/email dan password yang cocok
-$sql = "SELECT * FROM akun WHERE (username = ? OR email = ?)"; // Hanya mencari username atau email, tidak memeriksa password
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $user_input, $user_input);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Mengecek hasil query
-if ($result->num_rows > 0) {
-    // Ambil data pengguna dari hasil query
-    $user = $result->fetch_assoc();
-
-    // Mengecek apakah password yang diberikan cocok dengan hash di database
-    if (password_verify($password_input, $user['password'])) {
-        // Jika password cocok
-        echo json_encode(array("status" => "success", "message" => "Login successful", "data" => $user));
-    } else {
-        // Jika password tidak cocok
-        echo json_encode(array("status" => "error", "message" => "Invalid username/email or password"));
+    // Validate input
+    if (!isset($input['username_or_email'], $input['password'])) {
+        echo json_encode(["status" => "error", "message" => "Invalid input"]);
+        exit();
     }
+
+    $usernameOrEmail = $conn->real_escape_string($input['username_or_email']);
+    $password = $input['password']; // Tidak perlu escape karena akan diverifikasi dengan password_verify
+
+    // Query to check user credentials
+    $sql = "SELECT * FROM akun WHERE (username = ? OR email = ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $usernameOrEmail, $usernameOrEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        // Verifikasi password dengan password_verify
+        if (password_verify($password, $row['password'])) {
+            // Check if profile is complete
+            $isComplete = !empty($row['nama_lengkap']) && !empty($row['no_hp']) && !empty($row['alamat']) && !empty($row['tanggal_lahir']);
+
+            if ($isComplete) {
+                echo json_encode(["status" => "success", "redirect_to" => "main_activity", "user_id" => $row['id_akun']]);
+            } else {
+                echo json_encode(["status" => "success", "redirect_to" => "page_editprofil", "user_id" => $row['id_akun']]);
+            }
+        } else {
+            // Jika password salah
+            echo json_encode(["status" => "error", "message" => "Password salah"]);
+        }
+    } else {
+        echo json_encode(["status" => "error", "message" => "Username atau email tidak ditemukan"]);
+    }
+
+    // Tutup statement
+    $stmt->close();
 } else {
-    echo json_encode(array("status" => "error", "message" => "Invalid username/email or password"));
+    echo json_encode(["status" => "error", "message" => "Invalid request method"]);
 }
 
 // Tutup koneksi
-$stmt->close();
 $conn->close();
 ?>
