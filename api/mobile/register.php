@@ -1,16 +1,24 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8");
+
 // Konfigurasi koneksi database
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bloodcare";
+$dbname = "bloodcarec3";
+
 // Koneksi ke database
 $conn = new mysqli($host, $username, $password, $dbname);
+
 // Periksa koneksi
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Koneksi gagal: " . $conn->connect_error]));
+    echo json_encode(["success" => false, "message" => "Koneksi gagal: " . $conn->connect_error]);
+    exit;
 }
+
 // Memeriksa metode request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Mengambil data dari $_POST
@@ -24,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nama_lengkap = "";
         $no_hp = "";
         $alamat = "";
-        $role = 0;
+        $role = "admin";
         $tanggal_lahir = "0000-00-00";
         $otp = 0;
 
@@ -32,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = "INSERT INTO akun (username, email, password, nama_lengkap, no_hp, alamat, role, tanggal_lahir, otp)
                   VALUES ('$username', '$email', '$password', '$nama_lengkap', '$no_hp', '$alamat', '$role', '$tanggal_lahir', '$otp')";
 
+        // Eksekusi query dan cek apakah berhasil
         if ($conn->query($query) === TRUE) {
             echo json_encode(["success" => true, "message" => "Registrasi berhasil"]);
         } else {
@@ -47,4 +56,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Tutup koneksi
 $conn->close();
 ?>
-
