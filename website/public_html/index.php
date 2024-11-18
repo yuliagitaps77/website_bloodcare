@@ -40,7 +40,9 @@ if (!isset($_SESSION['user_id'])) {
     background-color: #DF3232;
     color: white;
 }
-
+.btn:focus{
+    color: #000;
+}
 .content-wrapper {
     max-width: 800px;
     text-align: center;
