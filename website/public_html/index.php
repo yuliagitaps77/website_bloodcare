@@ -332,12 +332,12 @@
         <!-- Link Navigasi -->
         <div class="nav-links">
     <ul class="nav-menu">
-        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
-        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="auth/masuk.php" class="nav-button sign-in-button">Sign In</a></li>
-        <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Sign Up</a></li>
+        <li class="nav-item"><a href="#home" class="nav-link">Beranda</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">Tentang</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link">Layanan</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Kontak</a></li>
+        <li class="nav-item"><a href="auth/masuk.php" class="nav-button sign-in-button">Masuk</a></li>
+        <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Daftar</a></li>
     </ul>
 </div>
 

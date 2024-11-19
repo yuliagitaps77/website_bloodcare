@@ -128,6 +128,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
             align-items: center;
             background-color: #f0f0f0; /* Placeholder background */
             cursor: pointer; /* Tampilkan kursor pointer */
+            margin: 0 auto;
         }
 
         .custom-profile-picture {
