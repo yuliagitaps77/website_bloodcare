@@ -4,7 +4,7 @@ session_start(); // Mulai session
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     // Jika belum login, arahkan ke halaman login
-    header("Location: /website_bloodcare/website/public_html/auth/Masuk.php");
+    header("Location: http://website_bloodcare/website/public_html/auth/masuk.php");
     exit();
 }
 

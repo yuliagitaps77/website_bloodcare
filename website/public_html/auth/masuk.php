@@ -3,8 +3,8 @@ session_start(); // Mulai session
 
 // Jika sudah login, arahkan ke dashboard
 if (isset($_SESSION['user_id'])) {
-    echo "
-        <html>
+    echo 
+        "<html>
         <head>
             <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         </head>
