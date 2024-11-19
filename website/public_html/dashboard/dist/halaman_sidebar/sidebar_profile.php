@@ -221,7 +221,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 }
 
 .btn-save, .btn-edit {
-    width: 20%;
+    width: 90%;
     padding: 10px;
     border: none;
     border-radius: 5px;
