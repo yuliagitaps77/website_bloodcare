@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             timer: 2000,
                             timerProgressBar: true
                         }).then(() => {
-                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/sandi_baru.php";
+                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/Masuk.php";
                         });
                     </script>
                 </body>

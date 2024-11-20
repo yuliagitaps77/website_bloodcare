@@ -656,8 +656,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="text-section">
                 <h1>Ayo Donor Darah<br>Sekarang!</h1>
                 <div class="button-container">
-                <button class="btn btn-primary">DONOR SEKARANG!</button>
-                </div>
+    <button class="btn btn-primary" onclick="window.location.href='auth/masuk.php'">DONOR SEKARANG!</button>
+</div>
+
             </div>
             <div class="image-section">
                 <img src="assets/imgs/ayo donor darah.png" alt="Ayo Donor Darah">
