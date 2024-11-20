@@ -73,10 +73,13 @@ $conn->close();
   <!-- Header Section -->
   <header>
     <div style="display: flex; align-items: center;">
-      <img src="../dist/halaman_sidebar/logo bloodcare.png" alt="Logo" style="margin-right: 10px;">
-      <span style="font-size: 24px; font-weight: 700; color: white;">BloodCare</span>
+        <img src="../dist/halaman_sidebar/logo bloodcare.png" alt="Logo" style="margin-right: 10px;">
+        <!-- Divider (Garis Vertikal) -->
+        <div style="width: 1px; height: 30px; background-color: white; margin: 0 15px;"></div>
+        <span style="font-size: 24px; font-weight: 700; color: white;">BloodCare</span>
     </div>
-  </header>
+</header>
+
   
   <!-- Sidebar and Main Content -->
   <ul id="dropdown1" class="dropdown-content">
