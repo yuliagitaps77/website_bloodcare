@@ -153,12 +153,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         Swal.fire({
                             icon: "success",
                             title: "Verifikasi Berhasil!",
-                            text: "Akun Anda telah terverifikasi. Anda akan diarahkan ke halaman login.",
+                            text: "Anda akan diarahkan untuk mengganti sandi baru.",
                             showConfirmButton: false,
                             timer: 2000,
                             timerProgressBar: true
                         }).then(() => {
-                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/Masuk.php";
+                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/sandi_baru.html";
                         });
                     </script>
                 </body>
