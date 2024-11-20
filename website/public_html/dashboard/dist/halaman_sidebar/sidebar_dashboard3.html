@@ -124,10 +124,10 @@
                             <img src="../dist/halaman_sidebar/gambar_baru.png" alt="Gambar" style="width: 100%; max-width: 300px; height: auto;">
                         </div>
                     </div>
-                    
+
                     <div class="cards-container">
                         <!-- Card Jadwal (di kiri) -->
-                        <div class="card pink lighten-4 card-jadwal">
+                        <div id="card-jadwal" class="card pink lighten-4 card-jadwal">
                             <div class="card-content">
                                 <h6 class="card-title">JADWAL ACARA DONOR</h6>
                                 <table class="jadwal-tabel">
@@ -184,7 +184,27 @@
                             
                         </div>
                     </div>
-				
+                    <script>
+                        // Klik pada elemen dengan id 'acara-donor'
+// Menangani klik pada Card Jadwal // Klik pada menu Formulir Donor
+
+$(document).on('click', '#card-jadwal', function () {
+    console.log("Card Jadwal diklik.");
+    
+    // Ubah judul sidebar atau elemen hero
+    $('.hero-title').text('Jadwal Acara Donor');
+
+    // Memuat konten Jadwal Acara Donor ke dalam sidebar
+    $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.html', function (response, status, xhr) {
+        if (status == "error") {
+            console.error("Gagal memuat halaman Jadwal Acara Donor:", xhr.status, xhr.statusText);
+        } else {
+            console.log("Halaman Jadwal Acara Donor berhasil dimuat.");
+        }
+    });
+});
+
+         </script>
               
             <style>
                 .card .card-content .card-title {
