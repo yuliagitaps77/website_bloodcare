@@ -1,3 +1,14 @@
+<!-- <?php
+// session_start(); // Mulai session
+
+// Jika belum login, arahkan ke halaman login
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: http://localhost/website_bloodcare/website/public_html/masuk.php");
+//     exit();
+// }
+?> -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +40,9 @@
     background-color: #DF3232;
     color: white;
 }
-
+.btn:focus{
+    color: #000;
+}
 .content-wrapper {
     max-width: 800px;
     text-align: center;
@@ -319,12 +332,12 @@
         <!-- Link Navigasi -->
         <div class="nav-links">
     <ul class="nav-menu">
-        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
-        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="auth/Masuk.html" class="nav-button sign-in-button">Sign In</a></li>
-        <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Sign Up</a></li>
+        <li class="nav-item"><a href="#home" class="nav-link">Beranda</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">Tentang</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link">Layanan</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Kontak</a></li>
+        <li class="nav-item"><a href="auth/masuk.php" class="nav-button sign-in-button">Masuk</a></li>
+        <li class="nav-item"><a href="auth/daftar.html" class="nav-button sign-up-button">Daftar</a></li>
     </ul>
 </div>
 
@@ -643,8 +656,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="text-section">
                 <h1>Ayo Donor Darah<br>Sekarang!</h1>
                 <div class="button-container">
-                <button class="btn btn-primary">DONOR SEKARANG!</button>
-                </div>
+    <button class="btn btn-primary" onclick="window.location.href='auth/masuk.php'">DONOR SEKARANG!</button>
+</div>
+
             </div>
             <div class="image-section">
                 <img src="assets/imgs/ayo donor darah.png" alt="Ayo Donor Darah">

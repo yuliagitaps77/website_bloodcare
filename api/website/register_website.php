@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         text: 'Silakan login.',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = '/bloodcare_website/website/public_html/auth/Masuk.html';
+                        window.location.href = '/website_bloodcare/website/public_html/auth/masuk.php';
                     });
                 </script>
             </body>

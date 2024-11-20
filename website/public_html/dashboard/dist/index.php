@@ -1,3 +1,44 @@
+<?php
+session_start(); // Mulai session
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['user_id'])) {
+    // Jika belum login, arahkan ke halaman login
+    header("Location: http://website_bloodcare/website/public_html/auth/masuk.php");
+    exit();
+}
+
+// Konfigurasi koneksi database
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bloodcarec3";
+
+$conn = new mysqli($host, $username, $password, $dbname);
+
+// Periksa koneksi database
+if ($conn->connect_error) {
+    die("Koneksi ke database gagal: " . $conn->connect_error);
+}
+
+// Ambil data pengguna dari database berdasarkan session
+$user_id = $_SESSION['user_id'];
+$query = "SELECT nama_lengkap, profile_picture FROM akun WHERE id_akun = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id); // Bind parameter
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Ambil data pengguna
+$user = $result->fetch_assoc();
+$nama_lengkap = $user['nama_lengkap'] ?? "Nama tidak tersedia"; // Default jika nama_lengkap null
+$base_url = "http://localhost/website_bloodcare/api/website/";
+$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
+
+$stmt->close();
+$conn->close();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +46,7 @@
   <title>DASHBOARD</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons|Poppins'>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 CDN -->
   <link rel="stylesheet" href="./style.css">
   <style>
     body {
@@ -31,10 +73,13 @@
   <!-- Header Section -->
   <header>
     <div style="display: flex; align-items: center;">
-      <img src="../dist/halaman_sidebar/logo bloodcare.png" alt="Logo" style="margin-right: 10px;">
-      <span style="font-size: 24px; font-weight: 700; color: white;">BloodCare</span>
+        <img src="../dist/halaman_sidebar/logo bloodcare.png" alt="Logo" style="margin-right: 10px;">
+        <!-- Divider (Garis Vertikal) -->
+        <div style="width: 1px; height: 30px; background-color: white; margin: 0 15px;"></div>
+        <span style="font-size: 24px; font-weight: 700; color: white;">BloodCare</span>
     </div>
-  </header>
+</header>
+
   
   <!-- Sidebar and Main Content -->
   <ul id="dropdown1" class="dropdown-content">
@@ -61,13 +106,15 @@
         <div class="profile-row">
           <!-- Profile Image -->
           <div class="profile-image">
-            <img src="https://via.placeholder.com/100" alt="Profile Image">
+          <img id="profile-picture-preview" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
           </div>
           <!-- Text Column with Header and Description -->
-          <div class="profile-text">
-            <p class="text-header">yulia gita</p>
-            <a id="profile-saya" href="#" class="text-desc">lengkapi profil anda</a> 
-          </div>
+        <div class="profile-text">
+            <!-- Menampilkan nama pengguna -->
+            <p class="text-header"><?php echo htmlspecialchars($nama_lengkap); ?></p>
+            <!-- Link ke lengkapi profil -->
+            <a id="profile-saya" class="text-desc">Lengkapi profil Anda</a>
+        </div>
         </div>
         
         <li id="dashboard" class="bordered selected"><a class="waves-effect" href="#!"><i class="material-icons">home</i>DASHBOARD</a></li>
@@ -94,7 +141,7 @@
         $('#profile-saya').click(function(){
             console.log("Dashboard menu clicked.");
             $('.hero-title').text('Dashboard');
-            $('.admin-content').load('halaman_sidebar/sidebar_profile.html', function(response, status, xhr){
+            $('.admin-content').load('halaman_sidebar/sidebar_profile.php', function(response, status, xhr){
                 if (status == "error") {
                     console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
                 } else {
@@ -248,12 +295,64 @@ function initializeCharts() {
                 }
             });
         });
-
         // Klik pada menu Keluar
-        $('#keluar').click(function(){
-            console.log("Logout menu clicked.");
-            window.location.href = 'public_html/auth/Masuk.html'; // Path disesuaikan 
+        $('#keluar').click(function (event) {
+            event.preventDefault(); // Mencegah default behavior tombol
+
+            // Tampilkan dialog konfirmasi menggunakan SweetAlert2
+            Swal.fire({
+                title: 'Anda yakin ingin keluar?',
+                text: "Setelah keluar, Anda harus login kembali untuk mengakses akun.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, keluar!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna menekan tombol "Ya, keluar", panggil logout.php
+                    $.ajax({
+                        url: 'http://localhost/website_bloodcare/api/website/logout.php', // Path ke file PHP logout
+                        type: 'POST',
+                        success: function (response) {
+                            const res = JSON.parse(response); // Parse respons JSON
+                            if (res.success) {
+                                // Tampilkan dialog sukses
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil Keluar',
+                                    text: 'Anda akan diarahkan ke halaman login.',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true
+                                }).then(() => {
+                                    // Redirect ke halaman login
+                                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/auth/Masuk.php'; // Path disesuaikan
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Logout gagal. Silakan coba lagi.',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Terjadi kesalahan pada server.',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
         });
+
+
     });
 </script>
 </body>

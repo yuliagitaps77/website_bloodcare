@@ -1,3 +1,33 @@
+<?php
+session_start(); // Mulai session
+
+// Jika sudah login, arahkan ke dashboard
+if (isset($_SESSION['user_id'])) {
+    echo 
+        "<html>
+        <head>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Sudah Login',
+                    text: 'Anda sudah login, akan diarahkan ke dashboard.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => {
+                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+                });
+            </script>
+        </body>
+        </html>";
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -28,7 +58,7 @@
               </div>
             
               <p class="form-box__subtitle">Selamat datang kembali👋🏻</p>
-                <form action="http://localhost/bloodcare_website/api/website/login_website.php" method="POST">
+                <form action="http://localhost/website_bloodcare/api/website/login_website.php" method="POST">
 
                 <h2 class="form-box__title" >Masuk ke akun Anda.</h2>
 
@@ -43,7 +73,7 @@
                     <label for="password" class="form-box__label">PASSWORD</label>
                   </div>
 
-                  <a href="lupa_kata_sandi.html" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
+                  <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
 
                     <button type="submit" class="btn">MASUK</button>
                 </form>
@@ -55,35 +85,7 @@
             </div>
         </div>
     </div>
-    <script>
-      const form = document.querySelector("form");
-      form.addEventListener("submit", async (event) => {
-          event.preventDefault(); // Mencegah reload halaman
-  
-          const formData = new FormData(form);
-  
-          try {
-              const response = await fetch(form.action, {
-                  method: "POST",
-                  body: formData,
-              });
-  
-              const result = await response.json();
-  
-              // Menampilkan dialog berdasarkan hasil login
-              alert(result.message);
-  
-              // Redirect jika login berhasil
-              if (result.success && result.redirect) {
-                  window.location.href = result.redirect;
-              }
-          } catch (error) {
-              // Jika ada kesalahan lain
-              alert("Terjadi kesalahan. Silakan coba lagi.");
-              console.error("Error:", error);
-          }
-      });
-  </script>
+    
   
   
 </body>

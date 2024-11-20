@@ -113,8 +113,10 @@
                         <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; align-items: flex-start;">
                             <h5 style="margin: 0; margin-bottom: 10px;">DONORKAN DARAHMU UNTUK</h5>
                             <h5 style="margin: 0;">MENYELAMATKAN HIDUP SESEORANG</h5>
-                            <div class="button-container" style="margin-top: 10px;">
-                                <button class="btn btn-primary">ISI FORMULIR</button>
+                            <div class="button-container" style="margin-top: 20px;">
+                                    <button type="button" class="submit-btn">ISI FORMULIR</button>
+                                  </a>
+                                  
                             </div>
                         </div>
                         <!-- Gambar -->
@@ -164,7 +166,7 @@
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container">
+                                    <div class="chart-container-pie-chart">
                                         <canvas id="pieChart"></canvas>
                                     </div>
                                 </div>
@@ -174,7 +176,7 @@
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="chart-container">
+                                    <div class="f">
                                         <canvas id="barChart"></canvas>
                                     </div>
                                 </div>
@@ -185,11 +187,41 @@
 				
               
             <style>
+                .card .card-content .card-title {
+    display: block;
+    line-height: 32px;
+    margin-bottom: 8px;
+    text-align: center; /* Menambahkan ini untuk memastikan judul berada di tengah secara horizontal */
+}
 
+    button.submit-btn {
+                    width: 100%;
+                    background-color: #df3232;
+                    color: #fff;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 60px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background-color 0.3s;
+                }
+        
+                button.submit-btn:hover {
+                    background-color: #b71c1c;
+                }
+.chart-container-pie-chart{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}    
 .chart-container {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 100%;
+    padding: 10px;
+
 }
                         .reminer-title {
                 margin-top: 50px; /* Jarak dari elemen sebelumnya */
@@ -273,7 +305,7 @@
 
                 .hero-title {
                     font-size: 2rem;
-                    margin-left: 55px;
+                    margin-left: -20px;
                     font-weight: bold;
                     margin-bottom: 1rem;
                 }
@@ -427,11 +459,7 @@
                     text-align: center; /* Agar teks di tengah */
                 }
 
-                .jadwal-tabel tbody tr td {
-                    border-bottom: 5px solid #DF3232; /* Garis merah di bagian bawah setiap baris */
-                    padding: 15px;
-                    text-align: center;
-                }
+               
 
 
                 .card-title {

@@ -1,0 +1,12 @@
+# Abaikan semua file di dalam folder uploads
+api/website/uploads/*
+
+# Opsional: Abaikan hanya file gambar tertentu (misalnya jpg, png, dll)
+api/website/uploads/*.jpg
+api/website/uploads/*.png
+api/website/uploads/*.gif
+api/website/uploads/*.jpeg
+api/website/uploads/*.svg
+
+# Jika Anda hanya ingin mengabaikan file gambar tetapi tetap melacak folder uploads, tambahkan ini:
+!api/website/uploads/

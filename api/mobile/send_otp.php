@@ -10,7 +10,7 @@ header("Content-Type: application/json");
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bloodcare";
+$dbname = "bloodcarec3";
 
 // Buat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail = new PHPMailer(true);
             $senderEmail = 'e41232393@student.polije.ac.id'; // Ganti dengan email Anda
             $senderName = 'bloodcare';     // Ganti dengan nama pengirim yang Anda inginkan
-
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
