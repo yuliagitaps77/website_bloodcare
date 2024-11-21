@@ -117,11 +117,11 @@ foreach ($stokDarah as $jenis_darah => $dataGolongan) {
 
 
 <div class="info-box">
-    <p>INFORMASI KEBUTUHAN DARAH</p>
+    <p>INFORMASI KEBUTUHAN DARAH:</p>
     <?php if (!empty($kebutuhanDarahList)): ?>
-        <p>
-            Kebutuhan darah mendesak! Stok darah berikut ini sangat rendah:
-        </p>
+        <p style="color: red;">
+    Kebutuhan darah mendesak! Stok darah berikut ini sangat rendah:
+</p>
         <ul>
             <?php foreach ($kebutuhanDarahList as $kebutuhan): ?>
                 <li>
@@ -132,9 +132,10 @@ foreach ($stokDarah as $jenis_darah => $dataGolongan) {
                 </li>
             <?php endforeach; ?>
         </ul>
-        <p>
-            Bantuan Anda sangat berarti! Mari bersama-sama memastikan setiap orang yang membutuhkan mendapatkan darah yang mereka perlukan. Ayo segera donor dan selamatkan nyawa!
-        </p>
+        <p style="color: red;">
+    Bantuan Anda sangat berarti! Mari bersama-sama memastikan setiap orang yang membutuhkan mendapatkan darah yang mereka perlukan. Ayo segera donor dan selamatkan nyawa!
+</p>
+
     <?php else: ?>
         <p>
             Terima kasih kepada para pendonor! Stok darah saat ini mencukupi, tetapi kebutuhan darah tidak pernah berhenti. Anda tetap bisa membantu dengan berdonasi darah secara berkala.
@@ -211,7 +212,7 @@ th, td {
     display: flex;
     flex-direction: column; /* Membuat konten dalam satu kolom */
     align-items: flex-start;
-    width: 100%; /* Mengatur lebar agar tidak melewati container */
+    width: 120%; /* Mengatur lebar agar tidak melewati container */
     box-shadow: inset 0 0 10px rgba(207, 121, 121, 0.25);
     box-sizing: border-box; /* Memastikan padding termasuk dalam ukuran box */
 }

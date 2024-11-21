@@ -153,7 +153,7 @@ $conn->close();
         $('#dashboard').click(function() {
     console.log("Dashboard menu clicked.");
     $('.hero-title').text('Dashboard');
-    $('.admin-content').load('halaman_sidebar/sidebar_dashboard3.html', function(response, status, xhr) {
+    $('.admin-content').load('halaman_sidebar/sidebar_dashboard4.html', function(response, status, xhr) {
         if (status == "error") {
             console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
         } else {
@@ -287,7 +287,7 @@ function initializeCharts() {
         $('#riwayat-donor').click(function(){
             console.log("Riwayat Donor menu clicked.");
             $('.hero-title').text('Riwayat Donor');
-            $('.admin-content').load('halaman_sidebar/sidebar_riwayat_donor.html', function(response, status, xhr){
+            $('.admin-content').load('halaman_sidebar/sidebar_riwayat_donor.php', function(response, status, xhr){
                 if (status == "error") {
                     console.error("Error loading Riwayat Donor page:", xhr.status, xhr.statusText);
                 } else {

@@ -23,6 +23,8 @@ $email = $_SESSION['email']; // Ambil email dari session
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -45,14 +47,21 @@ $email = $_SESSION['email']; // Ambil email dari session
               <p class="form-box__subtitle">Masukkan sandi baru anda</p>
               <form method="POST" action="http://localhost/website_bloodcare/api/website/reset_password.php">
                 
-    <div class="input-group">
-        <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
-        <label for="password" class="form-box__label">SANDI BARU</label>
-    </div>
-    <div class="input-group">
-        <input type="password" id="confirm_password" name="confirm_password" class="form-box__input" required placeholder=" ">
-        <label for="confirm_password" class="form-box__label">KONFIRMASI SANDI</label>
-    </div>
+                <div class="input-group">
+    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
+    <label for="password" class="form-box__label">SANDI BARU</label>
+    <button type="button" id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
+        <i id="toggle-icon-password" class="fa fa-eye" style="font-size: 20px;"></i>
+    </button>
+</div>
+
+<div class="input-group">
+    <input type="password" id="confirm_password" name="confirm_password" class="form-box__input" required placeholder=" ">
+    <label for="confirm_password" class="form-box__label">KONFIRMASI SANDI</label>
+    <button type="button" id="toggle-confirm-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
+        <i id="toggle-icon-confirm-password" class="fa fa-eye" style="font-size: 20px;"></i>
+    </button>
+</div>
     <button type="submit" class="btn">GANTI SANDI</button>
 </form>
             </div>

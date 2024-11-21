@@ -38,6 +38,9 @@ if (isset($_SESSION['user_id'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
     <!-- Link CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -69,27 +72,27 @@ if (isset($_SESSION['user_id'])) {
                   </div>
                   
                   <div class="input-group">
-                    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
-                    <label for="password" class="form-box__label">PASSWORD</label>
-                    <span id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
-                    <img src="eye-icon.png" alt="Show Password" id="toggle-icon" style="width: 20px; height: 20px;">
-                </span>
-                                    
-                  </div>
-                  <script>
-                    const passwordInput = document.getElementById('password');
-                    const togglePassword = document.getElementById('toggle-password');
-                    const toggleIcon = document.getElementById('toggle-icon');
+    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
+    <label for="password" class="form-box__label">PASSWORD</label>
+    <button type="button" id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
+        <i id="toggle-icon" class="fa fa-eye" style="font-size: 20px;"></i> <!-- Bawaan dari FontAwesome -->
+    </button>
+</div>
 
-                    togglePassword.addEventListener('click', function () {
-                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                        passwordInput.setAttribute('type', type);
-                        
-                        // Change icon based on visibility
-                        toggleIcon.src = type === 'password' ? 'eye-icon.png' : 'eye-slash-icon.png';
-                        toggleIcon.alt = type === 'password' ? 'Show Password' : 'Hide Password';
-                    });
-                    </script>
+<script>
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('toggle-password');
+    const toggleIcon = document.getElementById('toggle-icon');
+  
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Change icon based on visibility
+      toggleIcon.className = type === 'password' ? 'fa fa-eye' : 'fa fa-eye-slash';
+    });
+</script>
+
 
                   <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
 
