@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Periksa apakah email tersedia di session
+if (!isset($_SESSION['email'])) {
+    echo "<script>
+        alert('Email tidak ditemukan. Silakan coba lagi.');
+        window.location.href = 'lupa_password.php';
+    </script>";
+    exit();
+}
+
+$email = $_SESSION['email']; // Ambil email dari session
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -29,21 +43,18 @@
 
               <h2 class="form-box__title" >Masukkan sandi baru</h2>
               <p class="form-box__subtitle">Masukkan sandi baru anda</p>
-                  <div class="input-group">
-                    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
-                    <label for="password" class="form-box__label">SANDI BARU</label>
-                    
-                  </div>
-                  
-                  <div class="input-group">
-                    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
-                    <label for="password" class="form-box__label">KONFIRMASI SANDI</label>
-                    
-                  </div>
+              <form method="POST" action="http://localhost/website_bloodcare/api/website/reset_password.php">
                 
-                  
-                    <button type="submit" class="btn">GANTI SANDI</button>
-                </form>
+    <div class="input-group">
+        <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
+        <label for="password" class="form-box__label">SANDI BARU</label>
+    </div>
+    <div class="input-group">
+        <input type="password" id="confirm_password" name="confirm_password" class="form-box__input" required placeholder=" ">
+        <label for="confirm_password" class="form-box__label">KONFIRMASI SANDI</label>
+    </div>
+    <button type="submit" class="btn">GANTI SANDI</button>
+</form>
             </div>
         </div>
     </div>
