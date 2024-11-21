@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 // Ambil data pengguna dari database
-$query = "SELECT nama_lengkap, alamat, profile_picture FROM akun WHERE id_akun = ?";
+$query = "SELECT nama_lengkap, alamat, profile_picture, tanggal_lahir,email, no_hp FROM akun WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {
     die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
@@ -55,12 +55,12 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </head>
 <body>
     <div class="col s12 m12 l9 offset-10">
-      <div class="hero-title"><strong>FORMULIR DONOR</strong></div>
+      <div class="hero-title"><strong>Profil</strong></div>
       <div class="profile-card">
 
     <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST" enctype="multipart/form-data">
         <div class="custom-profile-header" id="profile-header"> 
-    <img id="profile-picture-preview" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
+    <img id="profile-picture-preview-sidebar" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
     <div class="custom-upload-overlay">Ganti Foto</div>
     <input type="file" id="profile-picture-input" class="custom-upload-input" name="profile_picture" accept="image/*">
 </div>
@@ -76,7 +76,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('profile-picture-preview').src = e.target.result;
+                    document.getElementById('profile-picture-preview-sidebar').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -263,6 +263,11 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
                     font-size: 2rem;
                     font-weight: bold;
                     margin-bottom: 1rem;
+                color: rgba(0, 0, 0, 0.65); /* Warna hitam dengan 65% transparansi */}
+                
+                
+                strong {
+                    font-weight: 900;
                 }
 
 

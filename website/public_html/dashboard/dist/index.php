@@ -261,7 +261,7 @@ function initializeCharts() {
         $('#formulir-donor').click(function(){
             console.log("Formulir Donor menu clicked.");
             $('.hero-title').text('Formulir Donor');
-            $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.html', function(response, status, xhr){
+            $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.php', function(response, status, xhr){
                 if (status == "error") {
                     console.error("Error loading Formulir Donor page:", xhr.status, xhr.statusText);
                 } else {
@@ -274,7 +274,7 @@ function initializeCharts() {
         $('#stok-darah').click(function(){
             console.log("Stok Darah menu clicked.");
             $('.hero-title').text('Stok Darah');
-            $('.admin-content').load('halaman_sidebar/sidebar_stok_darah2.html', function(response, status, xhr){
+            $('.admin-content').load('halaman_sidebar/sidebar_stok_darah2.php', function(response, status, xhr){
                 if (status == "error") {
                     console.error("Error loading Stok Darah page:", xhr.status, xhr.statusText);
                 } else {

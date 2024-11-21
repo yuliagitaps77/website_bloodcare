@@ -1,3 +1,60 @@
+<?php
+// Menghubungkan ke database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bloodcarec3";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Mengecek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel stok_darah
+$sql = "SELECT jenis_darah, goldar, rhesus, stok FROM stok_darah";
+$result = $conn->query($sql);
+
+// Menginisialisasi array untuk menyimpan stok darah berdasarkan jenis, golongan darah, dan rhesus
+$stokDarah = [
+    'WB' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'PRC' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'TC' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'FFP' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'Cryoprecipitate' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+];
+
+// Memasukkan data hasil query ke dalam array
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $jenis_darah = $row['jenis_darah'];
+        $goldar = $row['goldar'];
+        $rhesus = $row['rhesus'];
+        $stokDarah[$jenis_darah][$goldar][$rhesus] += $row['stok'];
+    }
+}
+
+$conn->close();
+
+// Mengecek apakah ada stok darah yang kurang dari 20
+$kebutuhanDarahList = [];
+foreach ($stokDarah as $jenis_darah => $dataGolongan) {
+    foreach ($dataGolongan as $golongan => $dataRhesus) {
+        foreach ($dataRhesus as $rhesus => $stok) {
+            if ($stok < 20) {
+                $kebutuhanDarahList[] = [
+                    'jenis_darah' => $jenis_darah,
+                    'golongan' => $golongan,
+                    'rhesus' => $rhesus,
+                    'stok' => $stok
+                ];
+            }
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,46 +66,81 @@
     <div class="col s12 m12 l9 offset-10">
       <div class="hero-title"><strong>Stok Darah</strong></div>
       <div class="table-container">
-        <table>
-          <thead>
+    <table>
+        <thead>
             <tr>
-              <th rowspan="2">No.</th>
-              <th rowspan="2">Jenis Darah</th>
-              <th colspan="8">Golongan</th>
+                <th rowspan="2">No.</th>
+                <th rowspan="2">Jenis Darah</th>
+                <th colspan="8">Golongan</th>
             </tr>
             <tr>
-              <th colspan="2">A</th>
-              <th colspan="2">B</th>
-              <th colspan="2">AB</th>
-              <th colspan="2">O</th>
+                <th colspan="2">A</th>
+                <th colspan="2">B</th>
+                <th colspan="2">AB</th>
+                <th colspan="2">O</th>
             </tr>
             <tr>
-              <th></th>
-              <th></th>
-              <th>Rh (+)</th>
-              <th>Rh (-)</th>
-              <th>Rh (+)</th>
-              <th>Rh (-)</th>
-              <th>Rh (+)</th>
-              <th>Rh (-)</th>
-              <th>Rh (+)</th>
-              <th>Rh (-)</th>
+                <th></th>
+                <th></th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
+                <th>Rh (+)</th>
+                <th>Rh (-)</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-            <tr><td colspan="10" class="empty-row"></td></tr>
-          </tbody>
-        </table>
-      </div>
+        </thead>
+        <tbody>
+            <?php
+            $no = 1;
+            foreach ($stokDarah as $jenis_darah => $dataGolongan) {
+                echo "<tr>";
+                echo "<td>" . $no++ . "</td>";
+                echo "<td>" . htmlspecialchars($jenis_darah) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['A']['positive']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['A']['negative']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['B']['positive']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['B']['negative']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['AB']['positive']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['AB']['negative']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['O']['positive']) . "</td>";
+                echo "<td>" . htmlspecialchars($dataGolongan['O']['negative']) . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
 
-      <div class="info-box">
-        <p>INFORMASI KEBUTUHAN DARAH</p>
-      </div>
+
+
+<div class="info-box">
+    <p>INFORMASI KEBUTUHAN DARAH</p>
+    <?php if (!empty($kebutuhanDarahList)): ?>
+        <p>
+            Kebutuhan darah mendesak! Stok darah berikut ini sangat rendah:
+        </p>
+        <ul>
+            <?php foreach ($kebutuhanDarahList as $kebutuhan): ?>
+                <li>
+                    Jenis Darah: <?php echo htmlspecialchars($kebutuhan['jenis_darah']); ?>, 
+                    Golongan: <?php echo htmlspecialchars($kebutuhan['golongan']); ?>, 
+                    Rhesus: <?php echo htmlspecialchars($kebutuhan['rhesus']); ?>, 
+                    Stok Tersedia: <?php echo htmlspecialchars($kebutuhan['stok']); ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <p>
+            Bantuan Anda sangat berarti! Mari bersama-sama memastikan setiap orang yang membutuhkan mendapatkan darah yang mereka perlukan. Ayo segera donor dan selamatkan nyawa!
+        </p>
+    <?php else: ?>
+        <p>
+            Terima kasih kepada para pendonor! Stok darah saat ini mencukupi, tetapi kebutuhan darah tidak pernah berhenti. Anda tetap bisa membantu dengan berdonasi darah secara berkala.
+        </p>
+    <?php endif; ?>
+</div>
 			</div>
             <style>
                 .main-content {
@@ -108,20 +200,22 @@ th, td {
      
      
      /* Info Box Styling */
-    .info-box {
+     .info-box {
     background-color: #FFFFFF;
     border: 2px solid #be7070; /* Warna dan ketebalan border */
     border-radius: 10px;
-    padding: 0px 90px 80px 20px ;
+    padding: 20px; /* Menyederhanakan padding untuk lebih rapi */
     color: black;
     text-align: left;
     font-weight: bold;
     display: flex;
+    flex-direction: column; /* Membuat konten dalam satu kolom */
     align-items: flex-start;
-    height: 280px;
-    width: 120%;
+    width: 100%; /* Mengatur lebar agar tidak melewati container */
     box-shadow: inset 0 0 10px rgba(207, 121, 121, 0.25);
+    box-sizing: border-box; /* Memastikan padding termasuk dalam ukuran box */
 }
+
 
                 .divider {
                     margin: 20px 0;
