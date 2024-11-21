@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Cek apakah email sudah dikirim di body
     if (isset($data['email'])) {
         $recipientEmail = $data['email'];
-        
+
         // Fungsi untuk generate OTP
         function generateOTP($length = 5) {
             $otp = '';
@@ -42,19 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         function sendOTP($recipientEmail, $otp) {
             $mail = new PHPMailer(true);
             $senderEmail = 'e41232393@student.polije.ac.id'; // Ganti dengan email Anda
-            $senderName = 'bloodcare';     // Ganti dengan nama pengirim yang Anda inginkan
+            $senderName = 'bloodcare'; // Ganti dengan nama pengirim yang Anda inginkan
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = $senderEmail;               
+                $mail->Username = $senderEmail;  // Ganti dengan email Anda
                 $mail->Password = 'wvku xdoa haoo vefu'; // Kata sandi Gmail atau App Password Anda
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
-
+        
                 $mail->setFrom($senderEmail, $senderName);
                 $mail->addAddress($recipientEmail);
-
+        
                 $mail->isHTML(true);
                 $mail->Subject = 'Your OTP Verification Code';
                 $mail->Body = '
@@ -77,11 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </body>
                 </html>';
                 $mail->AltBody = 'Your OTP verification code is: ' . $otp;
-
+        
                 $mail->send();
-                return true;
+                return true;  // Jika berhasil mengirim email
             } catch (Exception $e) {
-                return false;
+                // Log error untuk debugging
+                error_log('Error sending OTP: ' . $mail->ErrorInfo);  // Tambahkan log kesalahan
+                return false;  // Jika gagal mengirim email
             }
         }
 
@@ -99,28 +101,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("UPDATE akun SET otp = ?, status_verify = 0 WHERE email = ?");
             $stmt->bind_param("is", $otp, $recipientEmail);
             $stmt->execute();
-        } else {
-            // Jika email belum ada, insert data baru
-            $stmt = $conn->prepare("INSERT INTO akun (email, otp, status_verify) VALUES (?, ?, 0)");
-            $stmt->bind_param("si", $recipientEmail, $otp);
-            $stmt->execute();
-        }
 
-        // Kirim OTP ke email
-        if (sendOTP($recipientEmail, $otp)) {
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'OTP has been sent successfully!',
-                'otp' => $otp // Opsi: jangan tampilkan OTP ini di response dalam produksi.
-            ]);
+            // Kirim OTP ke email
+            if (sendOTP($recipientEmail, $otp)) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'OTP has been sent successfully!'
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Failed to send OTP.'
+                ]);
+            }
         } else {
+            // Jika email tidak ditemukan
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Failed to send OTP.'
+                'message' => 'Email is not registered.'
             ]);
         }
 
+        // Menutup statement dan koneksi database
         $stmt->close();
+        $check_stmt->close();
     } else {
         echo json_encode([
             'status' => 'error',
