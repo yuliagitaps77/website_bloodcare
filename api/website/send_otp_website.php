@@ -33,9 +33,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function sendOTP($recipientEmail, $otp) {
+            // Konfigurasi database
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "bloodcarec3";
+        
+            // Koneksi ke database
+            $conn = new mysqli($servername, $username, $password, $dbname);
+        
+            // Periksa koneksi
+            if ($conn->connect_error) {
+                die("Koneksi database gagal: " . $conn->connect_error);
+            }
+        
+            // Ambil nama_lengkap berdasarkan email
+            $stmt = $conn->prepare("SELECT nama_lengkap FROM akun WHERE email = ?");
+            $stmt->bind_param("s", $recipientEmail);
+            $stmt->execute();
+            $stmt->bind_result($namaLengkap);
+            $stmt->fetch();
+            $stmt->close();
+        
+            // Jika nama_lengkap tidak ditemukan, gunakan placeholder
+            if (empty($namaLengkap)) {
+                $namaLengkap = "Pengguna BloodCare";
+            }
+        
+            $conn->close();
+        
+            // PHPMailer setup
             $mail = new PHPMailer(true);
             $senderEmail = 'e41232393@student.polije.ac.id';
-            $senderName = 'bloodcare';
+            $senderName = 'BloodCare';
+        
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
@@ -44,21 +75,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Password = 'wvku xdoa haoo vefu';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
-
+        
                 $mail->setFrom($senderEmail, $senderName);
                 $mail->addAddress($recipientEmail);
-
+        
                 $mail->isHTML(true);
-                $mail->Subject = 'Your OTP Verification Code';
-                $mail->Body = '<p>Your OTP: <strong>' . $otp . '</strong></p>';
-                $mail->AltBody = 'Your OTP: ' . $otp;
-
+                $mail->Subject = 'Kode OTP Verifikasi Anda';
+        
+                // Email body dengan nama pengguna dan logo
+                $mail->Body = '
+                <div style="font-family: Arial, sans-serif; color: #444; line-height: 1.6; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="https://i.ibb.co.com/1ZnTzKj/logo-apk.png" alt="BloodCare Logo" style="width: 100px; margin-bottom: 10px;">
+                        <h2 style="color: #e74c3c;">Kode OTP Verifikasi</h2>
+                    </div>
+                    <p style="font-size: 16px;">Halo <strong>' . htmlspecialchars($namaLengkap) . '</strong>,</p>
+                    <p>Terima kasih telah menggunakan layanan BloodCare. Berikut adalah kode OTP Anda untuk menyelesaikan proses ganti sandi:</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <span style="font-size: 24px; color: #e74c3c; font-weight: bold;">' . $otp . '</span>
+                    </div>
+                    <p>Jika Anda tidak merasa meminta kode ini, abaikan email ini atau hubungi tim dukungan kami.</p>
+                    <p style="color: #777; font-size: 14px; text-align: center; margin-top: 20px;">
+                        <em>BloodCare - Peduli pada setiap tetes kehidupan.</em><br>
+                        <strong>Hubungi Kami:</strong> support@bloodcare.com
+                    </p>
+                </div>';
+        
+                $mail->AltBody = 'Halo ' . htmlspecialchars($namaLengkap) . ', Kode OTP Anda: ' . $otp . '. Gunakan kode ini untuk menyelesaikan verifikasi. Terima kasih telah menggunakan layanan BloodCare.';
+        
                 $mail->send();
                 return true;
             } catch (Exception $e) {
                 return false;
             }
         }
+        
+        
 
         // Periksa apakah akun sudah terdaftar
         $check_stmt = $conn->prepare("SELECT * FROM akun WHERE email = ?");
@@ -77,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (sendOTP($recipientEmail, $otp)) {
                 // Simpan email ke session
                 $_SESSION['email'] = $recipientEmail;
-
+            
                 echo '
                 <html>
                     <head>
@@ -87,8 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <script>
                             Swal.fire({
                                 icon: "success",
-                                title: "OTP Sent!",
-                                text: "OTP has been sent successfully to your email.",
+                                title: "OTP Terkirim!",
+                                text: "OTP berhasil dikirim ke email Anda.",
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(() => {
@@ -107,14 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <script>
                             Swal.fire({
                                 icon: "error",
-                                title: "Failed",
-                                text: "Failed to send OTP. Please try again later.",
+                                title: "Gagal",
+                                text: "Gagal mengirim OTP. Silakan coba lagi nanti.",
                                 showConfirmButton: true
+                            }).then(() => {
+                                window.history.back(); // Mengarahkan kembali ke halaman sebelumnya
                             });
                         </script>
                     </body>
                 </html>';
             }
+            
+            
         } else {
             // Akun tidak ditemukan, redirect ke lupa_kata_sandi.php
             echo '
@@ -126,8 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <script>
                         Swal.fire({
                             icon: "warning",
-                            title: "Account Not Registered",
-                            text: "This email is not registered in our system. Redirecting to Forgot Password page.",
+                            title: "Akun Tidak Terdaftar",
+                            text: "Email ini tidak terdaftar di sistem kami. Mengarahkan ke halaman Lupa Kata Sandi.",
                             showConfirmButton: false,
                             timer: 3000
                         }).then(() => {
@@ -136,27 +192,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </script>
                 </body>
             </html>';
+            
         }
 
         $check_stmt->close();
     } else {
         // Email tidak valid
-        echo '
-        <html>
-            <head>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            </head>
-            <body>
-                <script>
-                    Swal.fire({
-                        icon: "error",
-                        title: "Invalid Email",
-                        text: "Please enter a valid email address.",
-                        showConfirmButton: true
-                    });
-                </script>
-            </body>
-        </html>';
+echo '
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Email Tidak Valid",
+                text: "Silakan masukkan alamat email yang valid.",
+                showConfirmButton: true
+            }).then(() => {
+                window.history.back(); // Mengembalikan ke halaman sebelumnya
+            });
+        </script>
+    </body>
+</html>';
+
+
     }
 }
 

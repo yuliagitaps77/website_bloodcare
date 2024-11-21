@@ -170,6 +170,21 @@ input:valid {
 .toggle-label {
   cursor: pointer;
 } */
+/* Sembunyikan tombol bawaan "show password" di semua browser */
+input[type="password"]::-webkit-reveal-button,
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-clear-button {
+  display: none !important; /* Pastikan ini tidak muncul sama sekali */
+  visibility: hidden;
+}
+
+/* Menonaktifkan semua ikon bawaan */
+input[type="password"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-clip: padding-box;
+}
 
 .btn {
   width: 100%; /* Full-width button for responsiveness */

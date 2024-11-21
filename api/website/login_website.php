@@ -1,7 +1,8 @@
 <?php
 header("Content-Type: text/html; charset=UTF-8");
-session_start(); // Mulai session
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Cek apakah pengguna sudah login
 if (isset($_SESSION['user_id'])) {
     echo "
@@ -61,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $result->fetch_assoc();
 
             if (password_verify($password, $user['password'])) {
-                session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
                 $_SESSION['user_id'] = $user['id_akun'];
                 $_SESSION['email'] = $user['email'];
 

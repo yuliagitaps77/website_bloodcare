@@ -18,6 +18,14 @@ function cleanInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
+// Fungsi validasi password
+function isValidPassword($password) {
+    return preg_match('/[A-Z]/', $password) &&    // Huruf kapital
+           preg_match('/[a-z]/', $password) &&    // Huruf kecil
+           preg_match('/[0-9]/', $password) &&    // Angka
+           preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password); // Karakter khusus
+}
+
 // Proses registrasi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_lengkap = cleanInput($_POST['name']);
@@ -39,7 +47,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Semua kolom wajib diisi!',
-                        confirmButtonText: 'OK'
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.history.back();
+                    });
+                </script>
+            </body>
+            </html>";
+        exit;
+    }
+
+    // Validasi password
+    if (!isValidPassword($password)) {
+        echo "
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Kata Sandi Tidak Valid',
+                        text: 'Kata sandi harus terdiri dari huruf kapital, huruf kecil, angka, dan karakter khusus.',
+                        timer: 3000,
+                        showConfirmButton: false
                     }).then(() => {
                         window.history.back();
                     });
@@ -67,7 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         icon: 'warning',
                         title: 'Akun sudah terdaftar!',
                         text: 'Email atau Username sudah digunakan. Silakan gunakan data lain.',
-                        confirmButtonText: 'OK'
+                        timer: 3000,
+                        showConfirmButton: false
                     }).then(() => {
                         window.history.back();
                     });
@@ -100,7 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         icon: 'success',
                         title: 'Registrasi berhasil!',
                         text: 'Silakan login.',
-                        confirmButtonText: 'OK'
+                        timer: 3000,
+                        showConfirmButton: false
                     }).then(() => {
                         window.location.href = '/website_bloodcare/website/public_html/auth/masuk.php';
                     });
@@ -119,7 +154,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         icon: 'error',
                         title: 'Terjadi kesalahan!',
                         text: 'Gagal menyimpan data. Silakan coba lagi.',
-                        confirmButtonText: 'OK'
+                        timer: 3000,
+                        showConfirmButton: false
                     }).then(() => {
                         window.history.back();
                     });

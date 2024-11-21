@@ -12,6 +12,7 @@ if (!isset($_SESSION['email'])) {
 
 $email = $_SESSION['email']; // Ambil email dari session
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,6 +28,33 @@ $email = $_SESSION['email']; // Ambil email dari session
 
     <link rel="stylesheet" href="./style.css">
 </head>
+<style>
+        /* Sembunyikan tombol bawaan "show password" di semua browser */
+input[type="password"]::-webkit-reveal-button,
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-clear-button {
+  display: none !important; /* Pastikan ini tidak muncul sama sekali */
+  visibility: hidden;
+}
+
+/* Menonaktifkan semua ikon bawaan */
+input[type="password"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-clip: padding-box;
+}
+    /* Target the icon specifically */
+    #toggle-password i {
+    color: #bebebe; /* Set color of the icon */
+    transition: color 0.2s ease; /* Smooth transition for color change */
+  }
+
+  /* Optional: Change icon color on hover for better user experience */
+  #toggle-password:hover i {
+    color: #a8a8a8; /* Slightly darker color on hover */
+  }
+    </style>
 <body>
     <div class="container">
         <!-- Bagian Gambar -->
@@ -45,25 +73,136 @@ $email = $_SESSION['email']; // Ambil email dari session
 
               <h2 class="form-box__title" >Masukkan sandi baru</h2>
               <p class="form-box__subtitle">Masukkan sandi baru anda</p>
-              <form method="POST" action="http://localhost/website_bloodcare/api/website/reset_password.php">
+              <form method="POST" action="/website_bloodcare/api/website/reset_password.php">
                 
-                <div class="input-group">
-    <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
+                <div class="input-group" style="position: relative; width: 100%;">
+    <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-box__input"
+        required
+        placeholder=" "
+    />
     <label for="password" class="form-box__label">SANDI BARU</label>
-    <button type="button" id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
-        <i id="toggle-icon-password" class="fa fa-eye" style="font-size: 20px;"></i>
+    <button
+        type="button"
+        id="toggle-password"
+        style="
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+        "
+    >
+        <i id="toggle-icon-password" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
+    </button>
+    <small
+        id="password-error"
+        style="
+            color: red;
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+        "
+    >
+        Password harus berisi huruf kapital, kecil, angka, dan karakter khusus.
+    </small>
+</div>
+
+<div class="input-group" style="position: relative; width: 100%;">
+    <input
+        type="password"
+        id="confirm-password"
+        name="confirm_password"
+        class="form-box__input"
+        required
+        placeholder=" "
+    />
+    <label for="confirm-password" class="form-box__label">KONFIRMASI SANDI</label>
+    <button
+        type="button"
+        id="toggle-confirm-password"
+        style="
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+        "
+    >
+        <i id="toggle-icon-confirm-password" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
     </button>
 </div>
 
-<div class="input-group">
-    <input type="password" id="confirm_password" name="confirm_password" class="form-box__input" required placeholder=" ">
-    <label for="confirm_password" class="form-box__label">KONFIRMASI SANDI</label>
-    <button type="button" id="toggle-confirm-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
-        <i id="toggle-icon-confirm-password" class="fa fa-eye" style="font-size: 20px;"></i>
-    </button>
-</div>
+
+
     <button type="submit" class="btn">GANTI SANDI</button>
 </form>
+<script>
+// Function to validate password criteria
+function validatePassword(password) {
+    const hasUpperCase = /[A-Z]/.test(password); // Contains uppercase letter
+    const hasLowerCase = /[a-z]/.test(password); // Contains lowercase letter
+    const hasNumber = /[0-9]/.test(password);    // Contains a number
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password); // Contains special character
+    return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+}
+
+// Elements for password validation
+const passwordInput = document.getElementById('password');
+const passwordError = document.getElementById('password-error');
+const passwordInputGroup = passwordInput.parentElement; // Reference to input-group
+
+// Validate password on input
+passwordInput.addEventListener('input', function () {
+    if (validatePassword(passwordInput.value)) {
+        passwordError.style.display = 'none'; // Hide error if valid
+        passwordInputGroup.style.marginBottom = '0px'; // Reset margin-bottom
+    } else {
+        passwordError.style.display = 'block'; // Show error if invalid
+        passwordInputGroup.style.marginBottom = '40px'; // Add margin-bottom
+    }
+});
+
+// Toggle password visibility for 'SANDI BARU'
+const togglePassword = document.getElementById('toggle-password');
+const toggleIconPassword = document.getElementById('toggle-icon-password');
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    toggleIconPassword.className =
+        type === 'password' ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+
+    toggleIconPassword.style.color = '#bebebe';
+});
+
+// Elements for confirm password
+const confirmPasswordInput = document.getElementById('confirm-password');
+const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+const toggleIconConfirmPassword = document.getElementById('toggle-icon-confirm-password');
+
+// Toggle password visibility for 'KONFIRMASI SANDI'
+toggleConfirmPassword.addEventListener('click', function () {
+    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirmPasswordInput.setAttribute('type', type);
+
+    toggleIconConfirmPassword.className =
+        type === 'password' ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+
+    toggleIconConfirmPassword.style.color = '#bebebe';
+});
+
+
+</script>
             </div>
         </div>
     </div>

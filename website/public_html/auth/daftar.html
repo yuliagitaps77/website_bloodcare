@@ -13,7 +13,34 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Tambahkan SweetAlert2 -->
+    <style>
+        /* Sembunyikan tombol bawaan "show password" di semua browser */
+input[type="password"]::-webkit-reveal-button,
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-clear-button {
+  display: none !important; /* Pastikan ini tidak muncul sama sekali */
+  visibility: hidden;
+}
 
+/* Menonaktifkan semua ikon bawaan */
+input[type="password"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-clip: padding-box;
+}
+    /* Target the icon specifically */
+    #toggle-password i {
+    color: #bebebe; /* Set color of the icon */
+    transition: color 0.2s ease; /* Smooth transition for color change */
+  }
+
+  /* Optional: Change icon color on hover for better user experience */
+  #toggle-password:hover i {
+    color: #a8a8a8; /* Slightly darker color on hover */
+  }
+    </style>
+  
     <!-- Link CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -37,11 +64,12 @@
                 <h2 class="form-box__title" >Selamat datang!</h2>
                 <p class="form-box__subtitle">buat akun baru untuk bergabung dengan kami.</p>
                 <body>
-    <?php if (!empty($notification)) { echo $notification; } ?>
 
     <form class="form-box__form" action="../../../api/website/register_website.php" method="POST">
         <div class="input-group">
-            <input type="text" id="name" name="name" class="form-box__input" required placeholder=" ">
+            <input type="text" id="name"                 oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+
+            name="name" class="form-box__input" required placeholder=" ">
             <label for="name" class="form-box__label">NAMA</label>
         </div>
         <div class="input-group">
@@ -56,15 +84,127 @@
             <input type="text" id="username" name="username" class="form-box__input" required placeholder=" ">
             <label for="username" class="form-box__label">USERNAME</label>
         </div>
-        <div class="input-group">
-            <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
+        <div class="input-group" style="position: relative; width: 100%;">
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-box__input"
+                required
+                placeholder=" "
+                autocomplete="off"
+            />
             <label for="password" class="form-box__label">PASSWORD</label>
-            
-            <button type="button" id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: transparent;">
-                <i id="toggle-icon-password" class="fa fa-eye" style="font-size: 20px;"></i>
+            <button
+                type="button"
+                id="toggle-password"
+                style="
+                    cursor: pointer;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border: none;
+                    background: transparent;
+                "
+            >
+                <i id="toggle-icon" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
             </button>
+            <small
+                id="password-error"
+                style="
+                    color: red;
+                    display: none;
+                    position: absolute;
+                    top: calc(100% + 5px);
+                    left: 0;
+                "
+            >
+                Password harus berisi huruf kapital, kecil, angka, dan karakter khusus.
+            </small>
         </div>
+          
+          
+          <script>
+  document.addEventListener("DOMContentLoaded", () => {
+        // Nama: Batas maksimal karakter
+        const nameInput = document.getElementById("name");
+        nameInput.addEventListener("input", () => {
+            const maxLength = 50; // Misal panjang maksimum 50 karakter
+            if (nameInput.value.length > maxLength) {
+                nameInput.value = nameInput.value.slice(0, maxLength);
+            }
+        });
+
+        // Nomor Telepon: Hanya angka dan batas panjang karakter
+        const phoneInput = document.getElementById("phone");
+        phoneInput.addEventListener("input", () => {
+            phoneInput.value = phoneInput.value.replace(/\D/g, ""); // Hanya angka
+            const maxLength = 13;
+            const minLength = 10;
+            if (phoneInput.value.length > maxLength) {
+                phoneInput.value = phoneInput.value.slice(0, maxLength);
+            }
+            if (phoneInput.value.length < minLength) {
+                phoneInput.setCustomValidity("Nomor telepon minimal 10 karakter.");
+            } else {
+                phoneInput.setCustomValidity("");
+            }
+        });
+
+        // Username: Batas maksimal karakter
+        const usernameInput = document.getElementById("username");
+        usernameInput.addEventListener("input", () => {
+            const maxLength = 30; // Misal panjang maksimum 30 karakter
+            if (usernameInput.value.length > maxLength) {
+                usernameInput.value = usernameInput.value.slice(0, maxLength);
+            }
+        });
+
+    });
+
+          // Function to validate password criteria
+function validatePassword(password) {
+    const hasUpperCase = /[A-Z]/.test(password); // Contains uppercase letter
+    const hasLowerCase = /[a-z]/.test(password); // Contains lowercase letter
+    const hasNumber = /[0-9]/.test(password);    // Contains a number
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password); // Contains special character
+    return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+}
+
+// Elements for password validation
+const passwordInput = document.getElementById('password');
+const togglePassword = document.getElementById('toggle-password');
+const toggleIcon = document.getElementById('toggle-icon');
+const passwordError = document.getElementById('password-error');
+const passwordInputGroup = passwordInput.parentElement; // Reference to input-group
+
+// Validate password on input
+passwordInput.addEventListener('input', function () {
+    if (validatePassword(passwordInput.value)) {
+        passwordError.style.display = 'none'; // Hide error if valid
+        passwordInputGroup.style.marginBottom = '0px'; // Reset margin-bottom
+    } else {
+        passwordError.style.display = 'block'; // Show error if invalid
+        passwordInputGroup.style.marginBottom = '40px'; // Add margin-bottom
+    }
+});
+
+// Toggle password visibility
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    // Change icon based on visibility
+    toggleIcon.className =
+        type === 'password' ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+
+    toggleIcon.style.color = '#bebebe'; // Keep icon color consistent
+});
+
+        </script>
         
+                
         <button type="submit" class="btn">DAFTAR</button>
     </form>
 

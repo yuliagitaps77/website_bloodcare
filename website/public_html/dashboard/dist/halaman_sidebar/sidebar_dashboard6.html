@@ -113,10 +113,8 @@
                         <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; align-items: flex-start;">
                             <h5 style="margin: 0; margin-bottom: 10px;">DONORKAN DARAHMU UNTUK</h5>
                             <h5 style="margin: 0;">MENYELAMATKAN HIDUP SESEORANG</h5>
-                            <div class="button-container" style="margin-top: 20px;">
-                                    <button type="button" class="submit-btn">ISI FORMULIR</button>
-                                  </a>
-                                  
+                            <div id="isi-formulir" class="button-container" style="margin-top: 20px;">
+                                    <button  type="button" class="submit-btn">ISI FORMULIR</button>
                             </div>
                         </div>
                         <!-- Gambar -->
@@ -196,6 +194,22 @@ $(document).on('click', '#card-jadwal', function () {
 
     // Memuat konten Jadwal Acara Donor ke dalam sidebar
     $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.html', function (response, status, xhr) {
+        if (status == "error") {
+            console.error("Gagal memuat halaman Jadwal Acara Donor:", xhr.status, xhr.statusText);
+        } else {
+            console.log("Halaman Jadwal Acara Donor berhasil dimuat.");
+        }
+    });
+});
+
+$(document).on('click', '#isi-formulir', function () {
+    console.log("Card Jadwal diklik.");
+    
+    // Ubah judul sidebar atau elemen hero
+    $('.hero-title').text('Jadwal Acara Donor');
+
+    // Memuat konten Jadwal Acara Donor ke dalam sidebar
+    $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.php', function (response, status, xhr) {
         if (status == "error") {
             console.error("Gagal memuat halaman Jadwal Acara Donor:", xhr.status, xhr.statusText);
         } else {

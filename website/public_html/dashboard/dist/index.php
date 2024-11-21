@@ -106,7 +106,11 @@ $conn->close();
         <div class="profile-row">
           <!-- Profile Image -->
           <div class="profile-image">
-          <img id="profile-picture-preview" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
+          <img id="profile-picture-preview" style="width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    object-fit: cover;" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
           </div>
           <!-- Text Column with Header and Description -->
         <div class="profile-text">
@@ -153,7 +157,7 @@ $conn->close();
         $('#dashboard').click(function() {
     console.log("Dashboard menu clicked.");
     $('.hero-title').text('Dashboard');
-    $('.admin-content').load('halaman_sidebar/sidebar_dashboard4.html', function(response, status, xhr) {
+    $('.admin-content').load('halaman_sidebar/sidebar_dashboard6.html', function(response, status, xhr) {
         if (status == "error") {
             console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
         } else {

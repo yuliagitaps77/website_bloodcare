@@ -72,9 +72,20 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </div>
 
 <div class="form-group">
-            <label>No Telepon</label>
-            <input type="text" name="no_hp" value="<?php echo htmlspecialchars($user['no_hp']); ?>" placeholder="">
-        </div>
+    <label>No Telepon</label>
+    <input 
+        type="text" 
+        name="no_hp" 
+        value="<?php echo htmlspecialchars($user['no_hp']); ?>" 
+        placeholder="Masukkan nomor telepon" 
+        maxlength="14" 
+        pattern="\d+" 
+        required 
+        title="Nomor telepon harus berupa angka"
+        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)"
+    >
+</div>
+
 
 <div class="form-group">
     <label for="tanggal-lahir">Tanggal Lahir</label>

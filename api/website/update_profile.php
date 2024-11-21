@@ -27,6 +27,7 @@ $no_hp = $_POST['no_hp'] ?? null;
 
 // Proses unggahan gambar
 $profile_picture_path = null;
+$update_picture = false;
 if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
     $upload_dir = 'uploads/'; // Direktori penyimpanan file
     if (!is_dir($upload_dir)) {
@@ -61,18 +62,30 @@ if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] ===
 
     if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
         $profile_picture_path = $target_file; // Simpan path gambar untuk database
+        $update_picture = true; // Tandai bahwa gambar harus diperbarui
     } else {
         die("Gagal mengunggah gambar. Periksa izin folder.");
     }
 }
 
 // Query untuk memperbarui profil
-$query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ?, profile_picture = ? WHERE id_akun = ?";
-$stmt = $conn->prepare($query);
-if (!$stmt) {
-    die("Gagal mempersiapkan statement: " . $conn->error);
+if ($update_picture) {
+    // Update dengan gambar
+    $query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ?, profile_picture = ? WHERE id_akun = ?";
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die("Gagal mempersiapkan statement: " . $conn->error);
+    }
+    $stmt->bind_param("sssssi", $nama, $alamat, $tanggal_lahir, $no_hp, $profile_picture_path, $user_id);
+} else {
+    // Update tanpa gambar
+    $query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ? WHERE id_akun = ?";
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die("Gagal mempersiapkan statement: " . $conn->error);
+    }
+    $stmt->bind_param("ssssi", $nama, $alamat, $tanggal_lahir, $no_hp, $user_id);
 }
-$stmt->bind_param("sssssi", $nama, $alamat, $tanggal_lahir, $no_hp, $profile_picture_path, $user_id);
 
 if ($stmt->execute()) {
     echo "

@@ -60,9 +60,18 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 
     <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST" enctype="multipart/form-data">
         <div class="custom-profile-header" id="profile-header"> 
-    <img id="profile-picture-preview-sidebar" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
-    <div class="custom-upload-overlay">Ganti Foto</div>
-    <input type="file" id="profile-picture-input" class="custom-upload-input" name="profile_picture" accept="image/*">
+   <img id="profile-picture-preview-sidebar" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
+<div class="custom-upload-overlay">Ganti Foto</div>
+<input type="file" id="profile-picture-input" class="custom-upload-input" name="profile_picture" accept="image/*">
+<!-- Modal untuk memotong gambar -->
+<div id="crop-modal" style="display: none;">
+    <div class="crop-container">
+        <img id="crop-image" src="" alt="Crop Image">
+    </div>
+    <button id="crop-save-button">Simpan</button>
+    <button id="crop-cancel-button">Batal</button>
+</div>
+
 </div>
     <script>
         // Ketika profile-header diklik, buka file picker
@@ -82,10 +91,19 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
             }
         });
         </script>
-    <div class="form-group">
-        <label for="nama">Nama</label>
-        <input type="text" id="nama" name="nama" class="form-input" placeholder="Masukkan nama" value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>">
-    </div>
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="nama" style="display: block; margin-bottom: 0.5rem;">Nama</label>
+    <input 
+        type="text" 
+        id="nama" 
+        name="nama" 
+        class="form-input" 
+        placeholder="Masukkan nama" 
+        value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>" 
+        oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+        style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"
+    >
+</div>
 
     <div class="form-group">
         <label for="alamat">Alamat</label>
@@ -103,9 +121,20 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     </div>
 
     <div class="form-group">
-        <label for="nomor-telepon">Nomor Telepon</label>
-        <input type="tel" id="nomor-telepon" name="no_hp" class="form-input" placeholder="Masukkan nomor telepon" value="<?php echo htmlspecialchars($user['no_hp'] ?? ''); ?>">
-    </div>
+    <label>No Telepon</label>
+    <input 
+        type="text" 
+        name="no_hp" 
+        value="<?php echo htmlspecialchars($user['no_hp']); ?>" 
+        placeholder="Masukkan nomor telepon" 
+        maxlength="14" 
+        pattern="\d+" 
+        required 
+        title="Nomor telepon harus berupa angka"
+        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)"
+    >
+</div>
+
 
     <div class="form-buttons">
         <button type="submit" class="btn-save">SIMPAN</button>

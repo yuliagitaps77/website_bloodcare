@@ -79,18 +79,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (sendOTP($recipientEmail, $otp)) {
             echo json_encode([
                 'status' => 'success',
-                'message' => 'OTP has been sent successfully!'
+                'message' => 'OTP telah terkirim.'
             ]);
         } else {
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Failed to send OTP.'
+                'message' => 'Gagal mengirim OTP.'
             ]);
         }
     } else {
         echo json_encode([
             'status' => 'error',
-            'message' => 'Email is required.'
+            'message' => 'Email diperlukan.'
         ]);
     }
 } else {

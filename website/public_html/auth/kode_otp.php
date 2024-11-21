@@ -48,13 +48,19 @@ $email = $_SESSION['email']; // Ambil email dari session
                   
               <form action="http://localhost/website_bloodcare/api/website/verifikasi_kode_otp_website.php" method="POST">
         <!-- Email ditampilkan otomatis -->
-        <p>Email Anda: <strong><?php echo htmlspecialchars($email); ?></strong></p>
 
-        <!-- Input OTP -->
         <div class="input-group" style="margin-bottom: 40px;">
-            <input type="text" id="otp" name="otp" class="form-box__input" required placeholder=" ">
-            <label for="otp" class="form-box__label">OTP</label>
-        </div>
+    <input type="text" id="otp" name="otp" class="form-box__input" required placeholder=" " maxlength="5" oninput="validateOTP(event)">
+    <label for="otp" class="form-box__label">OTP</label>
+</div>
+
+<script>
+    function validateOTP(event) {
+        const input = event.target;
+        // Hanya izinkan angka
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+</script>
 
         <button type="submit" class="btn">KONFIRMASI</button>
     </form>
