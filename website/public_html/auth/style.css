@@ -136,7 +136,7 @@ input:valid {
   padding: 0 5px; /* Small padding around label */
   border-radius: 3px; /* Smooth edge around label */
 }
-.toggle-box {
+/* .toggle-box {
   appearance: none;
   width: 32px;
   height: 16px;
@@ -149,7 +149,7 @@ input:valid {
 
 .toggle-box::after {
   content: "";
-  position: absolute;
+  position: relative;
   top: 3px;
   left: 3px;
   height: 10px;
@@ -169,7 +169,7 @@ input:valid {
 
 .toggle-label {
   cursor: pointer;
-}
+} */
 
 .btn {
   width: 100%; /* Full-width button for responsiveness */

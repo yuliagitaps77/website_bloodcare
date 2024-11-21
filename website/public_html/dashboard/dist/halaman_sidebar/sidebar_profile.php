@@ -55,7 +55,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </head>
 <body>
     <div class="col s12 m12 l9 offset-10">
-      <div class="hero-title"><strong>FORMULIR DONOR</strong></div>
+      <div class="hero-title"><strong>Profil</strong></div>
       <div class="profile-card">
 
     <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST" enctype="multipart/form-data">
@@ -263,6 +263,11 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
                     font-size: 2rem;
                     font-weight: bold;
                     margin-bottom: 1rem;
+                color: rgba(0, 0, 0, 0.65); /* Warna hitam dengan 65% transparansi */}
+                
+                
+                strong {
+                    font-weight: 900;
                 }
 
 

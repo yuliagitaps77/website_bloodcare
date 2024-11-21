@@ -71,7 +71,25 @@ if (isset($_SESSION['user_id'])) {
                   <div class="input-group">
                     <input type="password" id="password" name="password" class="form-box__input" required placeholder=" ">
                     <label for="password" class="form-box__label">PASSWORD</label>
+                    <span id="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                    <img src="eye-icon.png" alt="Show Password" id="toggle-icon" style="width: 20px; height: 20px;">
+                </span>
+                                    
                   </div>
+                  <script>
+                    const passwordInput = document.getElementById('password');
+                    const togglePassword = document.getElementById('toggle-password');
+                    const toggleIcon = document.getElementById('toggle-icon');
+
+                    togglePassword.addEventListener('click', function () {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        
+                        // Change icon based on visibility
+                        toggleIcon.src = type === 'password' ? 'eye-icon.png' : 'eye-slash-icon.png';
+                        toggleIcon.alt = type === 'password' ? 'Show Password' : 'Hide Password';
+                    });
+                    </script>
 
                   <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
 
