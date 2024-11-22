@@ -101,37 +101,64 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
         placeholder="Masukkan nama" 
         value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>" 
         oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
-        style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"
+        style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
     >
 </div>
 
-    <div class="form-group">
-        <label for="alamat">Alamat</label>
-        <input type="text" id="alamat" name="alamat" class="form-input" placeholder="Masukkan alamat" value="<?php echo htmlspecialchars($user['alamat'] ?? ''); ?>">
-    </div>
-
-    <div class="form-group">
-        <label for="tanggal-lahir">Tanggal Lahir</label>
-        <input type="date" id="tanggal-lahir" name="tanggal_lahir" class="form-input" value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>">
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-input" placeholder="Masukkan email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" readonly>
-    </div>
-
-    <div class="form-group">
-    <label>No Telepon</label>
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="alamat" style="display: block; margin-bottom: 0.5rem;">Alamat</label>
     <input 
         type="text" 
+        id="alamat" 
+        name="alamat" 
+        class="form-input" 
+        placeholder="Masukkan alamat" 
+        value="<?php echo htmlspecialchars($user['alamat'] ?? ''); ?>" 
+        oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+        style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
+    >
+</div>
+
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="tanggal-lahir" style="display: block; margin-bottom: 0.5rem;">Tanggal Lahir</label>
+    <input 
+        type="date" 
+        id="tanggal-lahir" 
+        name="tanggal_lahir" 
+        class="form-input" 
+        value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
+        style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
+    >
+</div>
+
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="email" style="display: block; margin-bottom: 0.5rem;">Email</label>
+    <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        class="form-input" 
+        placeholder="Masukkan email" 
+        value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" 
+        disabled 
+        style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: #f5f5f5; cursor: not-allowed;"
+    >
+</div>
+
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="no_hp" style="display: block; margin-bottom: 0.5rem;">No Telepon</label>
+    <input 
+        type="text" 
+        id="no_hp" 
         name="no_hp" 
-        value="<?php echo htmlspecialchars($user['no_hp']); ?>" 
+        class="form-input" 
         placeholder="Masukkan nomor telepon" 
+        value="<?php echo htmlspecialchars($user['no_hp'] ?? ''); ?>" 
         maxlength="14" 
         pattern="\d+" 
-        required 
-        title="Nomor telepon harus berupa angka"
-        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)"
+        title="Nomor telepon harus berupa angka" 
+        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)" 
+        style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
     >
 </div>
 
@@ -139,6 +166,58 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <div class="form-buttons">
         <button type="submit" class="btn-save">SIMPAN</button>
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const formFields = document.querySelectorAll('#nama, #alamat, #tanggal-lahir, #email, #no_hp, #profile-picture-input');
+    const saveButton = document.querySelector('.btn-save');
+    const originalValues = {};
+
+    // Save original values of all form fields
+    formFields.forEach(field => {
+        if (field.type === 'file') {
+            originalValues[field.name] = null; // For file input
+        } else {
+            originalValues[field.name] = field.value;
+        }
+    });
+
+    // Function to check if any field has changed
+    const checkChanges = () => {
+        let hasChanges = false;
+
+        formFields.forEach(field => {
+            if (field.type === 'file') {
+                hasChanges = hasChanges || field.files.length > 0;
+            } else {
+                hasChanges = hasChanges || field.value !== originalValues[field.name];
+            }
+        });
+
+        // Enable or disable the save button
+        if (hasChanges) {
+            saveButton.disabled = false;
+            saveButton.style.backgroundColor = '';
+        } else {
+            saveButton.disabled = true;
+            saveButton.style.backgroundColor = '#ccc';
+        }
+    };
+
+    // Add event listeners to detect changes
+    formFields.forEach(field => {
+        if (field.type === 'file') {
+            field.addEventListener('change', checkChanges);
+        } else {
+            field.addEventListener('input', checkChanges);
+        }
+    });
+
+    // Initialize the button state
+    saveButton.disabled = true;
+    saveButton.style.backgroundColor = '#ccc';
+});
+</script>
+
 </form>
 
 </div>
@@ -233,11 +312,12 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     text-align: left; /* Pastikan teks label rata kiri */
 }
 
-.profile-form .form-input {
+.form-group  .form-input {
     flex: 1; /* Input akan mengambil sisa ruang */
     width: 100%; /* Input akan mengisi penuh lebar kontainer */
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #BE7171;
+
     border-radius: 5px;
     font-size: 1em;
     box-sizing: border-box; /* Agar padding masuk hitungan width */

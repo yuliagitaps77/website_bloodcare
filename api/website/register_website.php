@@ -82,34 +82,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Cek apakah email atau username sudah terdaftar
-    $checkQuery = $conn->prepare("SELECT * FROM akun WHERE email = ? OR username = ?");
-    $checkQuery->bind_param("ss", $email, $username);
-    $checkQuery->execute();
-    $result = $checkQuery->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "
-            <html>
-            <head>
-                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-            </head>
-            <body>
-                <script>
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Akun sudah terdaftar!',
-                        text: 'Email atau Username sudah digunakan. Silakan gunakan data lain.',
-                        timer: 3000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.history.back();
-                    });
-                </script>
-            </body>
-            </html>";
-        exit;
-    }
+      // Cek apakah username sudah terdaftar
+      $usernameQuery = $conn->prepare("SELECT * FROM akun WHERE username = ?");
+      $usernameQuery->bind_param("s", $username);
+      $usernameQuery->execute();
+      $usernameResult = $usernameQuery->get_result();
+  
+      if ($usernameResult->num_rows > 0) {
+          echo "
+              <html>
+              <head>
+                  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              </head>
+              <body>
+                  <script>
+                      Swal.fire({
+                          icon: 'warning',
+                          title: 'Username Sudah Digunakan!',
+                          text: 'Silakan gunakan username lain.',
+                          timer: 3000,
+                          showConfirmButton: false
+                      }).then(() => {
+                          window.history.back();
+                      });
+                  </script>
+              </body>
+              </html>";
+          exit;
+      }
+  
+      // Cek apakah email sudah terdaftar
+      $emailQuery = $conn->prepare("SELECT * FROM akun WHERE email = ?");
+      $emailQuery->bind_param("s", $email);
+      $emailQuery->execute();
+      $emailResult = $emailQuery->get_result();
+  
+      if ($emailResult->num_rows > 0) {
+          echo "
+              <html>
+              <head>
+                  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              </head>
+              <body>
+                  <script>
+                      Swal.fire({
+                          icon: 'warning',
+                          title: 'Email Sudah Digunakan!',
+                          text: 'Silakan gunakan email lain.',
+                          timer: 3000,
+                          showConfirmButton: false
+                      }).then(() => {
+                          window.history.back();
+                      });
+                  </script>
+              </body>
+              </html>";
+          exit;
+      }
 
     // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);

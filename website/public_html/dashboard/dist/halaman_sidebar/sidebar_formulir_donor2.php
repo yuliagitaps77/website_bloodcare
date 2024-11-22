@@ -40,6 +40,10 @@ if ($result->num_rows === 0) {
 
 $user = $result->fetch_assoc();
 $stmt->close();
+// Query untuk mengambil data lokasi dari tabel acara_Donor
+$sql = "SELECT lokasi FROM acara_Donor";
+$resultdata = $conn->query($sql);
+
 $conn->close();
 
 $base_url = "http://localhost/website_bloodcare/api/website/";
@@ -128,17 +132,24 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     </div>
 
     <!-- Full-width field -->
-    <div class="form-group form-group-full">
-        <label>Lokasi Donor</label>
-        <input list="lokasi-options" name="lokasi_donor" placeholder="">
-        <datalist id="lokasi-options">
-            <option value="Rumah Sakit Aisyah"></option>
-            <option value="Loceret"></option>
-            <option value="Warujayeng"></option>
-            <option value="Nganjuk"></option>
-            <option value="Patianrowo"></option>
-        </datalist>
-    </div>
+<!-- Form dengan datalist untuk Lokasi Donor -->
+<div class="form-group form-group-full">
+    <label>Lokasi Donor</label>
+    <input list="lokasi-options" name="lokasi_donor" placeholder="Pilih lokasi">
+    <datalist id="lokasi-options">
+        <?php
+        // Menampilkan opsi lokasi
+        if ($resultdata->num_rows > 0) {
+            while ($row = $resultdata->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($row['lokasi']) . '"></option>';
+            }
+        } else {
+            echo '<option value="Tidak ada lokasi tersedia"></option>';
+        }
+        ?>
+    </datalist>
+</div>
+
 
     <button type="submit" class="submit-btn">KIRIM</button>
 </form>

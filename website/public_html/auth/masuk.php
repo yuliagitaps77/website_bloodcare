@@ -142,7 +142,7 @@ input[type="password"] {
       : 'fa-regular fa-eye-slash'; // Outline "eye-slash" icon
 
   // Ensure the color stays consistent
-  toggleIcon.style.color = '#bebebe';
+  toggleIcon.style.color = '#bebebe';   
     });
 </script>
 
