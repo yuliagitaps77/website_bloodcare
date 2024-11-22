@@ -65,8 +65,6 @@ $email = $_SESSION['email']; // Ambil email dari session
         <button type="submit" class="btn">KONFIRMASI</button>
     </form>
                
-                
-                
             </div>
         </div>
     </div>

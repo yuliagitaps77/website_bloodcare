@@ -26,33 +26,33 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
-    <style>
-        /* Sembunyikan tombol bawaan "show password" di semua browser */
-input[type="password"]::-webkit-reveal-button,
-input[type="password"]::-ms-reveal,
-input[type="password"]::-webkit-clear-button {
-  display: none !important; /* Pastikan ini tidak muncul sama sekali */
-  visibility: hidden;
+                <style>
+                    /* Sembunyikan tombol bawaan "show password" di semua browser */
+            input[type="password"]::-webkit-reveal-button,
+            input[type="password"]::-ms-reveal,
+            input[type="password"]::-webkit-clear-button {
+            display: none !important; /* Pastikan ini tidak muncul sama sekali */
+            visibility: hidden;
 }
 
-/* Menonaktifkan semua ikon bawaan */
-input[type="password"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-clip: padding-box;
-}
-#toggle-password i {
-    color: #bebebe; /* Set color of the icon */
-    transition: color 0.2s ease; /* Smooth transition for color change */
-  }
+            /* Menonaktifkan semua ikon bawaan */
+            input[type="password"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-clip: padding-box;
+            }
+            #toggle-password i {
+                color: #bebebe; /* Set color of the icon */
+                transition: color 0.2s ease; /* Smooth transition for color change */
+            }
 
-  /* Optional: Change icon color on hover for better user experience */
-  #toggle-password:hover i {
-    color: #a8a8a8; /* Slightly darker color on hover */
-  }
-    </style>
-  
+            /* Optional: Change icon color on hover for better user experience */
+            #toggle-password:hover i {
+                color: #a8a8a8; /* Slightly darker color on hover */
+            }
+                </style>
+            
 
 
 <!DOCTYPE html>
@@ -98,53 +98,53 @@ input[type="password"] {
                     <label for="email" class="form-box__label">EMAIL</label>
                   </div>
                   <div class="input-group" style="position: relative; width: 100%;">
-  <input
-    type="password"
-    id="password"
-    name="password"
-    class="form-box__input"
-    required
-    placeholder=" "
-    autocomplete="off"
-  />
-  <label for="password" class="form-box__label">PASSWORD</label>
-  <button
-    type="button"
-    id="toggle-password"
-    style="
-      cursor: pointer;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-    "
-  >
-    <i id="toggle-icon" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
-  </button>
-</div>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-box__input"
+                    required
+                    placeholder=" "
+                    autocomplete="off"
+                />
+                <label for="password" class="form-box__label">PASSWORD</label>
+                <button
+                    type="button"
+                    id="toggle-password"
+                    style="
+                    cursor: pointer;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border: none;
+                    background: transparent;
+                    "
+                >
+                    <i id="toggle-icon" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
+                </button>
+                </div>
 
 
-<script>
-    const passwordInput = document.getElementById('password');
-    const togglePassword = document.getElementById('toggle-password');
-    const toggleIcon = document.getElementById('toggle-icon');
-  
-    togglePassword.addEventListener('click', function () {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      
-      // Change icon based on visibility
-      toggleIcon.className =
-    type === 'password'
-      ? 'fa-regular fa-eye'  // Outline "eye" icon
-      : 'fa-regular fa-eye-slash'; // Outline "eye-slash" icon
+                <script>
+                    const passwordInput = document.getElementById('password');
+                    const togglePassword = document.getElementById('toggle-password');
+                    const toggleIcon = document.getElementById('toggle-icon');
+                
+                    togglePassword.addEventListener('click', function () {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Change icon based on visibility
+                    toggleIcon.className =
+                    type === 'password'
+                    ? 'fa-regular fa-eye'  // Outline "eye" icon
+                    : 'fa-regular fa-eye-slash'; // Outline "eye-slash" icon
 
-  // Ensure the color stays consistent
-  toggleIcon.style.color = '#bebebe';   
-    });
-</script>
+                // Ensure the color stays consistent
+                toggleIcon.style.color = '#bebebe';   
+                    });
+                </script>
 
 
                   <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
