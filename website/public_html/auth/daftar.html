@@ -141,12 +141,12 @@ input[type="password"] {
         phoneInput.addEventListener("input", () => {
             phoneInput.value = phoneInput.value.replace(/\D/g, ""); // Hanya angka
             const maxLength = 13;
-            const minLength = 10;
+            const minLength = 11;
             if (phoneInput.value.length > maxLength) {
                 phoneInput.value = phoneInput.value.slice(0, maxLength);
             }
             if (phoneInput.value.length < minLength) {
-                phoneInput.setCustomValidity("Nomor telepon minimal 10 karakter.");
+                phoneInput.setCustomValidity("Nomor telepon minimal 11 karakter.");
             } else {
                 phoneInput.setCustomValidity("");
             }

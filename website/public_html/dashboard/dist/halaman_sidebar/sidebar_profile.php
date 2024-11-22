@@ -221,8 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </form>
 
 </div>
-    
-			</div>
+    </div>
             <style>
                 
                 /* General styling for the profile card */
