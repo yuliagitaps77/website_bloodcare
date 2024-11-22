@@ -1,3 +1,22 @@
+<?php
+// Menghubungkan ke database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bloodcarec3";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Mengecek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel acara_donor
+$sql = "SELECT tgl_acara, lokasi, fasilitas FROM acara_donor";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,71 +44,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>20 November 2024</td>
-                            <td>Balai Kota Jakarta</td>
-                            <td>Snack, Sertifikat, Cek Kesehatan</td>
-                        </tr>
-                        <tr>
-                            <td>25 November 2024</td>
-                            <td>Universitas Indonesia</td>
-                            <td>Snack, T-shirt, Cek Hemoglobin</td>
-                        </tr>
-                        <tr>
-                            <td>1 Desember 2024</td>
-                            <td>Rumah Sakit Cipto Mangunkusumo</td>
-                            <td>Makan Siang, Sertifikat, Konsultasi Dokter</td>
-                        </tr>
-                        <tr>
-                            <td>5 Desember 2024</td>
-                            <td>Lapangan Merdeka</td>
-                            <td>Snack, Minuman, Pengecekan Kesehatan Gratis</td>
-                        </tr>
-                        <tr>
-                            <td>10 Desember 2024</td>
-                            <td>Mall Kelapa Gading</td>
-                            <td>Voucher Belanja, Snack, Cek Kesehatan</td>
-                        </tr>
-                        <tr>
-                            <td>15 Desember 2024</td>
-                            <td>Plaza Senayan</td>
-                            <td>Goodie Bag, T-shirt, Cek Gula Darah</td>
-                        </tr>
-                        <tr>
-                            <td>20 Desember 2024</td>
-                            <td>Puskesmas Cilandak</td>
-                            <td>Snack, Sertifikat, Konsultasi Kesehatan</td>
-                        </tr>
-                        <tr>
-                            <td>25 Desember 2024</td>
-                            <td>Kantor Kecamatan Depok</td>
-                            <td>Snack, Minuman, Cek Hemoglobin</td>
-                        </tr>
-                        <tr>
-                            <td>30 Desember 2024</td>
-                            <td>Gedung Serbaguna Cibubur</td>
-                            <td>Snack, T-shirt, Cek Tekanan Darah</td>
-                        </tr>
-                        <tr>
-                            <td>5 Januari 2025</td>
-                            <td>RS Hermina</td>
-                            <td>Makan Siang, Konsultasi Kesehatan, Voucher Diskon</td>
-                        </tr>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            // Output data per baris
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . date("d F Y", strtotime($row["tgl_acara"])) . "</td>";
+                                echo "<td>" . htmlspecialchars($row["lokasi"]) . "</td>";
+                                echo "<td>" . htmlspecialchars($row["fasilitas"]) . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>Tidak ada data tersedia</td></tr>";
+                        }
+                        $conn->close();
+                        ?>
                     </tbody>
                 </table>
-    </tbody>
-</table>
             </div>
         </div>
     </div>
     
-    </div>
-  </div>
-			</div>
+ 
 
 
       <style>
-        /* CSS untuk Tabel Kosong Besar */
         .hero-title {
             .hero-title {
     font-size: 24px;
@@ -138,6 +117,11 @@
 .thead-content span {
     flex: 1;
     text-align: center; /* Memastikan setiap teks berada di tengah kolomnya */
+}
+
+.thead-content .tempat {
+    text-align: left;
+    padding-left: 10px; /* Menggeser sedikit ke kiri */
 }
 .jadwal-tabel tbody tr:nth-child(odd) {
     background-color: #FFFFFF; /* Baris ganjil berwarna putih */

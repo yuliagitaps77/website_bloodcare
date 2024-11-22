@@ -193,7 +193,7 @@ $(document).on('click', '#card-jadwal', function () {
     $('.hero-title').text('Jadwal Acara Donor');
 
     // Memuat konten Jadwal Acara Donor ke dalam sidebar
-    $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.html', function (response, status, xhr) {
+    $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.php', function (response, status, xhr) {
         if (status == "error") {
             console.error("Gagal memuat halaman Jadwal Acara Donor:", xhr.status, xhr.statusText);
         } else {
