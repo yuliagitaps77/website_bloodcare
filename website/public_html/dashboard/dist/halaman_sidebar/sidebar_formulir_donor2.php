@@ -61,7 +61,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <div class="col s12 m12 l9 offset-10">
       <div class="hero-title"><strong>Formulir Donor</strong></div>
 
-      <form class="form-donor" method="POST" action="proses_form.php">
+      <form class="form-donor" action="http://localhost/website_bloodcare/api/website/send_formulir_donor.php" method="POST">
+
     <!-- Row 1 -->
     <div class="form-row">
       <div class="form-group">
@@ -79,29 +80,33 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <label>No Telepon</label>
     <input 
         type="text" 
-        name="no_hp" 
+        name="no_hp_disabled" 
         value="<?php echo htmlspecialchars($user['no_hp']); ?>" 
         placeholder="Masukkan nomor telepon" 
         maxlength="14" 
         pattern="\d+" 
         required 
         title="Nomor telepon harus berupa angka"
-        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)"
         disabled
-        style="outline: none; border: 1px solid red; background-color: #f9f9f9; color: #999; pointer-events: none;"
+        style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999; pointer-events: none;"
     >
+    <!-- Input hidden untuk mengirimkan nomor telepon -->
+    <input 
+        type="hidden" 
+        name="no_hp" 
+        value="<?php echo htmlspecialchars($user['no_hp']); ?>">
 </div>
 
 
-
-<div class="form-group">
-    <label for="tanggal-lahir">Tanggal Lahir</label>
-    <input type="date" 
-           id="tanggal-lahir" 
-           name="tanggal_lahir" 
-           class="form-input" 
-           value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
-           readonly>
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label for="tanggal-lahir" style="display: block;">Tanggal Lahir</label>
+    <input 
+        type="date" 
+        id="tanggal-lahir" 
+        name="tanggal_lahir" 
+        class="form-input" 
+        value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
+    >
 </div>
 
     </div>
@@ -113,21 +118,99 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
             <textarea name="alamat" placeholder=""><?php echo htmlspecialchars($user['alamat']); ?></textarea>
         </div>
         <div class="form-column">
-            <div class="form-group">
-                <label>Golongan Darah</label>
-                <input list="golongan_darah-options" name="golongan_darah" placeholder="">
-                <datalist id="golongan_darah-options">
-                    <option value="A+"></option>
-                    <option value="A-"></option>
-                    <option value="B+"></option>
-                    <option value="B-"></option>
-                    <option value="AB+"></option>
-                    <option value="AB-"></option>
-                    <option value="O+"></option>
-                    <option value="O-"></option>
-                </datalist>
-            </div>
-            <div class="form-group">
+        <div class="form-group" style="position: relative; width: 100%;">
+    <label>Golongan Darah</label>
+    <input 
+        id="golongan_darah" 
+        name="golongan_darah" 
+        placeholder="Pilih golongan darah..." 
+        readonly 
+        onclick="toggleDropdown()" 
+        style="
+            background-color: #f0f0f0;
+            border: 2px solid #BE7171;
+            border-radius: 8px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            outline: none;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        "
+    />
+    <div 
+        id="dropdown" 
+        style="
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f0f0f0;
+            border: 2px solid #BE7171;
+            border-radius: 8px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        "
+    >
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('A+')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >A+</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('A-')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >A-</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('B+')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >B+</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('B-')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >B-</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('AB+')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >AB+</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('AB-')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >AB-</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('O+')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >O+</div>
+        <div 
+            style="padding: 4px; cursor: pointer;" 
+            onclick="selectOption('O-')"
+            onmouseover="highlightOption(this)"
+            onmouseout="unhighlightOption(this)"
+        >O-</div>
+    </div>
+</div>
+
+
+<div class="form-group">
                 <label>Berat Badan</label>
                 <input type="number" name="berat_badan" placeholder="">
             </div>
@@ -136,26 +219,136 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 
     <!-- Full-width field -->
 <!-- Form dengan datalist untuk Lokasi Donor -->
-<div class="form-group form-group-full">
+<div class="form-group" style="position: relative; width: 100%;">
     <label>Lokasi Donor</label>
-    <input list="lokasi-options" name="lokasi_donor" placeholder="Pilih lokasi">
-    <datalist id="lokasi-options">
+    <input 
+        id="lokasi_donor" 
+        name="lokasi_donor" 
+        placeholder="Pilih lokasi donor..." 
+        readonly 
+        onclick="toggleDropdownLokasi()" 
+        style="
+            background-color: #f0f0f0;
+            border: 2px solid #BE7171;
+            border-radius: 8px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            outline: none;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        "
+    />
+    <div 
+        id="lokasi-dropdown" 
+        style="
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f0f0f0;
+            border: 2px solid #BE7171;
+            border-radius: 8px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        "
+    >
         <?php
         // Menampilkan opsi lokasi
         if ($resultdata->num_rows > 0) {
             while ($row = $resultdata->fetch_assoc()) {
-                echo '<option value="' . htmlspecialchars($row['lokasi']) . '"></option>';
+                echo '<div 
+                        style="padding: 4px; cursor: pointer;" 
+                        onclick="selectLokasi(\'' . htmlspecialchars($row['lokasi']) . '\')"
+                        onmouseover="highlightOption(this)"
+                        onmouseout="unhighlightOption(this)"
+                      >' . htmlspecialchars($row['lokasi']) . '</div>';
             }
         } else {
-            echo '<option value="Tidak ada lokasi tersedia"></option>';
+            echo '<div 
+                    style="padding: 4px; cursor: pointer;" 
+                    onclick="selectLokasi(\'Tidak ada lokasi tersedia\')"
+                    onmouseover="highlightOption(this)"
+                    onmouseout="unhighlightOption(this)"
+                  >Tidak ada lokasi tersedia</div>';
         }
         ?>
-    </datalist>
+    </div>
 </div>
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+    }
+
+    function selectOption(value) {
+        const input = document.getElementById('golongan_darah');
+        input.value = value; // Set nilai input
+        document.getElementById('dropdown').style.display = 'none'; // Sembunyikan dropdown
+    }
+
+    function highlightOption(element) {
+        element.style.backgroundColor = '#df3232';
+        element.style.color = '#fff';
+        element.style.borderRadius = '4px';
+    }
+
+    function unhighlightOption(element) {
+        element.style.backgroundColor = 'transparent';
+        element.style.color = 'inherit';
+    }
+
+    // Menutup dropdown jika pengguna mengklik di luar elemen
+    document.addEventListener('click', function (event) {
+        const dropdown = document.getElementById('dropdown');
+        const input = document.getElementById('golongan_darah');
+        if (!dropdown.contains(event.target) && event.target !== input) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    function toggleDropdownLokasi() {
+        const dropdown = document.getElementById('lokasi-dropdown');
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+    }
+
+    function selectLokasi(value) {
+        const input = document.getElementById('lokasi_donor');
+        input.value = value; // Set nilai input
+        document.getElementById('lokasi-dropdown').style.display = 'none'; // Sembunyikan dropdown
+    }
+
+    function highlightOption(element) {
+        element.style.backgroundColor = '#df3232';
+        element.style.color = '#fff';
+        element.style.borderRadius = '4px';
+    }
+
+    function unhighlightOption(element) {
+        element.style.backgroundColor = 'transparent';
+        element.style.color = 'inherit';
+    }
+
+    // Menutup dropdown jika pengguna mengklik di luar elemen
+    document.addEventListener('click', function (event) {
+        const dropdown = document.getElementById('lokasi-dropdown');
+        const input = document.getElementById('lokasi_donor');
+        if (!dropdown.contains(event.target) && event.target !== input) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
 
 
     <button type="submit" class="submit-btn">KIRIM</button>
-</form>
+</f>
     			</div>
             <style>
                 .main-content {
