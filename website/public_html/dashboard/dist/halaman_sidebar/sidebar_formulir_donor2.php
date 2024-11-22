@@ -87,8 +87,11 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
         required 
         title="Nomor telepon harus berupa angka"
         oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)"
+        disabled
+        style="outline: none; border: 1px solid red; background-color: #f9f9f9; color: #999; pointer-events: none;"
     >
 </div>
+
 
 
 <div class="form-group">
