@@ -119,10 +119,7 @@ $result = $conn->query($sql);
     text-align: center; /* Memastikan setiap teks berada di tengah kolomnya */
 }
 
-.thead-content .tempat {
-    text-align: left;
-    padding-left: 10px; /* Menggeser sedikit ke kiri */
-}
+
 .jadwal-tabel tbody tr:nth-child(odd) {
     background-color: #FFFFFF; /* Baris ganjil berwarna putih */
 }

@@ -145,6 +145,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     
 			</div>
             <style>
+                
                 /* General styling for the profile card */
                 .custom-profile-header {
             width: 120px; /* Sesuaikan ukuran */

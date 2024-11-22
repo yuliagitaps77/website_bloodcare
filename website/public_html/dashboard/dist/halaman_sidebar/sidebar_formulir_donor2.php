@@ -132,7 +132,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
         <label>Lokasi Donor</label>
         <input list="lokasi-options" name="lokasi_donor" placeholder="">
         <datalist id="lokasi-options">
-            <option value="Sukomoro"></option>
+            <option value="Rumah Sakit Aisyah"></option>
             <option value="Loceret"></option>
             <option value="Warujayeng"></option>
             <option value="Nganjuk"></option>
@@ -225,57 +225,57 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
                     flex-direction: column;
                 }
                 .form-donor input[type="text"],
-.form-donor input[type="date"],
-.form-donor input[type="number"],
-.form-donor textarea,
-.form-donor input[list] {
-    background-color: #f0f0f0;
-    border: 2px solid #df3232; /* Border warna merah */
-    border-radius: 4px;
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
-    outline: none; /* Hapus outline default */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
-    transition: box-shadow 0.3s ease-in-out; /* Animasi saat fokus */
-}
+                .form-donor input[type="date"],
+                .form-donor input[type="number"],
+                .form-donor textarea,
+                .form-donor input[list] {
+                    background-color: #f0f0f0;
+                    border: 2px solid #BE7171; /* Border warna merah */
+                    border-radius: 8px;
+                    padding: 8px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    font-size: 14px;
+                    outline: none; /* Hapus outline default */
+                    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Shadow */
+                    transition: box-shadow 0.3s ease-in-out; /* Animasi saat fokus */
+                }
 
-.form-donor input[type="text"]:focus,
-.form-donor input[type="date"]:focus,
-.form-donor input[type="number"]:focus,
-.form-donor textarea:focus,
-.form-donor input[list]:focus {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow lebih besar saat fokus */
-}
+                .form-donor input[type="text"]:focus,
+                .form-donor input[type="date"]:focus,
+                .form-donor input[type="number"]:focus,
+                .form-donor textarea:focus,
+                .form-donor input[list]:focus {
+                    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* Shadow lebih besar saat fokus */
+                }
 
-/* Datalist styling for better appearance */
-.form-donor input[list]::placeholder {
-    color: #999; /* Placeholder warna abu-abu */
-    font-style: italic;
-}
-                .form-donor input[type="text"],
-.form-donor input[type="date"],
-.form-donor input[type="number"],
-.form-donor textarea {
-    background-color: #f0f0f0;
-    border: 2px solid #df3232; /* Border warna merah */
-    border-radius: 4px;
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
-    outline: none; /* Hapus outline default */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
-    transition: box-shadow 0.3s ease-in-out; /* Animasi saat fokus */
-}
+                /* Datalist styling for better appearance */
+                .form-donor input[list]::placeholder {
+                    color: #999; /* Placeholder warna abu-abu */
+                    font-style: italic;
+                }
+                                .form-donor input[type="text"],
+                .form-donor input[type="date"],
+                .form-donor input[type="number"],
+                .form-donor textarea {
+                    background-color: #f0f0f0;
+                    border: 2px solid #BE7171; /* Border warna merah */
+                    border-radius: 8px;
+                    padding: 8px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    font-size: 14px;
+                    outline: none; /* Hapus outline default */
+                    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Shadow */
+                    transition: box-shadow 0.3s ease-in-out; /* Animasi saat fokus */
+                }
 
-.form-donor input[type="text"]:focus,
-.form-donor input[type="date"]:focus,
-.form-donor input[type="number"]:focus,
-.form-donor textarea:focus {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow lebih besar saat fokus */
-}
+                .form-donor input[type="text"]:focus,
+                .form-donor input[type="date"]:focus,
+                .form-donor input[type="number"]:focus,
+                .form-donor textarea:focus {
+                    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* Shadow lebih besar saat fokus */
+                }
 
                 .form-group-wide textarea {
                     height: calc(2 * 65px + 10px); /* Sama dengan tinggi dua field */
