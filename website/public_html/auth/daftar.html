@@ -80,10 +80,29 @@ input[type="password"] {
             <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
             <label for="email" class="form-box__label">EMAIL</label>
         </div>
-        <div class="input-group">
-            <input type="text" id="username" name="username" class="form-box__input" required placeholder=" ">
+        <div class="input-group" style="position: relative;">
+            <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                class="form-box__input" 
+                required 
+                placeholder=" "
+            >
             <label for="username" class="form-box__label">USERNAME</label>
+            <small 
+                id="username-error" 
+                style="
+                    color: red; 
+                    display: none; 
+                    position: absolute; 
+                    top: calc(100% + 5px); 
+                    left: 0;"
+            >
+                &nbsp; <!-- Placeholder agar elemen tidak hilang sebelum digunakan -->
+            </small>
         </div>
+
         <div class="input-group" style="position: relative; width: 100%;">
             <input
                 type="password"
@@ -162,7 +181,36 @@ input[type="password"] {
         });
 
     });
+    const usernameInput = document.getElementById("username");
+    const usernameError = document.getElementById("username-error");
+    const usernameInputGroup = usernameInput.parentElement; // Mengacu ke input-group
 
+    // Fungsi untuk validasi username
+    function validateUsername() {
+        const regex = /^[a-zA-Z0-9._]*$/; // Hanya huruf, angka, underscore, dan titik
+        const maxLength = 30;
+
+        // Cek validasi input
+        if (!regex.test(usernameInput.value)) {
+            // Hapus karakter yang tidak valid
+            usernameInput.value = usernameInput.value.replace(/[^a-zA-Z0-9._]/g, "");
+            usernameError.textContent = "Hanya huruf, angka, _ dan . yang diperbolehkan."; // Pesan error
+            usernameError.style.display = "block"; // Tampilkan pesan error
+            usernameInputGroup.style.marginBottom = "40px"; // Tambahkan margin-bottom
+        } else if (usernameInput.value.length > maxLength) {
+            // Batasi panjang maksimum
+            usernameInput.value = usernameInput.value.slice(0, maxLength);
+            usernameError.textContent = "Username maksimal 30 karakter."; // Pesan error
+            usernameError.style.display = "block"; // Tampilkan pesan error
+            usernameInputGroup.style.marginBottom = "40px"; // Tambahkan margin-bottom
+        } else {
+            usernameError.style.display = "none"; // Sembunyikan pesan error jika valid
+            usernameInputGroup.style.marginBottom = "0px"; // Reset margin-bottom
+        }
+    }
+
+    // Tambahkan event listener untuk validasi saat input berubah
+    usernameInput.addEventListener("input", validateUsername);
           // Function to validate password criteria
 function validatePassword(password) {
     const hasUpperCase = /[A-Z]/.test(password); // Contains uppercase letter
