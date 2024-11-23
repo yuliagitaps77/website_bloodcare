@@ -1,3 +1,35 @@
+
+<?php
+// Menghubungkan ke database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bloodcarec3";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Mengecek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel acara_donor
+$sql = "SELECT tgl_acara, lokasi, fasilitas FROM acara_donor";
+$resultdata = $conn->query($sql);
+?>
+<style>
+     #notifikasi-content ul {
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    #notifikasi-content li {
+        list-style-type: disc;
+        margin-bottom: 8px;
+        color: red;
+        font-weight: bold;
+    }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,97 +43,11 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Tambahkan log untuk memastikan DOMContentLoaded sudah berjalan
-            console.log("DOMContentLoaded event triggered!");
-    
-            // Cek apakah Chart.js berhasil dimuat
-            if (typeof Chart === 'undefined') {
-                console.error("Chart.js tidak ditemukan. Pastikan library Chart.js sudah dimuat.");
-                return; // Hentikan eksekusi jika Chart.js tidak ditemukan
-            } else {
-                console.log("Chart.js berhasil dimuat:", Chart);
-            }
-    
-            // Cek elemen canvas untuk Pie Chart
-            const pieCanvas = document.getElementById('pieChart');
-            if (!pieCanvas) {
-                console.error("Canvas untuk Pie Chart tidak ditemukan. Pastikan ID 'pieChart' sesuai.");
-                return; // Hentikan eksekusi jika elemen tidak ditemukan
-            } else {
-                console.log("Canvas untuk Pie Chart ditemukan:", pieCanvas);
-            }
-    
-            // Cek elemen canvas untuk Bar Chart
-            const barCanvas = document.getElementById('barChart');
-            if (!barCanvas) {
-                console.error("Canvas untuk Bar Chart tidak ditemukan. Pastikan ID 'barChart' sesuai.");
-                return; // Hentikan eksekusi jika elemen tidak ditemukan
-            } else {
-                console.log("Canvas untuk Bar Chart ditemukan:", barCanvas);
-            }
-    
-            // Data untuk Pie Chart
-            const pieData = {
-                labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
-                datasets: [{
-                    data: [12, 19, 3, 5],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-                }]
-            };
-    
-            // Inisialisasi Pie Chart
-            try {
-                const ctxPie = pieCanvas.getContext('2d');
-                console.log("Context untuk Pie Chart ditemukan:", ctxPie);
-    
-                const pieChart = new Chart(ctxPie, {
-                    type: 'pie',
-                    data: pieData,
-                    options: {
-                        responsive: true
-                    }
-                });
-    
-                console.log("Pie Chart berhasil dibuat:", pieChart);
-            } catch (error) {
-                console.error("Gagal membuat Pie Chart:", error);
-            }
-    
-            // Data untuk Bar Chart
-            const barData = {
-                labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
-                datasets: [{
-                    label: 'Jumlah Stok Darah',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-                }]
-            };
-    
-            // Inisialisasi Bar Chart
-            try {
-                const ctxBar = barCanvas.getContext('2d');
-                console.log("Context untuk Bar Chart ditemukan:", ctxBar);
-    
-                const barChart = new Chart(ctxBar, {
-                    type: 'bar',
-                    data: barData,
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-    
-                console.log("Bar Chart berhasil dibuat:", barChart);
-            } catch (error) {
-                console.error("Gagal membuat Bar Chart:", error);
-            }
-        });
-    </script>
+    // Mengonversi data PHP ke format JSON untuk digunakan di JavaScript
+    const stokDarah = <?php echo json_encode($stokDarah); ?>;
+    console.log("Data stok darah dari PHP:", stokDarah);
+</script>
+
         <div class="col s12 m12 l9 offset-10">
         <div class="content">
         </div>
@@ -126,36 +72,37 @@
                     <div class="cards-container">
                         <!-- Card Jadwal (di kiri) -->
                         <div id="card-jadwal" class="card pink lighten-4 card-jadwal">
-                            <div class="card-content">
-                                <h6 class="card-title">JADWAL ACARA DONOR</h6>
-                                <table class="jadwal-tabel">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3">
-                                                <div class="header-container">
-                                                    <span>tanggal</span>
-                                                    <span>tempat</span>
-                                                    <span>fasilitas</span>
-                                                </div>
-                                            </th>  
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                        <tr><td></td><td></td><td></td></tr>
-                                    </tbody>
-                                </table>
-                                <div class="reminer-title">⚠️Peringatan: Pastikan Anda hadir pada acara donor darah yang sudah terjadwal. Jangan lupa membawa identitas diri dan memenuhi persyaratan kesehatan.</div>
-                                
-                            </div>
+                        <div class="card-content">
+    <h6 class="card-title">JADWAL ACARA DONOR</h6>
+    <table class="jadwal-tabel">
+        <thead>
+            <tr>
+                <th>Tanggal</th>
+                <th>Tempat</th>
+                <th>Fasilitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($resultdata->num_rows > 0) {
+                // Looping data hasil query
+                while ($row = $resultdata->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars(date("d F Y", strtotime($row['tgl_acara']))) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['lokasi']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['fasilitas']) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                // Jika tidak ada data
+                echo "<tr><td colspan='3'>Tidak ada data tersedia</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+    <div class="reminer-title">⚠️ Peringatan: Pastikan Anda hadir pada acara donor darah yang sudah terjadwal. Jangan lupa membawa identitas diri dan memenuhi persyaratan kesehatan.</div>
+</div>
+
                         </div>
                     
                         <!-- Kontainer Kanan (2 card-stok) -->
@@ -179,7 +126,16 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div id="notifikasi" class="card pink lighten-4 card-stok" style="margin-top: 20px;">
+    <div class="card-content">
+        <span class="card-title" style="color: red; font-weight: bold;">
+            Perhatian: Stok darah kurang dari batas minimum!
+        </span>
+        <div id="notifikasi-content" style="max-height: 200px; overflow-y: auto;">
+            <!-- Konten dinamis akan diisi oleh JavaScript -->
+        </div>
+    </div>
+</div>
                         </div>
                     </div>
                     <script>
@@ -192,6 +148,14 @@ $(document).on('click', '#card-jadwal', function () {
     // Ubah judul sidebar atau elemen hero
     $('.hero-title').text('Jadwal Acara Donor');
 
+    // Perbarui highlight sidebar di index.php
+    const targetMenuId = 'acara-donor'; // ID menu sidebar yang ingin di-highlight
+    localStorage.setItem('activeMenu', targetMenuId); // Simpan state ke LocalStorage
+
+    // Hapus highlight dari semua item sidebar dan tambahkan ke target
+    $('.bordered').removeClass('selected');
+    $(`#${targetMenuId}`).addClass('selected');
+
     // Memuat konten Jadwal Acara Donor ke dalam sidebar
     $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.php', function (response, status, xhr) {
         if (status == "error") {
@@ -203,17 +167,25 @@ $(document).on('click', '#card-jadwal', function () {
 });
 
 $(document).on('click', '#isi-formulir', function () {
-    console.log("Card Jadwal diklik.");
+    console.log("Card Isi Formulir diklik.");
     
     // Ubah judul sidebar atau elemen hero
-    $('.hero-title').text('Jadwal Acara Donor');
+    $('.hero-title').text('Formulir Donor');
 
-    // Memuat konten Jadwal Acara Donor ke dalam sidebar
+    // Perbarui highlight sidebar di index.php
+    const targetMenuId = 'formulir-donor'; // ID menu sidebar yang ingin di-highlight
+    localStorage.setItem('activeMenu', targetMenuId); // Simpan state ke LocalStorage
+
+    // Hapus highlight dari semua item sidebar dan tambahkan ke target
+    $('.bordered').removeClass('selected');
+    $(`#${targetMenuId}`).addClass('selected');
+
+    // Memuat konten Formulir Donor ke dalam sidebar
     $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.php', function (response, status, xhr) {
         if (status == "error") {
-            console.error("Gagal memuat halaman Jadwal Acara Donor:", xhr.status, xhr.statusText);
+            console.error("Gagal memuat halaman Formulir Donor:", xhr.status, xhr.statusText);
         } else {
-            console.log("Halaman Jadwal Acara Donor berhasil dimuat.");
+            console.log("Halaman Formulir Donor berhasil dimuat.");
         }
     });
 });

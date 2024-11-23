@@ -91,12 +91,13 @@ $result = $conn->query($sql);
 }
 
 .jadwal-tabel {
-    width: 120%;
+    width: 100%; /* Pastikan tabel mengisi kontainer */
+    max-width: 100%; /* Hindari overflow */
+    margin: 0 auto; /* Tengah-kan tabel jika perlu */
     border-collapse: collapse;
-    margin-top: 50px;
-    border-radius: 5px;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1), -2px 0 5px rgba(0, 0, 0, 0.1); /* Box shadow kanan dan kiri */
+    border-spacing: 0; /* Hindari jarak tambahan antar sel */
 }
+
 
 .jadwal-tabel thead th {
     background-color: #DF3232; /* Warna merah header */
@@ -108,6 +109,7 @@ $result = $conn->query($sql);
     border: none;
     font-size: 1em; /* Ukuran font header */
 }
+
 .thead-content {
     display: flex;
     justify-content: space-around; /* Memberikan jarak yang merata di antara elemen */
@@ -127,7 +129,10 @@ $result = $conn->query($sql);
 .jadwal-tabel tbody tr:nth-child(even) {
     background-color: #F5F5F5; /* Baris genap berwarna abu-abu muda */
 }
-
+.jadwal-tabel th,
+.jadwal-tabel td {
+    width: 33.33%; /* Setiap kolom mendapat lebar sama */
+}
 .jadwal-tabel tbody tr td {
     border-bottom: 1px solid #746464; /* Garis merah di bagian bawah setiap baris */
     padding: 20px;
@@ -136,7 +141,21 @@ $result = $conn->query($sql);
 .grey.lighten-3 {
     background-color: rgb(255, 255, 255) !important;
 }
+.jadwal-tabel thead th,
+.jadwal-tabel tbody td {
+    padding: 15px; /* Ruang dalam */
+    text-align: center; /* Teks tengah */
+}
 
+.jadwal-tabel thead th {
+    background-color: #DF3232; /* Warna merah header */
+    color: #FFFFFF; /* Warna teks putih */
+    font-weight: bold;
+}
+
+.jadwal-tabel tbody td {
+    border-bottom: 1px solid #746464; /* Garis bawah */
+}
 
      </style>
 </body>

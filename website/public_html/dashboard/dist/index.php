@@ -4,7 +4,7 @@ session_start(); // Mulai session
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     // Jika belum login, arahkan ke halaman login
-    header("Location: http://website_bloodcare/website/public_html/auth/masuk.php");
+    header("Location: http://localhost/website_bloodcare/website/public_html/auth/masuk.php");
     exit();
 }
 
@@ -39,6 +39,65 @@ $stmt->close();
 $conn->close();
 
 ?>
+
+<?php
+// Menghubungkan ke database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bloodcarec3";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Mengecek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Query untuk mengambil data dari tabel stok_darah
+$sql = "SELECT jenis_darah, goldar, rhesus, stok FROM stok_darah";
+$result_chart = $conn->query($sql);
+
+// Menginisialisasi array untuk menyimpan stok darah berdasarkan jenis, golongan darah, dan rhesus
+$stokDarah = [
+    'WB' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'PRC' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'TC' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'FFP' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+    'Cryoprecipitate' => ['A' => ['positive' => 0, 'negative' => 0], 'B' => ['positive' => 0, 'negative' => 0], 'AB' => ['positive' => 0, 'negative' => 0], 'O' => ['positive' => 0, 'negative' => 0]],
+];
+
+// Memasukkan data hasil query ke dalam array
+if ($result_chart->num_rows > 0) {
+    while ($row = $result_chart->fetch_assoc()) {
+        $jenis_darah = $row['jenis_darah'];
+        $goldar = $row['goldar'];
+        $rhesus = $row['rhesus'];
+        $stokDarah[$jenis_darah][$goldar][$rhesus] += $row['stok'];
+    }
+}
+
+$conn->close();
+
+// Mengecek apakah ada stok darah yang kurang dari 20
+$kebutuhanDarahList = [];
+foreach ($stokDarah as $jenis_darah => $dataGolongan) {
+    foreach ($dataGolongan as $golongan => $dataRhesus) {
+        foreach ($dataRhesus as $rhesus => $stok) {
+            if ($stok < 20) {
+                $kebutuhanDarahList[] = [
+                    'jenis_darah' => $jenis_darah,
+                    'golongan' => $golongan,
+                    'rhesus' => $rhesus,
+                    'stok' => $stok
+                ];
+            }
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,166 +198,263 @@ $conn->close();
   <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
   <script src="./script.js"></script>
   <script>
-    $(document).ready(function(){
-        console.log("jQuery is loaded and ready!");
-        // Klik pada menu Dashboard
-        $('#profile-saya').click(function(){
-            console.log("Dashboard menu clicked.");
-            $('.hero-title').text('Dashboard');
-            $('.admin-content').load('halaman_sidebar/sidebar_profile.php', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Dashboard page loaded successfully.");
-                }
-            });
-        });
+    const stokDarah = <?php echo json_encode($stokDarah); ?>;
+</script>
 
-        $('#dashboard').click(function() {
-    console.log("Dashboard menu clicked.");
-    $('.hero-title').text('Dashboard');
-    $('.admin-content').load('halaman_sidebar/sidebar_dashboard6.html', function(response, status, xhr) {
-        if (status == "error") {
-            console.error("Error loading Dashboard page:", xhr.status, xhr.statusText);
-        } else {
-            console.log("Dashboard page loaded successfully.");
-
-            // Setelah halaman dimuat, jalankan kode untuk inisialisasi Chart.js
-            initializeCharts();
-        }
-    });
-});
-
-// Fungsi untuk inisialisasi Chart.js
+  <script>
+    // Fungsi untuk inisialisasi Chart.js
 function initializeCharts() {
     console.log("Initializing charts...");
 
-    // Cek apakah Chart.js berhasil dimuat
-    if (typeof Chart === 'undefined') {
-        console.error("Chart.js tidak ditemukan. Pastikan library Chart.js sudah dimuat.");
+    if (!stokDarah) {
+        console.error("Data stok darah tidak tersedia.");
         return;
     }
 
-    // Cek elemen canvas untuk Pie Chart
-    const pieCanvas = document.getElementById('pieChart');
-    if (!pieCanvas) {
-        console.error("Canvas untuk Pie Chart tidak ditemukan. Pastikan ID 'pieChart' ada di halaman.");
-        return;
-    }
+    // Labels untuk golongan darah
+    const golonganLabels = ['A', 'B', 'AB', 'O'];
+    const jenisDarahLabels = ['WB', 'PRC', 'TC', 'FFP', 'Cryoprecipitate'];
+    const rhesusLabels = ['positive', 'negative'];
 
-    // Cek elemen canvas untuk Bar Chart
-    const barCanvas = document.getElementById('barChart');
-    if (!barCanvas) {
-        console.error("Canvas untuk Bar Chart tidak ditemukan. Pastikan ID 'barChart' ada di halaman.");
-        return;
-    }
+    // Hitung stok darah untuk setiap jenis darah dan rhesus
+    const datasets = [];
+    const colors = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', // Warna untuk RH+
+        '#FF9F40', '#C9CBCF', '#4D4D4D', '#E7E9ED', '#8C564B'  // Warna untuk RH-
+    ];
 
-    // Data untuk Pie Chart
-    const pieData = {
-        labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
-        datasets: [{
-            data: [12, 19, 3, 5],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-        }]
-    };
+    let colorIndex = 0; // Indeks warna
 
-    // Inisialisasi Pie Chart
-    try {
-        const ctxPie = pieCanvas.getContext('2d');
-        const pieChart = new Chart(ctxPie, {
-            type: 'pie',
-            data: pieData,
-            options: {
-                responsive: true
-            }
+    jenisDarahLabels.forEach((jenis) => {
+        rhesusLabels.forEach((rhesus) => {
+            const data = golonganLabels.map((gol) => {
+                let total = 0;
+                if (stokDarah[jenis] && stokDarah[jenis][gol]) {
+                    total = stokDarah[jenis][gol][rhesus];
+                }
+                return total;
+            });
+
+            datasets.push({
+                label: `${jenis} RH${rhesus === 'positive' ? '+' : '-'}`,
+                data: data,
+                backgroundColor: colors[colorIndex++ % colors.length]
+            });
         });
-        console.log("Pie Chart berhasil dibuat:", pieChart);
-    } catch (error) {
-        console.error("Gagal membuat Pie Chart:", error);
-    }
+    });
 
-    // Data untuk Bar Chart
-    const barData = {
-        labels: ['Golongan A', 'Golongan B', 'Golongan AB', 'Golongan O'],
-        datasets: [{
-            label: 'Jumlah Stok Darah',
-            data: [12, 19, 3, 5],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-        }]
-    };
-
-    // Inisialisasi Bar Chart
-    try {
+    // Bar Chart: Menampilkan stok berdasarkan jenis darah dan rhesus
+    const barCanvas = document.getElementById('barChart');
+    if (barCanvas) {
         const ctxBar = barCanvas.getContext('2d');
-        const barChart = new Chart(ctxBar, {
+        new Chart(ctxBar, {
             type: 'bar',
-            data: barData,
+            data: {
+                labels: golonganLabels, // Golongan darah (A, B, AB, O)
+                datasets: datasets // Dataset untuk setiap jenis darah dan rhesus
+            },
             options: {
                 responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
                 scales: {
-                    y: {
-                        beginAtZero: true
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    // Pie Chart tetap menggunakan total stok untuk setiap golongan darah
+    const totalStok = golonganLabels.map((gol) => {
+        return jenisDarahLabels.reduce((sum, jenis) => {
+            let total = 0;
+            for (const rhesus in stokDarah[jenis][gol]) {
+                total += stokDarah[jenis][gol][rhesus];
+            }
+            return sum + total;
+        }, 0);
+    });
+
+    const pieCanvas = document.getElementById('pieChart');
+    if (pieCanvas) {
+        const ctxPie = pieCanvas.getContext('2d');
+        new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: golonganLabels,
+                datasets: [{
+                    data: totalStok,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
                     }
                 }
             }
         });
-        console.log("Bar Chart berhasil dibuat:", barChart);
-    } catch (error) {
-        console.error("Gagal membuat Bar Chart:", error);
+    }
+
+    // Notifikasi untuk stok darah kosong atau rendah
+    const batasMinimum = 10; // Batas minimum stok darah
+    const stokKosong = [];
+
+    jenisDarahLabels.forEach((jenis) => {
+        golonganLabels.forEach((gol) => {
+            rhesusLabels.forEach((rhesus) => {
+                const stok = stokDarah[jenis][gol][rhesus];
+                if (stok < batasMinimum) {
+                    stokKosong.push(`${jenis} ${gol} RH${rhesus === 'positive' ? '+' : '-'}`);
+                }
+            });
+        });
+    });
+
+    // Cek apakah elemen notifikasi ada
+    const notifikasiContainer = document.querySelector('#notifikasi');
+    const notifikasiContent = document.querySelector('#notifikasi-content');
+
+    if (notifikasiContainer && notifikasiContent) {
+        if (stokKosong.length > 0) {
+            notifikasiContent.innerHTML = `
+                <ul>
+                    ${stokKosong.map((item) => `<li>${item}</li>`).join('')}
+                </ul>
+            `;
+        } else {
+            notifikasiContainer.innerHTML = `
+                <div class="card-content">
+                    <span class="card-title" style="color: green; font-weight: bold;">
+                        Semua stok darah mencukupi.
+                    </span>
+                </div>
+            `;
+        }
+    } else {
+        console.warn("Elemen notifikasi tidak ditemukan. Pastikan elemen dengan id 'notifikasi' tersedia di halaman.");
+    }
+
+}
+
+
+
+
+    $(document).ready(function(){
+        console.log("jQuery is loaded and ready!");
+
+// Pilih semua item sidebar
+const sidebarItems = $('.bordered');
+
+// Fungsi untuk mengatur menu yang dipilih berdasarkan ID
+function setActiveMenu(menuId) {
+    // Hapus highlight dari semua item sidebar
+    sidebarItems.removeClass('selected');
+
+    // Tambahkan highlight hanya pada menu yang dipilih
+    const activeItem = $(`#${menuId}`);
+    if (activeItem.length > 0) {
+        activeItem.addClass('selected');
     }
 }
 
-        // Klik pada menu Acara Donor
-        $('#acara-donor').click(function(){
-            console.log("Acara Donor menu clicked.");
-            $('.hero-title').text('Acara Donor');
-            $('.admin-content').load('halaman_sidebar/sidebar_acara_donor.php', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Acara Donor page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Acara Donor page loaded successfully.");
-                }
-            });
-        });
+// Fungsi untuk memuat halaman berdasarkan menu ID
+function loadPage(menuId) {
+    let pageTitle = '';
+    let pageUrl = '';
 
-        // Klik pada menu Formulir Donor
-        $('#formulir-donor').click(function(){
-            console.log("Formulir Donor menu clicked.");
-            $('.hero-title').text('Formulir Donor');
-            $('.admin-content').load('halaman_sidebar/sidebar_formulir_donor2.php', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Formulir Donor page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Formulir Donor page loaded successfully.");
-                }
-            });
-        });
+    // Tentukan judul halaman dan URL berdasarkan menu ID
+    switch (menuId) {
+        case 'dashboard':
+            pageTitle = 'Dashboard';
+            pageUrl = 'halaman_sidebar/sidebar_dashboard7.php';
+            break;
+        case 'acara-donor':
+            pageTitle = 'Acara Donor';
+            pageUrl = 'halaman_sidebar/sidebar_acara_donor.php';
+            break;
+        case 'formulir-donor':
+            pageTitle = 'Formulir Donor';
+            pageUrl = 'halaman_sidebar/sidebar_formulir_donor2.php';
+            break;
+        case 'stok-darah':
+            pageTitle = 'Stok Darah';
+            pageUrl = 'halaman_sidebar/sidebar_stok_darah2.php';
+            break;
+        case 'riwayat-donor':
+            pageTitle = 'Riwayat Donor';
+            pageUrl = 'halaman_sidebar/sidebar_riwayat_donor.php';
+            break;
+        default:
+            pageTitle = 'Dashboard';
+            pageUrl = 'halaman_sidebar/sidebar_dashboard7.php';
+            break;
+    }
 
-        // Klik pada menu Stok Darah
-        $('#stok-darah').click(function(){
-            console.log("Stok Darah menu clicked.");
-            $('.hero-title').text('Stok Darah');
-            $('.admin-content').load('halaman_sidebar/sidebar_stok_darah2.php', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Stok Darah page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Stok Darah page loaded successfully.");
-                }
-            });
-        });
+    // Ubah judul halaman
+    $('.hero-title').text(pageTitle);
 
-        // Klik pada menu Riwayat Donor
-        $('#riwayat-donor').click(function(){
-            console.log("Riwayat Donor menu clicked.");
-            $('.hero-title').text('Riwayat Donor');
-            $('.admin-content').load('halaman_sidebar/sidebar_riwayat_donor.php', function(response, status, xhr){
-                if (status == "error") {
-                    console.error("Error loading Riwayat Donor page:", xhr.status, xhr.statusText);
-                } else {
-                    console.log("Riwayat Donor page loaded successfully.");
-                }
-            });
-        });
+    // Muat konten halaman
+    $('.admin-content').load(pageUrl, function (response, status, xhr) {
+        if (status === "error") {
+            console.error(`Error loading ${menuId} page:`, xhr.status, xhr.statusText);
+        } else {
+            console.log(`${menuId} page loaded successfully.`);
+
+            // Inisialisasi grafik jika halaman adalah Dashboard
+            if (menuId === 'dashboard') {
+                initializeCharts();
+            }
+        }
+    });
+}
+
+// Ambil menu yang terakhir dipilih dari LocalStorage atau default ke Dashboard
+const savedMenu = localStorage.getItem('activeMenu') || 'dashboard';
+
+// Set menu yang aktif berdasarkan state yang disimpan
+setActiveMenu(savedMenu);
+
+// Muat halaman yang sesuai dengan state yang disimpan
+loadPage(savedMenu);
+
+// Tambahkan event listener untuk menyimpan state menu ke LocalStorage
+sidebarItems.on('click', function () {
+    const menuId = this.id;
+
+    // Simpan menu yang dipilih ke LocalStorage
+    localStorage.setItem('activeMenu', menuId);
+
+    // Set menu yang dipilih
+    setActiveMenu(menuId);
+
+    // Muat halaman terkait
+    loadPage(menuId);
+});
+
+// Klik pada menu Profil Saya
+$('#profile-saya').click(function () {
+    console.log("Profile Saya menu clicked.");
+    $('.hero-title').text('Profil Saya');
+
+    // Hapus highlight dari semua item di sidebar
+    sidebarItems.removeClass('selected');
+
+    // Muat konten halaman profil
+    $('.admin-content').load('halaman_sidebar/sidebar_profile.php', function (response, status, xhr) {
+        if (status === "error") {
+            console.error("Error loading Profile page:", xhr.status, xhr.statusText);
+        } else {
+            console.log("Profile page loaded successfully.");
+        }
+    });
+});
+
         // Klik pada menu Keluar
         $('#keluar').click(function (event) {
             event.preventDefault(); // Mencegah default behavior tombol
