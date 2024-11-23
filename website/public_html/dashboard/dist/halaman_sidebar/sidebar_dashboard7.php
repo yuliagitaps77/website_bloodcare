@@ -446,7 +446,7 @@ $(document).on('click', '#isi-formulir', function () {
                 .jadwal-tabel thead th {
                     background-color: #DF3232; /* Warna merah header */
                     color: #FFFFFF; /* Warna teks putih */
-                    border-radius: 8px;
+                    border-radius: 2px;
                     padding: 10px;
                     text-align: center;
                     font-weight: bold;

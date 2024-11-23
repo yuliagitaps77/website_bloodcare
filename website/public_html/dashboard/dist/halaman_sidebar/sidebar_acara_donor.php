@@ -96,6 +96,8 @@ $result = $conn->query($sql);
     margin: 0 auto; /* Tengah-kan tabel jika perlu */
     border-collapse: collapse;
     border-spacing: 0; /* Hindari jarak tambahan antar sel */
+    border: 2px solid #C8C8C8; /* Menambahkan border box di seluruh tabel */
+    box-shadow: 0 5 px rgba(0, 0, 0, 0.1); /* Menambahkan efek shadow */
 }
 
 
