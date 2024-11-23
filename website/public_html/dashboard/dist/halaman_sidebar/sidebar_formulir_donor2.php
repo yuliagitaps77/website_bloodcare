@@ -98,13 +98,16 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </div>
 
 
-<div class="form-group" style="margin-bottom: 1rem;">
+<div class="form-group" >
     <label for="tanggal-lahir" style="display: block;">Tanggal Lahir</label>
     <input 
         type="date" 
         id="tanggal-lahir" 
         name="tanggal_lahir" 
         class="form-input" 
+        disabled
+        style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999; pointer-events: none;"
+
         value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
     >
 </div>
