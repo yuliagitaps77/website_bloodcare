@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
             background-color: #f0f0f0; /* Placeholder background */
             cursor: pointer; /* Tampilkan kursor pointer */
             margin: 0 auto;
+            margin-bottom: 20px;
         }
 
         .custom-profile-picture {
