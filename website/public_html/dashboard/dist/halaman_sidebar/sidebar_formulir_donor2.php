@@ -72,6 +72,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
            name="nama_lengkap" 
            class="form-input" 
            placeholder="Masukkan nama lengkap" 
+           style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999; pointer-events: none;"
+
            value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>" 
            readonly>
 </div>
