@@ -4,9 +4,9 @@ header("Content-Type: text/html; charset=UTF-8");
 
 // Konfigurasi koneksi database
 $host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+$username = "bloodcar_e";
+$password = "G_(Q+shgC2Nn";
+$dbname = "bloodcar_e";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 

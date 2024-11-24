@@ -3,9 +3,9 @@ header("Content-Type: application/json");
 
 // Database connection parameters
 $servername = "localhost";    // Ganti dengan nama server Anda
-$username = "root";           // Ganti dengan username database Anda
-$password = "";               // Ganti dengan password database Anda
-$dbname = "bloodcarec3";    // Ganti dengan nama database Anda
+$username = "bloodcar_e";           // Ganti dengan username database Anda
+$password = "G_(Q+shgC2Nn";               // Ganti dengan password database Anda
+$dbname = "bloodcar_e";    // Ganti dengan nama database Anda
 
 // Buat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);

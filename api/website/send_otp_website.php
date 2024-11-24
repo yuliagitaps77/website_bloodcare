@@ -8,9 +8,9 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 // Konfigurasi database
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+$username = "bloodcar_e";
+$password = "G_(Q+shgC2Nn";
+$dbname = "bloodcar_e";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         function sendOTP($recipientEmail, $otp) {
             // Konfigurasi database
             $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "bloodcarec3";
+            $username = "bloodcar_e";
+            $password = "G_(Q+shgC2Nn";
+            $dbname = "bloodcar_e";
         
             // Koneksi ke database
             $conn = new mysqli($servername, $username, $password, $dbname);

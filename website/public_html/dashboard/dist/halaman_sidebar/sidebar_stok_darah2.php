@@ -1,9 +1,9 @@
 <?php
 // Menghubungkan ke database
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+$username = "bloodcar_e";
+$password = "G_(Q+shgC2Nn";
+$dbname = "bloodcar_e";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

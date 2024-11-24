@@ -4,9 +4,9 @@ session_start();
 
 // Database credentials
 $servername = "localhost";
-$username = "root"; // Ganti dengan username database Anda
-$password = ""; // Ganti dengan password database Anda
-$dbname = "bloodcarec3"; // Ganti dengan nama database Anda
+$username = "bloodcar_e"; // Ganti dengan username database Anda
+$password = "G_(Q+shgC2Nn"; // Ganti dengan password database Anda
+$dbname = "bloodcar_e"; // Ganti dengan nama database Anda
 
 // Create connection nnn
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -4,9 +4,9 @@ header('Content-Type: application/json');
 
 // Menghubungkan ke database
 $servername = "localhost";
-$username = "root"; // Sesuaikan dengan username MySQL Anda
-$password = ""; // Sesuaikan dengan password MySQL Anda
-$dbname = "bloodcarec3"; // Nama database Anda
+$username = "bloodcar_e"; // Sesuaikan dengan username MySQL Anda
+$password = "G_(Q+shgC2Nn"; // Sesuaikan dengan password MySQL Anda
+$dbname = "bloodcar_e"; // Nama database Anda
 
 // Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);

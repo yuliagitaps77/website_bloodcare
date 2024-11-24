@@ -6,9 +6,9 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 // Konfigurasi database
 $host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+$username = "bloodcar_e";
+$password = "G_(Q+shgC2Nn";
+$dbname = "bloodcar_e";
 
 // Koneksi ke database
 $conn = new mysqli($host, $username, $password, $dbname);

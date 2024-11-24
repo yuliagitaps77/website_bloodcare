@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';
 $password = '';
-$dbname = 'bloodcarec3';
+$dbname = 'bloodcar_e';
 
 // Koneksi ke database
 $conn = new mysqli($host, $user, $password, $dbname);

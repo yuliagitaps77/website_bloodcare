@@ -2,9 +2,9 @@
 header("Content-Type: application/json; charset=UTF-8");
 
 $host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+$username = "bloodcar_e";
+$password = "G_(Q+shgC2Nn";
+$dbname = "bloodcar_e";
 
 try {
     // Koneksi ke database
