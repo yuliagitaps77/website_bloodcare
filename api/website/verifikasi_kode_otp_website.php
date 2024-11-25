@@ -2,13 +2,8 @@
 session_start();
 header("Content-Type: text/html; charset=UTF-8");
 
-// Konfigurasi koneksi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+require_once __DIR__ . '/../koneksi.php';
 
-$conn = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi database
 if ($conn->connect_error) {

@@ -1,17 +1,6 @@
 <?php
-// Konfigurasi database
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'bloodcarec3';
-
-// Koneksi ke database
-$conn = new mysqli($host, $user, $password, $dbname);
-
-// Cek koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Fungsi untuk membersihkan input
 function cleanInput($data) {
@@ -82,63 +71,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-      // Cek apakah username sudah terdaftar
-      $usernameQuery = $conn->prepare("SELECT * FROM akun WHERE username = ?");
-      $usernameQuery->bind_param("s", $username);
-      $usernameQuery->execute();
-      $usernameResult = $usernameQuery->get_result();
-  
-      if ($usernameResult->num_rows > 0) {
-          echo "
-              <html>
-              <head>
-                  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-              </head>
-              <body>
-                  <script>
-                      Swal.fire({
-                          icon: 'warning',
-                          title: 'Username Sudah Digunakan!',
-                          text: 'Silakan gunakan username lain.',
-                          timer: 3000,
-                          showConfirmButton: false
-                      }).then(() => {
-                          window.history.back();
-                      });
-                  </script>
-              </body>
-              </html>";
-          exit;
-      }
-  
-      // Cek apakah email sudah terdaftar
-      $emailQuery = $conn->prepare("SELECT * FROM akun WHERE email = ?");
-      $emailQuery->bind_param("s", $email);
-      $emailQuery->execute();
-      $emailResult = $emailQuery->get_result();
-  
-      if ($emailResult->num_rows > 0) {
-          echo "
-              <html>
-              <head>
-                  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-              </head>
-              <body>
-                  <script>
-                      Swal.fire({
-                          icon: 'warning',
-                          title: 'Email Sudah Digunakan!',
-                          text: 'Silakan gunakan email lain.',
-                          timer: 3000,
-                          showConfirmButton: false
-                      }).then(() => {
-                          window.history.back();
-                      });
-                  </script>
-              </body>
-              </html>";
-          exit;
-      }
+    // Cek apakah username sudah terdaftar
+    $usernameQuery = $conn->prepare("SELECT * FROM akun WHERE username = ?");
+    $usernameQuery->bind_param("s", $username);
+    $usernameQuery->execute();
+    $usernameResult = $usernameQuery->get_result();
+
+    if ($usernameResult->num_rows > 0) {
+        echo "
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Username Sudah Digunakan!',
+                        text: 'Silakan gunakan username lain.',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.history.back();
+                    });
+                </script>
+            </body>
+            </html>";
+        exit;
+    }
+
+    // Cek apakah email sudah terdaftar
+    $emailQuery = $conn->prepare("SELECT * FROM akun WHERE email = ?");
+    $emailQuery->bind_param("s", $email);
+    $emailQuery->execute();
+    $emailResult = $emailQuery->get_result();
+
+    if ($emailResult->num_rows > 0) {
+        echo "
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Email Sudah Digunakan!',
+                        text: 'Silakan gunakan email lain.',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.history.back();
+                    });
+                </script>
+            </body>
+            </html>";
+        exit;
+    }
 
     // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -166,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         timer: 3000,
                         showConfirmButton: false
                     }).then(() => {
-                        window.location.href = '/website_bloodcare/website/public_html/auth/masuk.php';
+                        window.location.href = '/website_bloodcare/website/public_html/dashboard/dist/sindex.php';
                     });
                 </script>
             </body>

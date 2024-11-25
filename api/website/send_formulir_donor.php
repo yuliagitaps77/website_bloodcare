@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../koneksi.php';
 
 // Periksa apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
@@ -7,13 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Konfigurasi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
 
-$conn = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi database
 if ($conn->connect_error) {

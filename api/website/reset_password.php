@@ -1,13 +1,6 @@
 <?php 
 session_start();
-
-// Konfigurasi database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+require_once __DIR__ . '/../koneksi.php';
 
 // Cek koneksi
 if ($conn->connect_error) {

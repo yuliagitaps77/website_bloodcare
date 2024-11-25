@@ -1,5 +1,8 @@
 <?php
 header("Content-Type: text/html; charset=UTF-8");
+// Konfigurasi koneksi database
+require_once __DIR__ . '/../koneksi.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -20,7 +23,7 @@ if (isset($_SESSION['user_id'])) {
                     timer: 2000,
                     timerProgressBar: true
                 }).then(() => {
-                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+    window.location.href = '" . BASE_URL . "/dashboard/dist/index.php';
                 });
             </script>
         </body>
@@ -28,13 +31,6 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Konfigurasi koneksi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-$conn = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi
 if ($conn->connect_error) {

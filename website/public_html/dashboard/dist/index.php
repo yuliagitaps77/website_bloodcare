@@ -8,13 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Konfigurasi koneksi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-$conn = new mysqli($host, $username, $password, $dbname);
+require_once dirname(__DIR__, levels: 4) . '/api/koneksi.php';
 
 // Periksa koneksi database
 if ($conn->connect_error) {
@@ -35,19 +29,11 @@ $nama_lengkap = $user['nama_lengkap'] ?? "Nama tidak tersedia"; // Default jika 
 $base_url = "http://localhost/website_bloodcare/api/website/";
 $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
 
-$stmt->close();
-$conn->close();
+
 
 ?>
 
 <?php
-// Menghubungkan ke database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Mengecek koneksi
 if ($conn->connect_error) {

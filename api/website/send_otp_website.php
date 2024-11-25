@@ -5,14 +5,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../koneksi.php';
 
-// Konfigurasi database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Cek koneksi
 if ($conn->connect_error) {
@@ -34,14 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         function sendOTP($recipientEmail, $otp) {
             // Konfigurasi database
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "bloodcarec3";
-        
-            // Koneksi ke database
-            $conn = new mysqli($servername, $username, $password, $dbname);
-        
+            require_once __DIR__ . '/../koneksi.php';
+
             // Periksa koneksi
             if ($conn->connect_error) {
                 die("Koneksi database gagal: " . $conn->connect_error);

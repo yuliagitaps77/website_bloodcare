@@ -6,13 +6,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Database connection
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+require_once __DIR__ . '/../koneksi.php';
 
-$conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
@@ -101,7 +96,7 @@ if ($stmt->execute()) {
                 timerProgressBar: true
             }).then((result) => {
                 if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php#!';
+    window.location.href = '" . BASE_URL . "/dashboard/dist/index.php';
                 }
             });
         };

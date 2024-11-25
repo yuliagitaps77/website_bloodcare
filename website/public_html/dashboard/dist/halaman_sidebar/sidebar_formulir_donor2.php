@@ -10,13 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 // Ambil ID pengguna dari session
 $user_id = $_SESSION['user_id'];
 
-// Konfigurasi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+require_once dirname(__DIR__, levels: 5) . '/api/koneksi.php';
 
-$conn = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi database
 if ($conn->connect_error) {

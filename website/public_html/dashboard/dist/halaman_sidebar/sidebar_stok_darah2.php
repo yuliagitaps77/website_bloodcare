@@ -1,11 +1,6 @@
 <?php
 // Menghubungkan ke database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+require_once dirname(__DIR__, levels: 5) . '/api/koneksi.php';
 
 // Mengecek koneksi
 if ($conn->connect_error) {
