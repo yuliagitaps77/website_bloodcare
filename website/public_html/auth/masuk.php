@@ -147,7 +147,7 @@ if (isset($_SESSION['user_id'])) {
                 </script>
 
 
-                  <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 20px; display: block; text-decoration: none;">Lupa Sandi?</a>
+                  <a href="lupa_kata_sandi.php" style="text-align: right; color: black; font-weight: 900; margin-bottom: 0px    ; display: block; text-decoration: none;">Lupa Sandi?</a>
 
                     <button type="submit" class="btn">MASUK</button>
                 </form>
