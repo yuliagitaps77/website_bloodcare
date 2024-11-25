@@ -101,17 +101,16 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 
 
 <div class="form-group" >
-    <label for="tanggal-lahir" style="display: block;">Tanggal Lahir</label>
+    <label for="tanggal_lahir" style="display: block;">Tanggal Lahir</label>
     <input 
-        type="date" 
-        id="tanggal-lahir" 
-        name="tanggal_lahir" 
-        class="form-input" 
-        disabled
-        style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999; pointer-events: none;"
-
-        value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
-    >
+    type="date" 
+    id="tanggal_lahir" 
+    name="tanggal_lahir" 
+    class="form-input" 
+    readonly
+    style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999;"
+    value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
+>
 </div>
 
     </div>
@@ -353,7 +352,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 
 
     <button type="submit" class="submit-btn">KIRIM</button>
-</f>
+</form>
     			</div>
             <style>
                 .main-content {
