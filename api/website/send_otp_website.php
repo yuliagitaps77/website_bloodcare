@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         function sendOTP($recipientEmail, $otp) {
             // Konfigurasi database
-            require_once __DIR__ . '/../koneksi.php';
+            global $conn;
 
             // Periksa koneksi
             if ($conn->connect_error) {

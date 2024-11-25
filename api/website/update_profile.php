@@ -96,7 +96,7 @@ if ($stmt->execute()) {
                 timerProgressBar: true
             }).then((result) => {
                 if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-    window.location.href = '" . BASE_URL . "/dashboard/dist/index.php';
+                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php#!';
                 }
             });
         };

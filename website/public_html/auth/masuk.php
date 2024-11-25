@@ -153,7 +153,7 @@ if (isset($_SESSION['user_id'])) {
                 </form>
 
                 <a href="daftar.html" style="text-decoration: none;">
-                    <p class="form-box__bottom-text" style="color: #616161;">Belum punya akun? <strong>BUAT AKUN</strong></p>
+                    <p class="form-box__bottom-text" style="color: #616161; margin-top: 5px">Belum punya akun? <strong>BUAT AKUN</strong></p>
                 </a>
                 
             </div>

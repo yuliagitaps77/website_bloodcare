@@ -14,8 +14,4 @@ $dbname = 'bloodcarec3';
 // Koneksi ke database
 $conn = new mysqli($hostDB, $userDB, $passwordDB, $dbname);
 
-// Cek koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
 ?>
