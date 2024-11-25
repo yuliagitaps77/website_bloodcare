@@ -205,7 +205,7 @@ input[type="password"] {
             usernameInputGroup.style.marginBottom = "40px"; // Tambahkan margin-bottom
         } else {
             usernameError.style.display = "none"; // Sembunyikan pesan error jika valid
-            usernameInputGroup.style.marginBottom = "0px"; // Reset margin-bottom
+            usernameInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
         }
     }
 
@@ -231,7 +231,7 @@ const passwordInputGroup = passwordInput.parentElement; // Reference to input-gr
 passwordInput.addEventListener('input', function () {
     if (validatePassword(passwordInput.value)) {
         passwordError.style.display = 'none'; // Hide error if valid
-        passwordInputGroup.style.marginBottom = '0px'; // Reset margin-bottom
+        passwordInputGroup.style.marginBottom = '10px'; // Reset margin-bottom
     } else {
         passwordError.style.display = 'block'; // Show error if invalid
         passwordInputGroup.style.marginBottom = '40px'; // Add margin-bottom

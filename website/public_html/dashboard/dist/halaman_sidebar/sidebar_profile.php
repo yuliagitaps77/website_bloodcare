@@ -114,7 +114,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
         class="form-input" 
         placeholder="Masukkan alamat" 
         value="<?php echo htmlspecialchars($user['alamat'] ?? ''); ?>" 
-        oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+        oninput="this.value = this.value.replace(/[^a-zA-Z0-9.,_\/\-\s]/g, '')"
         style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
     >
 </div>
