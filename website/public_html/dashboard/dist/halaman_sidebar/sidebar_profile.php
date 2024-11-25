@@ -120,10 +120,10 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </div>
 
 <div class="form-group" style="margin-bottom: 1rem;">
-    <label for="tanggal-lahir" style="display: block; margin-bottom: 0.5rem;">Tanggal Lahir</label>
+    <label for="tanggal_lahir" style="display: block; margin-bottom: 0.5rem;">Tanggal Lahir</label>
     <input 
         type="date" 
-        id="tanggal-lahir" 
+        id="tanggal_lahir" 
         name="tanggal_lahir" 
         class="form-input" 
         value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
@@ -168,7 +168,7 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     </div>
     <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const formFields = document.querySelectorAll('#nama, #alamat, #tanggal-lahir, #email, #no_hp, #profile-picture-input');
+    const formFields = document.querySelectorAll('#nama, #alamat, #tanggal_lahir, #email, #no_hp, #profile-picture-input');
     const saveButton = document.querySelector('.btn-save');
     const originalValues = {};
 
