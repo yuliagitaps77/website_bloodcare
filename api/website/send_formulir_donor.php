@@ -70,6 +70,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    // Query untuk memeriksa jumlah formulir donor yang sudah dikirim oleh user
+    $query_count = "SELECT COUNT(*) AS total_donor FROM formulir_donor WHERE id_akun = ?";
+    $stmt_count = $conn->prepare($query_count);
+    if (!$stmt_count) {
+        die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
+    }
+    $stmt_count->bind_param("i", $id_akun);
+    $stmt_count->execute();
+    $result_count = $stmt_count->get_result();
+    $row_count = $result_count->fetch_assoc();
+    $stmt_count->close();
+
+    // Jika sudah lebih dari 2 formulir, tampilkan pesan error dan hentikan eksekusi
+    if ($row_count['total_donor'] >= 2) {
+        echo "
+        <!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>Limit Terlampaui</title>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Batas Pengisian Formulir Tercapai!',
+                        text: 'Anda hanya dapat mengisi formulir donor sebanyak 2 kali.',
+                        showConfirmButton: true
+                    }).then(() => {
+                        window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php#!';
+                    });
+                });
+            </script>
+        </body>
+        </html>
+        ";
+        exit();
+    }
+
     // Query untuk mengambil data pengguna berdasarkan id_akun
     $query_user = "SELECT nama_lengkap, no_hp, tanggal_lahir FROM akun WHERE id_akun = ?";
     $stmt_user = $conn->prepare($query_user);
@@ -188,4 +230,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
-?>

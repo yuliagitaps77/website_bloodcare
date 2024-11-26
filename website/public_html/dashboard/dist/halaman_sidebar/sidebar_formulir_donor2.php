@@ -12,14 +12,13 @@ $user_id = $_SESSION['user_id'];
 
 require_once dirname(__DIR__, levels: 5) . '/api/koneksi.php';
 
-
 // Periksa koneksi database
 if ($conn->connect_error) {
     die("<p>Koneksi gagal: " . $conn->connect_error . "</p>");
 }
 
 // Ambil data pengguna dari database
-$query = "SELECT id_akun, nama_lengkap, alamat, profile_picture, tanggal_lahir,email, no_hp FROM akun WHERE id_akun = ?";
+$query = "SELECT id_akun, nama_lengkap, alamat, profile_picture, tanggal_lahir, email, no_hp FROM akun WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {
     die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
@@ -35,15 +34,75 @@ if ($result->num_rows === 0) {
 
 $user = $result->fetch_assoc();
 $stmt->close();
-// Query untuk mengambil data lokasi dari tabel acara_Donor
-$sql = "SELECT lokasi FROM acara_Donor";
-$resultdata = $conn->query($sql);
 
+// Query untuk mengambil data formulir_donor berdasarkan id_akun dan informasi acara_donor
+$sql = "
+SELECT 
+    fd.id, fd.alamat_lengkap, fd.golongan_darah, fd.berat_badan, 
+    fd.lokasi_donor, fd.tanggal_input, 
+    ad.lokasi AS acara_lokasi, ad.time_waktu, ad.tgl_acara, 
+    a.nama_lengkap AS donor_nama
+FROM 
+    formulir_donor fd
+JOIN 
+    acara_donor ad ON fd.lokasi_donor = ad.lokasi
+JOIN 
+    akun a ON fd.id_akun = a.id_akun
+WHERE 
+    fd.id_akun = ?
+";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$resultdata = $stmt->get_result();
+
+if ($resultdata->num_rows > 0) {
+    $donor_data = $resultdata->fetch_all(MYSQLI_ASSOC); // Ambil semua data ke dalam array
+} else {
+    $donor_data = [];
+}
+$sql = "SELECT lokasi FROM acara_donor";
+$resultdata = $conn->query($sql);
+$stmt->close();
 $conn->close();
 
-$base_url = "http://localhost/website_bloodcare/api/website/";
-$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
+// Fungsi untuk menghitung selisih waktu dan menampilkan tanggal
+function formatWaktuAcara($waktu_acara) {
+    $now = time(); // Waktu saat ini dalam format timestamp
+    $acara_time = strtotime($waktu_acara); // Mengubah waktu acara menjadi timestamp
+
+    // Menghitung selisih waktu dalam detik
+    $selisih_detik = $acara_time - $now;
+
+    // Memformat tanggal acara ke format yang mudah dibaca
+    $formatted_date = date("d M Y, H:i", $acara_time); // Format: 25 Nov 2024, 10:00
+
+    // Menambahkan keterangan "Hari ini" jika acara berlangsung hari ini
+    if (date("Y-m-d", $acara_time) === date("Y-m-d", $now)) {
+        $formatted_date .= " (Hari ini)";
+    }
+    
+    // Jika acara sudah lewat, tampilkan "Saat ini"
+    if ($selisih_detik <= 0) {
+        return $formatted_date;
+    }
+
+    // Menghitung jumlah hari
+    $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
+
+    // Jika acara lebih dari 1 hari, tampilkan "X hari lagi"
+    if ($selisih_hari == 1) {
+        return $formatted_date . " (1 hari lagi)";
+    } elseif ($selisih_hari > 1) {
+        return $formatted_date . " ($selisih_hari hari lagi)";
+    }
+
+    return $formatted_date; // Untuk acara yang sudah terjadi (past tense)
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +147,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </script>
 
 
+
+    
       <form class="form-donor" action="<?php echo BASE_URL . '/api/website/send_formulir_donor.php'; ?>" method="POST" enctype="multipart/form-data" 
         style="background-color: white; padding: 30px; border-radius: 15px; border: 1px solid #d1d1d1; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
 
@@ -152,8 +213,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <div class="form-row">
         <div class="form-group form-group-wide">
             <label>Alamat Lengkap</label>
-            <textarea name="alamat" placeholder=""><?php echo htmlspecialchars($user['alamat']); ?></textarea>
-        </div>
+            <textarea name="alamat" placeholder=""><?php echo htmlspecialchars($user['alamat'] ?? ''); ?></textarea>
+            </div>
         <div class="form-column">
         <div class="form-group" style="position: relative; width: 100%;">
     <label>Golongan Darah</label>
@@ -385,14 +446,113 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 
 
     <button type="submit" class="submit-btn">KIRIM</button>
-</f>
+
+<?php if (!empty($donor_data)): ?>
+    <!-- Kontainer yang membungkus tabel untuk memberikan scroll -->
+     
+    <div class="table-container">
+    <h1>Riwayat Pengisian Formulir Donor</h1>
+
+        <table class="riwayat-donor">
+            <thead>
+                <tr>
+                    <th>Nama Donor</th>
+                    <th>Alamat Donor</th>
+                    <th>Golongan Darah</th>
+                    <th>Berat Badan</th>
+                    <th>Lokasi Donor</th>
+                    <th>Tanggal Donor</th>
+                    <th>Waktu Acara</th>
+                    <th>Lokasi Acara</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($donor_data as $row): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row['donor_nama']); ?></td>
+                        <td><?php echo htmlspecialchars($row['alamat_lengkap']); ?></td>
+                        <td><?php echo htmlspecialchars($row['golongan_darah']); ?></td>
+                        <td><?php echo htmlspecialchars($row['berat_badan']); ?> kg</td>
+                        <td><?php echo htmlspecialchars($row['lokasi_donor']); ?></td>
+                        <td><?php echo htmlspecialchars($row['tanggal_input']); ?></td>
+                        <td>
+                            <?php echo formatWaktuAcara($row['time_waktu']); ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($row['acara_lokasi']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+    <h1>Anda Belum Mengisi Formulir Donor</h1>
+<?php endif; ?>
+
     			</div>
+                </form>
             <style>
                 .main-content {
                     margin-left: 300px; /* Sesuaikan dengan lebar sidebar */
                     padding: 20px;
                 }
-        
+        /* Styling untuk tabel */
+.riwayat-donor {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse; /* Menggabungkan border antar sel */
+}
+
+/* Styling untuk setiap cell (td dan th) */
+.riwayat-donor th, .riwayat-donor td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Menambahkan border pada setiap kolom */
+}
+
+/* Styling untuk header tabel */
+.riwayat-donor th {
+    background-color: #c73f3f; /* Background merah untuk header */
+    color: #fff; /* Warna teks putih */
+    font-weight: bold; /* Membuat teks header tebal */
+}
+
+/* Styling untuk baris ganjil */
+.riwayat-donor tr:nth-child(odd) {
+    background-color: #f0f0f0; /* Background abu-abu muda untuk baris ganjil */
+}
+
+/* Styling untuk baris genap */
+.riwayat-donor tr:nth-child(even) {
+    background-color: #ffffff; /* Background putih untuk baris genap */
+}
+
+/* Styling tambahan jika diperlukan */
+.riwayat-donor td {
+    border: 1px solid #ddd; /* Border pada setiap cell */
+}
+
+/* Menambahkan styling untuk kontainer yang membungkus tabel agar responsif */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Membuat tabel dapat di-scroll secara horizontal */
+    -webkit-overflow-scrolling: touch; /* Memberikan efek scroll yang lebih halus di perangkat iOS */
+}
+
+/* Styling untuk perangkat mobile (lebar layar <= 768px) */
+@media (max-width: 768px) {
+    .riwayat-donor th, .riwayat-donor td {
+        padding: 8px; /* Mengurangi padding untuk ruang yang lebih kecil */
+    }
+
+    .riwayat-donor th {
+        font-size: 14px; /* Menyesuaikan ukuran font di header */
+    }
+
+    .riwayat-donor td {
+        font-size: 12px; /* Menyesuaikan ukuran font di sel */
+    }
+}
+
                 .card-content p {
                     font-size: 1rem;
                 }

@@ -167,31 +167,64 @@ if ($result_sertifikat->num_rows > 0) {
 	strong {
 		font-weight: 500;
 	}
+/* Styling untuk tabel */
 .riwayat-donor {
     width: 100%;
     margin: 20px 0;
-    border-collapse: collapse;
+    border-collapse: collapse; /* Menggabungkan border antar sel */
 }
 
-
-.riwayat-donor td {
+/* Styling untuk setiap cell (td dan th) */
+.riwayat-donor th, .riwayat-donor td {
     padding: 10px;
-    background-color: #F5F5F5;
-    text-align: right; /* Ini akan memastikan tombol di sebelah kanan */
-    border-radius: 15px;
-    border-bottom: 2px solid white;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+    text-align: left;
+    border: 1px solid #ddd; /* Menambahkan border pada setiap kolom */
 }
 
-.riwayat-donor .btn-unduh {
-    display: inline-block;
-    padding: 7px 10px;
-    background-color: #C73F3F;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    text-align: center;
+/* Styling untuk header tabel */
+.riwayat-donor th {
+    background-color: #c73f3f; /* Background merah untuk header */
+    color: #fff; /* Warna teks putih */
+    font-weight: bold; /* Membuat teks header tebal */
 }
+
+/* Styling untuk baris ganjil */
+.riwayat-donor tr:nth-child(odd) {
+    background-color: #f0f0f0; /* Background abu-abu muda untuk baris ganjil */
+}
+
+/* Styling untuk baris genap */
+.riwayat-donor tr:nth-child(even) {
+    background-color: #ffffff; /* Background putih untuk baris genap */
+}
+
+/* Styling tambahan jika diperlukan */
+.riwayat-donor td {
+    border: 1px solid #ddd; /* Border pada setiap cell */
+}
+
+/* Menambahkan styling untuk kontainer yang membungkus tabel agar responsif */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Membuat tabel dapat di-scroll secara horizontal */
+    -webkit-overflow-scrolling: touch; /* Memberikan efek scroll yang lebih halus di perangkat iOS */
+}
+
+/* Styling untuk perangkat mobile (lebar layar <= 768px) */
+@media (max-width: 768px) {
+    .riwayat-donor th, .riwayat-donor td {
+        padding: 8px; /* Mengurangi padding untuk ruang yang lebih kecil */
+    }
+
+    .riwayat-donor th {
+        font-size: 14px; /* Menyesuaikan ukuran font di header */
+    }
+
+    .riwayat-donor td {
+        font-size: 12px; /* Menyesuaikan ukuran font di sel */
+    }
+}
+
 
 .nama-unduh-container {
     display: flex;

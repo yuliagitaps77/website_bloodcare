@@ -449,6 +449,7 @@ $('#profile-saya').click(function () {
         }
     });
 });
+var baseUrl = "<?php echo BASE_URL; ?>";  // Menyuntikkan BASE_URL ke dalam JavaScript
 
         // Klik pada menu Keluar
         $('#keluar').click(function (event) {
@@ -468,7 +469,7 @@ $('#profile-saya').click(function () {
                 if (result.isConfirmed) {
                     // Jika pengguna menekan tombol "Ya, keluar", panggil logout.php
                     $.ajax({
-                        url: 'http://localhost/website_bloodcare/api/website/logout.php', // Path ke file PHP logout
+                        url: '<?php echo BASE_URL; ?>/api/website/logout.php', // Menggunakan BASE_URL dinamis
                         type: 'POST',
                         success: function (response) {
                             const res = JSON.parse(response); // Parse respons JSON
@@ -483,7 +484,7 @@ $('#profile-saya').click(function () {
                                     timerProgressBar: true
                                 }).then(() => {
                                     // Redirect ke halaman login
-                                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/auth/Masuk.php'; // Path disesuaikan
+                                    window.location.href = baseUrl + '/website/public_html/auth/Masuk.php';
                                 });
                             } else {
                                 Swal.fire({
