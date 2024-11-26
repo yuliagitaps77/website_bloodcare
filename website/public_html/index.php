@@ -314,6 +314,15 @@
     transition: transform 0.3s ease-in-out;
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
 
 
 </style>
