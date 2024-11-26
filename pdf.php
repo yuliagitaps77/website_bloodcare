@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Menghasilkan nama file sertifikat dengan UUID
             $uuid = uniqid();  // Menghasilkan UUID yang unik
-            $fileName = $uuid . '_' . str_replace(' ', '_', $data['nama_lengkap']) . '_' . date('YmdHis') . '.png';
+            $fileName = $uuid . '_' . str_replace(' ', '_', $data['nama_lengkap']) . '_' . date('YmdHis') . '.pdf';
             $outputPath = 'api/sertifikat/' . $fileName;  // Path untuk menyimpan sertifikat gambar
 
             // Simpan PDF sebagai gambar PNG
