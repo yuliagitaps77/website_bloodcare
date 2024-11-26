@@ -23,7 +23,7 @@ if (isset($_SESSION['user_id'])) {
                     timer: 2000,
                     timerProgressBar: true
                 }).then(() => {
-    window.location.href = '" . BASE_URL . "/dashboard/dist/index.php';
+                                window.location.href = '/website_bloodcare/website/public_html/dashboard/dist/index.php';
                 });
             </script>
         </body>
@@ -89,7 +89,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                     }, 1000);
                                 }
                             }).then(() => {
-                                window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+                                window.location.href = '/website_bloodcare/website/public_html/dashboard/dist/index.php';
                             });
                         </script>
                     </body>

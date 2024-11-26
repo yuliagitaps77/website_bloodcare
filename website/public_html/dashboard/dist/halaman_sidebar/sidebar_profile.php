@@ -38,7 +38,7 @@ $stmt->close();
 $conn->close();
 
 $base_url = "http://localhost/website_bloodcare/api/website/";
-$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
+$profile_picture = !empty($user['profile_picture']) ? BASE_URL . '/api/website/' . $user['profile_picture'] : 'https://via.placeholder.com/100';
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +53,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
       <div class="hero-title"><strong>Profil</strong></div>
       <div class="profile-card">
 
-    <form class="profile-form" action="http://localhost/website_bloodcare/api/website/update_profile.php" method="POST" enctype="multipart/form-data">
-        <div class="custom-profile-header" id="profile-header"> 
+      <form class="profile-form" action="<?php echo BASE_URL . '/api/website/update_profile.php'; ?>" method="POST" enctype="multipart/form-data">
+      <div class="custom-profile-header" id="profile-header"> 
    <img id="profile-picture-preview-sidebar" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="custom-profile-picture">
 <div class="custom-upload-overlay">Ganti Foto</div>
 <input type="file" id="profile-picture-input" class="custom-upload-input" name="profile_picture" accept="image/*">
@@ -123,8 +123,11 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
         class="form-input" 
         value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
         style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
+        min="1930-01-01" 
+        max="<?php echo date('Y-m-d'); ?>"
     >
 </div>
+
 
 <div class="form-group" style="margin-bottom: 1rem;">
     <label for="email" style="display: block; margin-bottom: 0.5rem;">Email</label>

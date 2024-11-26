@@ -46,8 +46,8 @@ $email = $_SESSION['email']; // Ambil email dari session
                 
 
                   
-              <form action="http://localhost/website_bloodcare/api/website/verifikasi_kode_otp_website.php" method="POST">
-        <!-- Email ditampilkan otomatis -->
+              <form action="/website_bloodcare/api/website/verifikasi_kode_otp_website.php" method="POST">
+              <!-- Email ditampilkan otomatis -->
 
         <div class="input-group" style="margin-bottom: 40px;">
     <input type="text" id="otp" name="otp" class="form-box__input" required placeholder=" " maxlength="5" oninput="validateOTP(event)">

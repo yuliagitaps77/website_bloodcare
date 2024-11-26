@@ -88,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
               </div>
             
               <p class="form-box__subtitle">Selamat datang kembali👋🏻</p>
-                <form action="http://localhost/website_bloodcare/api/website/login_website.php" method="POST">
+              <form action="/website_bloodcare/api/website/login_website.php" method="POST">
 
                 <h2 class="form-box__title" >Masuk ke akun Anda.</h2>
 

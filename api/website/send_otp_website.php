@@ -119,25 +119,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Simpan email ke session
                 $_SESSION['email'] = $recipientEmail;
             
-                echo '
-                <html>
-                    <head>
-                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                    </head>
-                    <body>
-                        <script>
-                            Swal.fire({
-                                icon: "success",
-                                title: "OTP Terkirim!",
-                                text: "OTP berhasil dikirim ke email Anda.",
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(() => {
-                                window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/kode_otp.php";
-                            });
-                        </script>
-                    </body>
-                </html>';
+echo '
+    <html>
+        <head>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: "success",
+                    title: "OTP Terkirim!",
+                    text: "OTP berhasil dikirim ke email Anda.",
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    // Ganti dengan BASE_URL yang dinamis
+                    window.location.href = "' . BASE_URL . '/website/public_html/auth/kode_otp.php";
+                });
+            </script>
+        </body>
+    </html>
+';
             } else {
                 echo '
                 <html>
@@ -163,24 +165,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Akun tidak ditemukan, redirect ke lupa_kata_sandi.php
             echo '
-            <html>
-                <head>
-                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                </head>
-                <body>
-                    <script>
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Akun Tidak Terdaftar",
-                            text: "Email ini tidak terdaftar di sistem kami. Mengarahkan ke halaman Lupa Kata Sandi.",
-                            showConfirmButton: false,
-                            timer: 3000
-                        }).then(() => {
-                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/lupa_kata_sandi.php";
-                        });
-                    </script>
-                </body>
-            </html>';
+    <html>
+        <head>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: "warning",
+                    title: "Akun Tidak Terdaftar",
+                    text: "Email ini tidak terdaftar di sistem kami. Mengarahkan ke halaman Lupa Kata Sandi.",
+                    showConfirmButton: false,
+                    timer: 3000
+                }).then(() => {
+                    // Ganti dengan BASE_URL yang dinamis
+                    window.location.href = "' . BASE_URL . '/website/public_html/auth/lupa_kata_sandi.php";
+                });
+            </script>
+        </body>
+    </html>
+';
+
             
         }
 
@@ -210,5 +215,4 @@ echo '
     }
 }
 
-$conn->close();
 ?>

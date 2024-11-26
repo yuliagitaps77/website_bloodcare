@@ -22,7 +22,8 @@ $result = $conn->query($sql);
     <!-- Materialize CSS -->
 </head>
 <body>
-    <div class="col s12 m12 l9 offset-10">
+<div class="col s12 m12 l12 offset-l1" id="responsive-column" 
+     style="padding-left: 15px; padding-right: 15px;">
       
         <div class="card-content">
             <h6 class="card-title">Acara Donor</h6>
@@ -61,7 +62,38 @@ $result = $conn->query($sql);
         </div>
     </div>
     
- 
+    <script>
+    // Fungsi untuk menyesuaikan margin dan padding elemen
+    function adjustColumn() {
+        var width = window.innerWidth;  // Mendapatkan lebar layar
+        var column = document.getElementById('responsive-column');  // Mendapatkan elemen kolom
+
+        if (width < 600) {
+            // Untuk layar kecil (mobile)
+            column.style.marginLeft = '10px'; // Margin kiri untuk mobile
+            column.style.paddingLeft = '10px';  // Padding kiri untuk mobile
+            column.style.paddingRight = '10px'; // Padding kanan untuk mobile
+        } else if (width >= 600 && width < 1024) {
+            // Untuk layar medium (tablet)
+            column.style.marginLeft = '20px'; // Margin kiri untuk tablet
+            column.style.paddingLeft = '20px';  // Padding kiri untuk tablet
+            column.style.paddingRight = '20px'; // Padding kanan untuk tablet
+        } else {
+            // Untuk layar besar (desktop)
+            column.style.marginLeft = '140px'; // Margin kiri untuk desktop
+            column.style.paddingLeft = '40px';  // Padding kiri untuk desktop
+            column.style.paddingRight = '40px'; // Padding kanan untuk desktop
+        }
+    }
+
+    // Menjalankan fungsi saat ukuran layar berubah
+    window.addEventListener('resize', adjustColumn);
+
+    // Menjalankan fungsi saat halaman pertama kali dimuat
+    window.addEventListener('load', adjustColumn);
+</script>
+
+
 
 
       <style>

@@ -3,7 +3,7 @@
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'];
 $basePath = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
-define('BASE_URL', $protocol . $host . $basePath);
+define('BASE_URL', $protocol . $host . '/website_bloodcare');
 
 // Konfigurasi database
 $hostDB = 'localhost';

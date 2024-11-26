@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../koneksi.php';
 
-
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
@@ -19,6 +18,26 @@ $nama = $_POST['nama'] ?? null;
 $alamat = $_POST['alamat'] ?? null;
 $tanggal_lahir = $_POST['tanggal_lahir'] ?? null;
 $no_hp = $_POST['no_hp'] ?? null;
+
+// Validasi tanggal lahir (tidak boleh lebih dari tanggal hari ini)
+$current_date = date('Y-m-d');
+if ($tanggal_lahir > $current_date) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        window.onload = function() {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Tanggal lahir tidak boleh lebih dari hari ini.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.history.back(); // Kembali ke halaman sebelumnya
+            });
+        };
+    </script>";
+    exit(); // Hentikan eksekusi script jika tanggal lahir tidak valid
+}
 
 // Proses unggahan gambar
 $profile_picture_path = null;
@@ -84,6 +103,7 @@ if ($update_picture) {
 
 if ($stmt->execute()) {
     echo "
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         window.onload = function() {
@@ -93,14 +113,27 @@ if ($stmt->execute()) {
                 icon: 'success',
                 confirmButtonText: 'OK',
                 timer: 3000,
-                timerProgressBar: true
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm-btn'
+                }
             }).then((result) => {
                 if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php#!';
+                    window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php#!';
                 }
             });
         };
-    </script>";
+    </script>
+    <style>
+        /* Ganti font SweetAlert2 dengan Poppins */
+        .swal-popup, .swal-title, .swal-content, .swal-confirm-btn {
+            font-family: 'Poppins', sans-serif !important;
+        }
+    </style>";
+
 } else {
     echo "<p>Terjadi kesalahan saat memperbarui profil: " . $stmt->error . "</p>";
 }

@@ -149,7 +149,7 @@ $stmt = $conn->prepare($query);
                         timer: 3000,
                         showConfirmButton: false
                     }).then(() => {
-                    window.location.href = 'http://localhost/website_bloodcare/website/public_html/dashboard/dist/index.php';
+                window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php#!';
                     });
                 });
             </script>

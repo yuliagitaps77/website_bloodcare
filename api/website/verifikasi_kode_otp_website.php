@@ -43,11 +43,13 @@ if (!isset($_SESSION['email'])) {
                     text: "Email tidak ditemukan. Silakan coba lagi.",
                     confirmButtonText: "OK"
                 }).then(() => {
-                    window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/lupa_kata_sandi.php";
+                    // Menggunakan BASE_URL yang dinamis
+                    window.location.href = "' . BASE_URL . '/website/public_html/auth/lupa_kata_sandi.php";
                 });
             </script>
         </body>
-    </html>';
+    </html>
+';
     exit();
 }
 
@@ -139,25 +141,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $update_stmt->bind_param("s", $email);
         if ($update_stmt->execute()) {
             echo '
-            <html>
-                <head>
-                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                </head>
-                <body>
-                    <script>
-                        Swal.fire({
-                            icon: "success",
-                            title: "Verifikasi Berhasil!",
-                            text: "Anda akan diarahkan untuk mengganti sandi baru.",
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true
-                        }).then(() => {
-                            window.location.href = "http://localhost/website_bloodcare/website/public_html/auth/sandi_baru.php";
-                        });
-                    </script>
-                </body>
-            </html>';
+    <html>
+        <head>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: "success",
+                    title: "Verifikasi Berhasil!",
+                    text: "Anda akan diarahkan untuk mengganti sandi baru.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => {
+                    // Menggunakan BASE_URL yang dinamis
+                    window.location.href = "' . BASE_URL . '/website/public_html/auth/sandi_baru.php";
+                });
+            </script>
+        </body>
+    </html>
+';
+
         } else {
             echo '
             <html>

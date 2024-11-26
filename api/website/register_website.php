@@ -155,7 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         timer: 3000,
                         showConfirmButton: false
                     }).then(() => {
-                        window.location.href = '/website_bloodcare/website/public_html/dashboard/dist/sindex.php';
+                        window.location.href = '/website_bloodcare/website/public_html/auth/masuk.php';
+
                     });
                 </script>
             </body>

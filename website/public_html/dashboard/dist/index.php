@@ -1,14 +1,14 @@
 <?php
 session_start(); // Mulai session
+require_once dirname(__DIR__, levels: 4) . '/api/koneksi.php';
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     // Jika belum login, arahkan ke halaman login
-    header("Location: http://localhost/website_bloodcare/website/public_html/auth/masuk.php");
+    header("Location: " . BASE_URL . "/website/public_html/auth/masuk.php");
     exit();
 }
 
-require_once dirname(__DIR__, levels: 4) . '/api/koneksi.php';
 
 // Periksa koneksi database
 if ($conn->connect_error) {
@@ -26,8 +26,7 @@ $result = $stmt->get_result();
 // Ambil data pengguna
 $user = $result->fetch_assoc();
 $nama_lengkap = $user['nama_lengkap'] ?? "Nama tidak tersedia"; // Default jika nama_lengkap null
-$base_url = "http://localhost/website_bloodcare/api/website/";
-$profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile_picture'] : 'https://via.placeholder.com/100';
+$profile_picture = !empty($user['profile_picture']) ? BASE_URL . '/api/website/' . $user['profile_picture'] : 'https://via.placeholder.com/100';
 
 
 
@@ -134,10 +133,12 @@ foreach ($stokDarah as $jenis_darah => $dataGolongan) {
   
   <div class="navbar-fixed hide-on-large-only show-on-medium-and-down">
     <nav class="colored">
-      <div class="nav-wrapper">
+      <div class="nav-wrapper" style="background-color: #DF3232;">
         <ul class="right">
           <li>
-            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="slide-out" class="sidenav-trigger" style="color: #ffffff;">
+  <i class="material-icons" style="color: #ffffff;">menu</i>
+</a>
           </li>
         </ul>
       </div>
@@ -330,6 +331,14 @@ function initializeCharts() {
 
 
 
+$(document).ready(function(){
+  $('.sidenav').sidenav();  // Inisialisasi sidenav untuk perangkat mobile
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+});
 
     $(document).ready(function(){
         console.log("jQuery is loaded and ready!");

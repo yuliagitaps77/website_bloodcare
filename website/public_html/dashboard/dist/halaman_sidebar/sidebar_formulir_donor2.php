@@ -53,10 +53,43 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <title>Dashboard</title>
 </head>
 <body>
-    <div class="col s12 m12 l9 offset-10">
+<div class="col s12 m12 l12 offset-l1" id="responsive-column" 
+     style="padding-left: 15px; padding-right: 15px;">
       <div class="hero-title"><strong>Formulir Donor</strong></div>
+      <script>
+    // Fungsi untuk menyesuaikan margin dan padding elemen
+    function adjustColumn() {
+        var width = window.innerWidth;  // Mendapatkan lebar layar
+        var column = document.getElementById('responsive-column');  // Mendapatkan elemen kolom
 
-      <form class="form-donor" action="http://localhost/website_bloodcare/api/website/send_formulir_donor.php" method="POST">
+        if (width < 600) {
+            // Untuk layar kecil (mobile)
+            column.style.marginLeft = '10px'; // Margin kiri untuk mobile
+            column.style.paddingLeft = '10px';  // Padding kiri untuk mobile
+            column.style.paddingRight = '10px'; // Padding kanan untuk mobile
+        } else if (width >= 600 && width < 1024) {
+            // Untuk layar medium (tablet)
+            column.style.marginLeft = '20px'; // Margin kiri untuk tablet
+            column.style.paddingLeft = '20px';  // Padding kiri untuk tablet
+            column.style.paddingRight = '20px'; // Padding kanan untuk tablet
+        } else {
+            // Untuk layar besar (desktop)
+            column.style.marginLeft = '140px'; // Margin kiri untuk desktop
+            column.style.paddingLeft = '40px';  // Padding kiri untuk desktop
+            column.style.paddingRight = '40px'; // Padding kanan untuk desktop
+        }
+    }
+
+    // Menjalankan fungsi saat ukuran layar berubah
+    window.addEventListener('resize', adjustColumn);
+
+    // Menjalankan fungsi saat halaman pertama kali dimuat
+    window.addEventListener('load', adjustColumn);
+</script>
+
+
+      <form class="form-donor" action="<?php echo BASE_URL . '/api/website/send_formulir_donor.php'; ?>" method="POST" enctype="multipart/form-data" 
+        style="background-color: white; padding: 30px; border-radius: 15px; border: 1px solid #d1d1d1; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
 
     <!-- Row 1 -->
     <div class="form-row">
@@ -95,19 +128,21 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
 </div>
 
 
-<div class="form-group" >
+<div class="form-group">
     <label for="tanggal-lahir" style="display: block;">Tanggal Lahir</label>
     <input 
         type="date" 
         id="tanggal-lahir" 
         name="tanggal_lahir" 
         class="form-input" 
-        disabled
+        readonly
         style="outline: none; border: 2px solid #BE7171; background-color: #f9f9f9; color: #999; pointer-events: none;"
-
-        value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>" 
+        value="<?php echo htmlspecialchars($user['tanggal_lahir'] ?? ''); ?>"
+        min="1930-01-01" 
+        max="<?php echo date('Y-m-d'); ?>" 
     >
 </div>
+
 
     </div>
 

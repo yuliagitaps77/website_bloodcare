@@ -24,6 +24,7 @@ $resultdata = $conn->query($sql);
         color: red;
         font-weight: bold;
     }
+    
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +44,8 @@ $resultdata = $conn->query($sql);
     console.log("Data stok darah dari PHP:", stokDarah);
 </script>
 
-        <div class="col s12 m12 l9 offset-10">
+<div class="col s12 m12 l12 offset-l1" id="responsive-column" 
+     style="padding-left: 15px; padding-right: 15px;">
         <div class="content">
         </div>
 				<div class="hero-title"><strong>Beranda</strong></div>
@@ -68,6 +70,38 @@ $resultdata = $conn->query($sql);
                         <!-- Card Jadwal (di kiri) -->
                         <div id="card-jadwal" class="card pink lighten-4 card-jadwal">
                         <div class="card-content">
+                        <script>
+    // Fungsi untuk menyesuaikan margin dan padding elemen
+    function adjustColumn() {
+        var width = window.innerWidth;  // Mendapatkan lebar layar
+        var column = document.getElementById('responsive-column');  // Mendapatkan elemen kolom
+
+        if (width < 600) {
+            // Untuk layar kecil (mobile)
+            column.style.marginLeft = '10px'; // Margin kiri untuk mobile
+            column.style.paddingLeft = '10px';  // Padding kiri untuk mobile
+            column.style.paddingRight = '10px'; // Padding kanan untuk mobile
+        } else if (width >= 600 && width < 1024) {
+            // Untuk layar medium (tablet)
+            column.style.marginLeft = '20px'; // Margin kiri untuk tablet
+            column.style.paddingLeft = '20px';  // Padding kiri untuk tablet
+            column.style.paddingRight = '20px'; // Padding kanan untuk tablet
+        } else {
+            // Untuk layar besar (desktop)
+            column.style.marginLeft = '140px'; // Margin kiri untuk desktop
+            column.style.paddingLeft = '40px';  // Padding kiri untuk desktop
+            column.style.paddingRight = '40px'; // Padding kanan untuk desktop
+        }
+    }
+
+    // Menjalankan fungsi saat ukuran layar berubah
+    window.addEventListener('resize', adjustColumn);
+
+    // Menjalankan fungsi saat halaman pertama kali dimuat
+    window.addEventListener('load', adjustColumn);
+</script>
+
+
     <h6 class="card-title">JADWAL ACARA DONOR</h6>
     <table class="jadwal-tabel">
         <thead>
@@ -102,7 +136,14 @@ $resultdata = $conn->query($sql);
                     
                         <!-- Kontainer Kanan (2 card-stok) -->
                         <div class="cards-right">
-                            <!-- Card Stok 1 -->
+                            <!-- Card Stok 1 --> <div class="card pink lighten-4 card-stok">
+                                <div class="card-content">
+                                    <h6 class="card-title">STOK DARAH</h6>
+                                    <div class="chart-container-pie-chart   ">
+                                        <canvas id="barChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card pink lighten-4 card-stok">
                                 <div class="card-content">
                                     <h6 class="card-title">STOK DARAH</h6>
@@ -113,14 +154,7 @@ $resultdata = $conn->query($sql);
                             </div>
                             
                             <!-- Card Stok 2 -->
-                            <div class="card pink lighten-4 card-stok">
-                                <div class="card-content">
-                                    <h6 class="card-title">STOK DARAH</h6>
-                                    <div class="f">
-                                        <canvas id="barChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div id="notifikasi" class="card pink lighten-4 card-stok" style="margin-top: 20px;">
     <div class="card-content">
         <span class="card-title" style="color: red; font-weight: bold;">
@@ -211,12 +245,15 @@ $(document).on('click', '#isi-formulir', function () {
                 button.submit-btn:hover {
                     background-color: #b71c1c;
                 }
-.chart-container-pie-chart{
-    position: relative;
+.chart-container-pie-chart {
     width: 100%;
     height: 100%;
     padding: 10px;
-}    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
 .chart-container {
     position: relative;
     width: 100%;
