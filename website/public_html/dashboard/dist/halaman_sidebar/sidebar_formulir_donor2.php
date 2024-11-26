@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 }
 
 // Ambil data pengguna dari database
-$query = "SELECT nama_lengkap, alamat, profile_picture, tanggal_lahir,email, no_hp FROM akun WHERE id_akun = ?";
+$query = "SELECT id_akun, nama_lengkap, alamat, profile_picture, tanggal_lahir,email, no_hp FROM akun WHERE id_akun = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) {
     die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
@@ -94,6 +94,8 @@ $profile_picture = !empty($user['profile_picture']) ? $base_url . $user['profile
     <!-- Row 1 -->
     <div class="form-row">
       <div class="form-group">
+      <input type="hidden" name="id_akun" value="<?php echo $user['id_akun']; ?>">
+
     <label for="nama-lengkap">Nama Lengkap</label>
     <input type="text" 
            id="nama-lengkap" 

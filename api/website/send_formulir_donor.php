@@ -8,8 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-
 // Periksa koneksi database
 if ($conn->connect_error) {
     die("<p>Koneksi gagal: " . $conn->connect_error . "</p>");
@@ -17,29 +15,18 @@ if ($conn->connect_error) {
 
 // Periksa apakah form telah disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Ambil data dari form
-    $nama_lengkap = trim($_POST['nama_lengkap'] ?? '');
-    $no_telepon = trim($_POST['no_hp'] ?? ''); // Ambil dari input hidden
-    $tanggal_lahir = trim($_POST['tanggal_lahir'] ?? '');
+    // Ambil id_akun dari form
+    $id_akun = trim($_POST['id_akun'] ?? '');
     $alamat_lengkap = trim($_POST['alamat'] ?? '');
     $golongan_darah = trim($_POST['golongan_darah'] ?? '');
     $berat_badan = trim($_POST['berat_badan'] ?? '');
-    $lokasi_donor = trim(string: $_POST['lokasi_donor'] ?? '');
+    $lokasi_donor = trim($_POST['lokasi_donor'] ?? '');
 
     // Daftar golongan darah yang valid
     $golongan_darah_valid = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
     // Validasi data
     $errors = [];
-    if (empty($nama_lengkap)) {
-        $errors[] = "Nama lengkap tidak boleh kosong.";
-    }
-    if (empty($no_telepon)) {
-        $errors[] = "Nomor telepon tidak boleh kosong.";
-    }
-    if (empty($tanggal_lahir)) {
-        $errors[] = "Tanggal lahir tidak boleh kosong.";
-    }
     if (empty($alamat_lengkap)) {
         $errors[] = "Alamat lengkap tidak boleh kosong.";
     }
@@ -83,12 +70,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Query untuk memasukkan data ke tabel
-    $query = "INSERT INTO formulir_donor (nama_lengkap, no_telepon, tanggal_lahir, alamat_lengkap, golongan_darah, berat_badan, lokasi_donor) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($query);
+    // Query untuk mengambil data pengguna berdasarkan id_akun
+    $query_user = "SELECT nama_lengkap, no_hp, tanggal_lahir FROM akun WHERE id_akun = ?";
+    $stmt_user = $conn->prepare($query_user);
+    if (!$stmt_user) {
+        die("<p>Gagal mempersiapkan statement: " . $conn->error . "</p>");
+    }
+    $stmt_user->bind_param("i", $id_akun);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+    if ($result_user->num_rows === 0) {
+        die("<p>Pengguna tidak ditemukan di database.</p>");
+    }
+    $user = $result_user->fetch_assoc();
+    $stmt_user->close();
 
-    if (!$stmt) {
+    // Query untuk memasukkan data ke tabel formulir_donor
+    $query_insert = "INSERT INTO formulir_donor (alamat_lengkap, golongan_darah, berat_badan, lokasi_donor, id_akun) 
+                     VALUES (?, ?, ?, ?, ?)";
+    $stmt_insert = $conn->prepare($query_insert);
+
+    if (!$stmt_insert) {
         echo "
         <!DOCTYPE html>
         <html lang='en'>
@@ -118,18 +120,16 @@ $stmt = $conn->prepare($query);
     }
 
     // Bind parameter dan eksekusi statement
-    $stmt->bind_param(
-        "sssssss",
-        $nama_lengkap,
-        $no_telepon,
-        $tanggal_lahir,
+    $stmt_insert->bind_param(
+        "sssss",
         $alamat_lengkap,
         $golongan_darah,
         $berat_badan,
-        $lokasi_donor
+        $lokasi_donor,
+        $id_akun
     );
 
-    if ($stmt->execute()) {
+    if ($stmt_insert->execute()) {
         echo "
         <!DOCTYPE html>
         <html lang='en'>
@@ -149,7 +149,7 @@ $stmt = $conn->prepare($query);
                         timer: 3000,
                         showConfirmButton: false
                     }).then(() => {
-                window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php#!';
+                        window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php#!';
                     });
                 });
             </script>
@@ -184,7 +184,7 @@ $stmt = $conn->prepare($query);
         ";
     }
 
-    $stmt->close();
+    $stmt_insert->close();
 }
 
 $conn->close();
