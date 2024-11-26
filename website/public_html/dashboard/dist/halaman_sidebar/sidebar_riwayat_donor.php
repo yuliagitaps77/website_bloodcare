@@ -98,7 +98,7 @@ $stmt_sertifikat->close();
     window.addEventListener('load', adjustColumn);
 </script>
 <table class="riwayat-donor">
-<?php
+<?php 
 // Pastikan BASE_URL sudah didefinisikan sebelumnya, seperti di contoh sebelumnya
 
 if ($result_sertifikat->num_rows > 0) {
@@ -124,8 +124,12 @@ if ($result_sertifikat->num_rows > 0) {
         $waktu_acara_end = clone $waktu_acara;
         $waktu_acara_end->add(new DateInterval('PT2H')); // Asumsikan durasi acara 2 jam
 
-        // Format pesan sukses
-        $pesan_sukses = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda telah berhasil mendonorkan darah di Rumah Sakit ABC. Status: ✅ Sukses.";
+        // Format pesan berdasarkan status donor
+        if ($status_donor == 'Berhasil') {
+            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda telah berhasil mendonorkan darah di Rumah Sakit ABC. Status: ✅ Sukses.";
+        } else {
+            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda mencoba mendonorkan darah di Lapangan Merdeka. Status: ❌ Ditolak (Alasan: {$alasan}).";
+        }
 
         ?>
         
@@ -134,9 +138,11 @@ if ($result_sertifikat->num_rows > 0) {
             <tr>
                 <td class="nama-unduh-container">
                     <!-- Menampilkan pesan status donor -->
-                    <p><?php echo $pesan_sukses; ?></p> <!-- Menampilkan pesan sukses atau status donor -->
+                    <p><?php echo $pesan_status; ?></p> <!-- Menampilkan pesan status donor -->
                     <!-- Tombol Unduh Sertifikat -->
-                    <a href="<?php echo $full_link_sertifikat; ?>" class="btn-unduh" target="_blank">Unduh Sertifikat</a>
+                    <?php if ($status_donor == 'Berhasil') { ?>
+                        <a href="<?php echo $full_link_sertifikat; ?>" class="btn-unduh" target="_blank">Unduh Sertifikat</a>
+                    <?php } ?>
                 </td>
             </tr>
         </table>
@@ -147,6 +153,7 @@ if ($result_sertifikat->num_rows > 0) {
     echo "<p>Belum ada sertifikat yang tersedia.</p>";
 }
 ?>
+
 
 
 							</table>
@@ -167,64 +174,30 @@ if ($result_sertifikat->num_rows > 0) {
 	strong {
 		font-weight: 500;
 	}
-/* Styling untuk tabel */
 .riwayat-donor {
     width: 100%;
     margin: 20px 0;
-    border-collapse: collapse; /* Menggabungkan border antar sel */
+    border-collapse: collapse;
 }
 
-/* Styling untuk setiap cell (td dan th) */
-.riwayat-donor th, .riwayat-donor td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd; /* Menambahkan border pada setiap kolom */
-}
 
-/* Styling untuk header tabel */
-.riwayat-donor th {
-    background-color: #c73f3f; /* Background merah untuk header */
-    color: #fff; /* Warna teks putih */
-    font-weight: bold; /* Membuat teks header tebal */
-}
-
-/* Styling untuk baris ganjil */
-.riwayat-donor tr:nth-child(odd) {
-    background-color: #f0f0f0; /* Background abu-abu muda untuk baris ganjil */
-}
-
-/* Styling untuk baris genap */
-.riwayat-donor tr:nth-child(even) {
-    background-color: #ffffff; /* Background putih untuk baris genap */
-}
-
-/* Styling tambahan jika diperlukan */
 .riwayat-donor td {
-    border: 1px solid #ddd; /* Border pada setiap cell */
+    padding: 10px;
+    background-color: #F5F5F5;
+    text-align: right; /* Ini akan memastikan tombol di sebelah kanan */
+    border-radius: 15px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
-/* Menambahkan styling untuk kontainer yang membungkus tabel agar responsif */
-.table-container {
-    width: 100%;
-    overflow-x: auto; /* Membuat tabel dapat di-scroll secara horizontal */
-    -webkit-overflow-scrolling: touch; /* Memberikan efek scroll yang lebih halus di perangkat iOS */
+.riwayat-donor .btn-unduh {
+    display: inline-block;
+    padding: 7px 10px;
+    background-color: #C73F3F;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
 }
-
-/* Styling untuk perangkat mobile (lebar layar <= 768px) */
-@media (max-width: 768px) {
-    .riwayat-donor th, .riwayat-donor td {
-        padding: 8px; /* Mengurangi padding untuk ruang yang lebih kecil */
-    }
-
-    .riwayat-donor th {
-        font-size: 14px; /* Menyesuaikan ukuran font di header */
-    }
-
-    .riwayat-donor td {
-        font-size: 12px; /* Menyesuaikan ukuran font di sel */
-    }
-}
-
 
 .nama-unduh-container {
     display: flex;
