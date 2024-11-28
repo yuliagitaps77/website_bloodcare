@@ -115,7 +115,6 @@ foreach ($stokDarah as $jenis_darah => $dataGolongan) {
 </div>
 
 
-
 <div class="info-box">
     <p>INFORMASI KEBUTUHAN DARAH:</p>
     <?php if (!empty($kebutuhanDarahList)): ?>
