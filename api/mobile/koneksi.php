@@ -8,6 +8,4 @@ if($db){
    //echo "udah nyambung bang";
 }
 
-
-
 ?>

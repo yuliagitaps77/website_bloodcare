@@ -1,14 +1,3 @@
-<!-- <?php
-// session_start(); // Mulai session
-
-// Jika belum login, arahkan ke halaman login
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: http://localhost/website_bloodcare/website/public_html/masuk.php");
-//     exit();
-// }
-?> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
