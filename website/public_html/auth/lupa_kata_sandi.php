@@ -1,6 +1,33 @@
 <?php
 session_start();
+require_once dirname(__DIR__, levels: 3) . '/api/koneksi.php';
 
+
+// Jika sudah login, arahkan ke dashboard
+if (isset($_SESSION['user_id'])) {
+    echo "
+    <html>
+    <head>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Sudah Login',
+                text: 'Anda sudah login, akan diarahkan ke dashboard.',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            }).then(() => {
+                // Menggunakan BASE_URL untuk mengarahkan ke halaman dashboard
+                window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php';
+            });
+        </script>
+    </body>
+    </html>";
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? null;
 

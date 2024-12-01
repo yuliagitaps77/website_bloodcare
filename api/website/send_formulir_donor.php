@@ -4,7 +4,7 @@ require_once __DIR__ . '/../koneksi.php';
 
 // Periksa apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: public_html/auth/Masuk.html");
+    header("Location: public_html/auth/masuk.php");
     exit();
 }
 

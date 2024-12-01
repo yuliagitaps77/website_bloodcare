@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: public_html/auth/Masuk.html");
+    header("Location: public_html/auth/masuk.php");
     exit();
 }
 

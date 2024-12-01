@@ -484,7 +484,7 @@ var baseUrl = "<?php echo BASE_URL; ?>";  // Menyuntikkan BASE_URL ke dalam Java
                                     timerProgressBar: true
                                 }).then(() => {
                                     // Redirect ke halaman login
-                                    window.location.href = baseUrl + '/website/public_html/auth/Masuk.php';
+                                    window.location.href = baseUrl + '/website/public_html/auth/masuk.php';
                                 });
                             } else {
                                 Swal.fire({
