@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lokasi_donor = trim($_POST['lokasi_donor'] ?? '');
 
     // Daftar golongan darah yang valid
-    $golongan_darah_valid = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+    $golongan_darah_valid = ['A', 'B', 'AB', 'O'];
 
     // Validasi data
     $errors = [];

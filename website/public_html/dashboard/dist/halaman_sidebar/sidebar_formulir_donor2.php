@@ -256,54 +256,34 @@ function formatWaktuAcara($waktu_acara) {
             z-index: 10;
         "
     >
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('A+')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >A+</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('A-')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >A-</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('B+')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >B+</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('B-')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >B-</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('AB+')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >AB+</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('AB-')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >AB-</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('O+')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >O+</div>
-        <div 
-            style="padding: 4px; cursor: pointer;" 
-            onclick="selectOption('O-')"
-            onmouseover="highlightOption(this)"
-            onmouseout="unhighlightOption(this)"
-        >O-</div>
+    <div 
+    style="padding: 4px; cursor: pointer;" 
+    onclick="selectOption('A')"
+    onmouseover="highlightOption(this)"
+    onmouseout="unhighlightOption(this)"
+>A</div>
+
+<div 
+    style="padding: 4px; cursor: pointer;" 
+    onclick="selectOption('B')"
+    onmouseover="highlightOption(this)"
+    onmouseout="unhighlightOption(this)"
+>B</div>
+
+<div 
+    style="padding: 4px; cursor: pointer;" 
+    onclick="selectOption('AB')"
+    onmouseover="highlightOption(this)"
+    onmouseout="unhighlightOption(this)"
+>AB</div>
+
+<div 
+    style="padding: 4px; cursor: pointer;" 
+    onclick="selectOption('O')"
+    onmouseover="highlightOption(this)"
+    onmouseout="unhighlightOption(this)"
+>O</div>
+
     </div>
 </div>
 

@@ -15,6 +15,10 @@ function isValidPassword($password) {
            preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password); // Karakter khusus
 }
 
+function isValidUsername($username) {
+    return !preg_match('/^\d+$/', $username);  // Username tidak boleh hanya angka
+}
+
 // Proses registrasi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_lengkap = cleanInput($_POST['name']);
@@ -46,7 +50,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </html>";
         exit;
     }
-
+    if (!isValidUsername($username)) {
+        echo "
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Username Tidak Valid',
+                        text: 'Username tidak boleh hanya berisi angka.',
+                        timer: 3000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.history.back();
+                    });
+                </script>
+            </body>
+            </html>";
+        exit;
+    }
     // Validasi password
     if (!isValidPassword($password)) {
         echo "

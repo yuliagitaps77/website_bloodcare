@@ -123,12 +123,14 @@ if ($result_sertifikat->num_rows > 0) {
         $waktu_acara = new DateTime($row['waktu_donor']);
         $waktu_acara_end = clone $waktu_acara;
         $waktu_acara_end->add(new DateInterval('PT2H')); // Asumsikan durasi acara 2 jam
+        $lokasi_donor = htmlspecialchars($row['lokasi']); // Ambil lokasi dari data acara donor
 
         // Format pesan berdasarkan status donor
         if ($status_donor == 'Berhasil') {
-            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda telah berhasil mendonorkan darah di Rumah Sakit ABC. Status: ✅ Sukses.";
+            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda telah berhasil mendonorkan darah di {$lokasi_donor}. Status: ✅ Sukses.";
+
         } else {
-            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda mencoba mendonorkan darah di Lapangan Merdeka. Status: ❌ Ditolak (Alasan: {$alasan}).";
+            $pesan_status = "[{$tgl_donor} - {$waktu_acara_end->format('H:i')}] Anda mencoba mendonorkan darah di {$lokasi_donor}. Status: ❌ Ditolak (Alasan: {$alasan}).";
         }
 
         ?>

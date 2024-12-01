@@ -32,10 +32,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+
 
     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<style>
+  .back-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 15px;
+            font-size: 18px; /* Ukuran teks */
+            color: black; /* Warna teks hitam */
+            background-color: transparent; /* Latar belakang transparan */
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none; /* Menghilangkan underline pada tautan */
+            align-items: center;
+        }
+
+        .back-button i {
+            margin-right: 8px; /* Memberikan jarak antara ikon dan teks */
+        }
+
+        .back-button:hover {
+            text-decoration: underline; /* Memberikan efek underline saat hover */
+        }
+
+        .back-button:focus {
+            outline: none; /* Menghilangkan outline saat tombol difokuskan */
+        }
+    </style>
+    <body>
     <div class="container">
         <!-- Bagian Gambar -->
         <div class="image-container">
@@ -46,15 +76,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Bagian Form -->
         <div class="form-container">
             <div class="form-box">
-              <div style="display: flex; align-items: center;margin-bottom: 80px;">
+              <div style="display: flex; align-items: center;margin-bottom: 10px;">
                 <img src="../assets/imgs/logo apk.png" style="width: 20%; max-width: 10%; margin-bottom: 0px;" alt="icon">
                 <strong style="margin-left: 10px; font-size: 24px; font-weight: 900; color: #333; line-height: 1;">BloodCare</strong>
-              </div>
-            
+                  
+            </div>
+            <a href="masuk.php" class="back-button">
+    <i class="fas fa-chevron-left"></i> Kembali
+</a>
+
+              <!-- Tombol Kembali dengan panah kiri dan teks -->
+    <!-- Tombol Kembali dengan ikon panah kiri Font Awesome -->
+  <!-- Tombol Kembali dengan ikon fa-chevron-left dan teks -->
+
               <h2 class="form-box__title" style="margin-bottom: 40px;">Lupa kata sandi</h2> 
               <p class="form-box__subtitle"style="margin-bottom: 40px;">Masukan alamat email untuk mendapatkan kode OTP</p>
-              <form action="http://localhost/website_bloodcare/api/website/send_otp_website.php" method="POST">
-                <div class="input-group" style="margin-bottom: 40px;">
+              <form action="/website_bloodcare/api/website/send_otp_website.php" method="POST">
+              <div class="input-group" style="margin-bottom: 40px;">
                     <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
                     <label for="email" class="form-box__label">EMAIL</label>
                 </div>

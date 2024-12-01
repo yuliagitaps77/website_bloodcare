@@ -23,6 +23,8 @@ $email = $_SESSION['email']; // Ambil email dari session
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -36,11 +38,15 @@ $email = $_SESSION['email']; // Ambil email dari session
         <!-- Bagian Form -->
         <div class="form-container">
             <div class="form-box">
-              <div style="display: flex; align-items: center;margin-bottom: 80px;">
+              <div style="display: flex; align-items: center;margin-bottom: 10px;">
                 <img src="../assets/imgs/logo apk.png" style="width: 20%; max-width: 10%; margin-bottom: 0px;" alt="icon">
                 <strong style="margin-left: 10px; font-size: 24px; font-weight: 900; color: #333; line-height: 1;">BloodCare</strong>
-              </div>
-            
+  
+            </div>
+            <a href="lupa_kata_sandi.php" class="back-button">
+    <i class="fas fa-chevron-left"></i> Kembali
+</a>
+
               <h2 class="form-box__title" style="margin-bottom: 40px;">Masukkan kode OTP</h2> 
               <p class="form-box__subtitle"style="margin-bottom: 40px;">Masukan kode OTP yang dikirimkan ke emailmu</p>
                 

@@ -37,8 +37,7 @@ $user = $result->fetch_assoc();
 $stmt->close();
 $conn->close();
 
-$base_url = "http://localhost/website_bloodcare/api/website/";
-$profile_picture = !empty($user['profile_picture']) ? BASE_URL . '/api/website/' . $user['profile_picture'] : 'https://via.placeholder.com/100';
+$profile_picture = !empty($user['profile_picture']) ?  BASE_URL . '/api/website/' . $user['profile_picture'] : 'https://via.placeholder.com/100';
 ?>
 
 <!DOCTYPE html>
