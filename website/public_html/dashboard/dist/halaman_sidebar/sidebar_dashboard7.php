@@ -51,7 +51,7 @@ $resultdata = $conn->query($sql);
 				<div class="hero-title"><strong>Beranda</strong></div>
 				 <!-- Donation Call-to-Action Card -->
 				
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-left: 55px;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-left: 60px;">
                         <!-- Kolom untuk Teks dan Tombol -->
                         <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; align-items: flex-start;">
                             <h5 style="margin: 0; margin-bottom: 10px;">DONORKAN DARAHMU UNTUK</h5>

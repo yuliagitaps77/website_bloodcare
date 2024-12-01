@@ -233,7 +233,7 @@
 }
 
 /* Responsif: Mobile */
-@media (max-width: 768px) {
+@media (max-width: 30px) {
     .nav-toggle {
         display: block; /* Tampilkan tombol toggle */
     }

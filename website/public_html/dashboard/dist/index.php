@@ -320,7 +320,7 @@ function initializeCharts() {
                     <span class="card-title" style="color: green; font-weight: bold;">
                         Semua stok darah mencukupi.
                     </span>
-                </div>
+                </div>  
             `;
         }
     } else {
