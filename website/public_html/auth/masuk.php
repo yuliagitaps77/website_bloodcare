@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
                 timer: 2000,
                 timerProgressBar: true
             }).then(() => {
-                // Menggunakan BASE_URL untuk mengarahkan ke halaman dashboard
+                // Menggunakan BASE_URL unt uk mengarahkan ke halaman dashboard
                 window.location.href = '" . BASE_URL . "/website/public_html/dashboard/dist/index.php';
             });
         </script>
