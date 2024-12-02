@@ -93,29 +93,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
     <body>
+        
     <div class="container">
         <!-- Bagian Gambar -->
         <div class="image-container">
             <img src="images/forgot password.png" alt="Ilustrasi Login" class="image">
-
         </div>
-        
         <!-- Bagian Form -->
         <div class="form-container">
             <div class="form-box">
               <div style="display: flex; align-items: center;margin-bottom: 10px;">
                 <img src="../assets/imgs/logo apk.png" style="width: 20%; max-width: 10%; margin-bottom: 0px;" alt="icon">
-                <strong style="margin-left: 10px; font-size: 24px; font-weight: 900; color: #333; line-height: 1;">BloodCare</strong>
-                  
+                <strong style="margin-left: 10px; font-size: 24px; font-weight: 900; color: #333; line-height: 1;">BloodCare</strong>  
             </div>
             <a href="masuk.php" class="back-button">
-    <i class="fas fa-chevron-left"></i> Kembali
-</a>
-
-              <!-- Tombol Kembali dengan panah kiri dan teks -->
-    <!-- Tombol Kembali dengan ikon panah kiri Font Awesome -->
-  <!-- Tombol Kembali dengan ikon fa-chevron-left dan teks -->
-
+            <i class="fas fa-chevron-left"></i> Kembali</a>
               <h2 class="form-box__title" style="margin-bottom: 40px;">Lupa kata sandi</h2> 
               <p class="form-box__subtitle"style="margin-bottom: 40px;">Masukan alamat email untuk mendapatkan kode OTP</p>
               <form action="/website_bloodcare/api/website/send_otp_website.php" method="POST">

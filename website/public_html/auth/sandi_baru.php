@@ -104,39 +104,39 @@ input[type="password"] {
                 
                 <div class="input-group" style="position: relative; width: 100%;">
     <input
-        type="password"
-        id="password"
-        name="password"
-        class="form-box__input"
-        required
-        placeholder=" "
+                type="password"
+                id="password"
+                name="password"
+                class="form-box__input"
+                required
+                placeholder=" "
     />
     <label for="password" class="form-box__label">SANDI BARU</label>
     <button
-        type="button"
-        id="toggle-password"
-        style="
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: transparent;
-        "
-    >
+                type="button"
+                id="toggle-password"
+                style="
+                    cursor: pointer;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border: none;
+                    background: transparent;
+                "
+            >
         <i id="toggle-icon-password" class="fa-regular fa-eye" style="font-size: 20px; color: #bebebe;"></i>
     </button>
     <small
-        id="password-error"
-        style="
-            color: red;
-            display: none;
-            position: absolute;
-            top: calc(100% + 5px);
-            left: 0;
-        "
-    >
+                id="password-error"
+                style="
+                    color: red;
+                    display: none;
+                    position: absolute;
+                    top: calc(100% + 5px);
+                    left: 0;
+                "
+            >
         Password harus berisi huruf kapital, kecil, angka, dan karakter khusus.
     </small>
 </div>

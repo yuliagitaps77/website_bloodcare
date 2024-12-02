@@ -35,7 +35,7 @@ $email = $_SESSION['email']; // Ambil email dari session
 
         </div>
         
-        <!-- Bagian Form -->
+   
         <div class="form-container">
             <div class="form-box">
               <div style="display: flex; align-items: center;margin-bottom: 10px;">
@@ -44,8 +44,7 @@ $email = $_SESSION['email']; // Ambil email dari session
   
             </div>
             <a href="lupa_kata_sandi.php" class="back-button">
-    <i class="fas fa-chevron-left"></i> Kembali
-</a>
+            <i class="fas fa-chevron-left"></i> Kembali</a>
 
               <h2 class="form-box__title" style="margin-bottom: 40px;">Masukkan kode OTP</h2> 
               <p class="form-box__subtitle"style="margin-bottom: 40px;">Masukan kode OTP yang dikirimkan ke emailmu</p>

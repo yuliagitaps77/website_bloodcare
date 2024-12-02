@@ -1,14 +1,3 @@
-<!-- <?php
-// session_start(); // Mulai session
-
-// Jika belum login, arahkan ke halaman login
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: http://localhost/website_bloodcare/website/public_html/masuk.php");
-//     exit();
-// }
-?> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -324,21 +313,18 @@ html, body {
   overflow-x: hidden;
 }
 
-
 </style>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 <nav id="topNavbar" class="nav-container">
     <div class="nav-content">
-        <!-- Logo -->
         <a href="#" class="nav-logo">
             <img src="assets/imgs/logo pmi bloodcare.png" alt="Logo" class="logo-image">
         </a>
-        <!-- Tombol toggle untuk mobile -->
         <button class="nav-toggle" aria-label="Toggle navigation">
             <span class="nav-toggle-icon"></span>
         </button>
-        <!-- Link Navigasi -->
         <div class="nav-links">
     <ul class="nav-menu">
         <li class="nav-item"><a href="#home" class="nav-link">Beranda</a></li>
@@ -353,73 +339,72 @@ html, body {
     </div>
 </nav>
 
+     <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const navContainer = document.querySelector('.nav-container');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-link'); // Semua link
 
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navContainer = document.querySelector('.nav-container');
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-link'); // Semua link
+            let lastScrollTop = 0;
 
-    let lastScrollTop = 0;
+            // Scroll behavior untuk desktop
+            window.addEventListener('scroll', function () {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Scroll behavior untuk desktop
-    window.addEventListener('scroll', function () {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (window.innerWidth > 768) {
+                    // Desktop: sembunyikan navbar saat scroll ke bawah
+                    if (scrollTop > lastScrollTop) {
+                        navContainer.classList.add('nav-hidden');
+                    } else {
+                        navContainer.classList.remove('nav-hidden');
+                    }
+                } else {
+                    // Mobile: pastikan navbar tetap terlihat
+                    navContainer.classList.remove('nav-hidden');
+                }
 
-        if (window.innerWidth > 768) {
-            // Desktop: sembunyikan navbar saat scroll ke bawah
-            if (scrollTop > lastScrollTop) {
-                navContainer.classList.add('nav-hidden');
-            } else {
-                navContainer.classList.remove('nav-hidden');
-            }
-        } else {
-            // Mobile: pastikan navbar tetap terlihat
-            navContainer.classList.remove('nav-hidden');
-        }
+                lastScrollTop = scrollTop;
+            });
 
-        lastScrollTop = scrollTop;
-    });
+            // Toggle menu navigasi di mobile
+            navToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
 
-    // Toggle menu navigasi di mobile
-    navToggle.addEventListener('click', function () {
-        navLinks.classList.toggle('active');
-    });
+            // Tutup menu setelah item dipilih (khusus untuk mobile)
+            navItems.forEach(item => {
+                item.addEventListener('click', function (event) {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                    }
 
-    // Tutup menu setelah item dipilih (khusus untuk mobile)
-    navItems.forEach(item => {
-        item.addEventListener('click', function (event) {
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('active');
-            }
+                    // Prevent default jump
+                    event.preventDefault();
 
-            // Prevent default jump
-            event.preventDefault();
+                    // Ambil target dari href
+                    const targetId = item.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
 
-            // Ambil target dari href
-            const targetId = item.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            // Scroll ke elemen dengan animasi halus
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
+                    // Scroll ke elemen dengan animasi halus
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        });
+                    }
                 });
-            }
+            });
+
+            // Reset menu saat ukuran layar berubah
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active'); // Reset ke desktop
+                }
+            });
         });
-    });
 
-    // Reset menu saat ukuran layar berubah
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            navLinks.classList.remove('active'); // Reset ke desktop
-        }
-    });
-});
-
-</script>
+    </script>
 
     <header id="home" class="header">
         <div class="overlay"></div>
@@ -581,175 +566,175 @@ document.addEventListener('DOMContentLoaded', function () {
                     <a class="nav-link btn btn-primary" href="components.html" style="width: 20%; text-align: center;">SELENGKAPNYA</a></div>
             </div>
            
-<div class="blog-wrapper">
-    <div class="img-wrapper">
-        <img src="assets/imgs/kisah inspiratif 2.png" alt="kisah inspiratif 2">
-    </div>
-    <div class="txt-wrapper">
-        <h4 class="blog-title">Cerita Inspiratif Edward Mandala, Pegawai Bank TLM Yang Aktif Donor Apheresis, Ternyata Pernah Alami Darah Kental</h4>
-        <p class="description-blog">
-        Sebuah cerita inspiratif terkait donor darah datang dari salah satu pegawai Bank TLM, Edward Mandala. Kepala Seksi Funding Bank TLM ini, bukan cuma aktif sebagai pendonor untuk donor darah, tetapi kini aktif juga sebagai pendonor apheresis.  Ceritanya berawal ketika saya menjadi orang pertama di Bank TLM yang terkena penyakit Covid-19 pada tahun 2020, ketika pandemic covid-19 merebak pertama di wilayah Provinsi NTT,” kata Edward Mandala mengawali ceritanya.
-        </p>
-        <a class="nav-link btn btn-primary" href="components.html" style="width: 20%; text-align: center;">SELENGKAPNYA</a></div>
-    </div>
-    <div class="blog-wrapper">
-   
-</div>
-<div class="blog-wrapper">
-    <div class="img-wrapper">
-        <img src="assets/imgs/kisah inspiratif 3.png" alt="kisah inspiratif 2">
-    </div>
-    <div class="txt-wrapper">
-    <h4 class="blog-title">Seorang gadis berusia 11 tahun yang selamat berkat transfusi darah sedang memulihkan diri di rumah setelah transplantasi sel punca.</h4>
-    <p class="description-blog">
-    Chloe Gray dari Sunderland menerima transfusi darah pertamanya saat masih dalam kandungan dan telah keluar masuk rumah sakit untuk perawatan sejak saat itu. Dia menderita penyakit darah langka yang disebut Anemia Blackfan Diamond (DBA) yang berarti tubuhnya tidak dapat memproduksi cukup sel darah merah.Orangtua Chloe, Francesca dan Craig, memulai kampanye untuk menemukan kecocokan dan lebih dari 6.000 orang mendaftar untuk menjadi donor sel punca.
-    </p>
-        <a class="nav-link btn btn-primary" href="components.html" style="width: 20%; text-align: center;">SELENGKAPNYA</a></div>
-    </div>
-    <div class="blog-wrapper">
-   
-</div>
-
-    </section>
-    <div id="services" class="requirement-container"></div>
-    <div class="main-container">
-        <div class="content-wrapper">
-            <div class="heading">SYARAT MELAKUKAN DONOR DARAH</div>
-            <div class="requirements-container">
-    <!-- Left Column (Text, Icon) -->
-    <div class="requirements-column left">
-        <div class="requirement-item">
-            <span>Sehat Jasmani dan Rohani</span>
-            <img class="requirement-icon" src="assets/imgs/icon 1.png" alt="Sehat Jasmani dan Rohani">
-        </div>
-        <div class="requirement-item">
-            <span>Berat badan minimal 45kg</span>
-            <img class="requirement-icon" src="assets/imgs/icon 4.png" alt="Berat Badan">
-        </div>
-        <div class="requirement-item">
-            <span>Tidak minum obat yang mengandung antibiotik dalam seminggu terakhir</span>
-            <img class="requirement-icon" src="assets/imgs/icon 8.png" alt="Tidak minum obat">
-        </div>
-        <div class="requirement-item">
-            <span>Usia minimal 17 tahun</span>
-            <img class="requirement-icon" src="assets/imgs/icon 5.png" alt="Usia minimal">
-        </div>
-    </div>
-
-    <!-- Right Column (Icon, Text) -->
-    <div class="requirements-column right">
-        <div class="requirement-item">
-            <img class="requirement-icon" src="assets/imgs/icon 2.png" alt="Tekanan Darah">
-            <span>Tekanan darah: Sistol 90-160, Diastol 60-100</span>
-        </div>
-        <div class="requirement-item">
-            <img class="requirement-icon" src="assets/imgs/icon 6.png" alt="Jarak Donor Darah">
-            <span>Jarak donor darah sebelumnya 12 minggu atau 3 bulan</span>
-        </div>
-        <div class="requirement-item">
-            <img class="requirement-icon" src="assets/imgs/icon 3.png" alt="Tidak hamil">
-            <span>Perempuan tidak sedang hamil dan menyusui</span>
-        </div>
-        <div class="requirement-item">
-            <img class="requirement-icon" src="assets/imgs/icon 7.png" alt="Kadar Hemoglobin">
-            <span>Kadar hemoglobin 12.5 - 17 g/dl</span>
-        </div>
-    </div>
-</div>
-
-
-        </div>
-    </div>
-    <div class="custom-body">
-        <div class="container-card">
-            <div class="text-section">
-                <h1>Ayo Donor Darah<br>Sekarang!</h1>
-                <div class="button-container">
-    <button class="btn btn-primary" onclick="window.location.href='auth/masuk.php'">DONOR SEKARANG!</button>
-</div>
-
-            </div>
-            <div class="image-section">
-                <img src="assets/imgs/ayo donor darah.png" alt="Ayo Donor Darah">
-            </div>
-        </div>
-    </div>
-
-        <footer class="footer">
-        <div id="contact" class="footer"></div>
-        <div class="footer-container">
-        <div class="footer-logo-row">
-            <div class="footer-logo"></div>
-            <img src="assets/imgs/logopmi 2.png" alt="Ayo Donor Darah">
-            <img src="assets/imgs/line 1.png" alt="Ayo Donor Darah">
-            <div class="footer-logo">KABUPATEN <br>NGANJUK </div>
-            <div class="footer-logo"></div>
-            <img src="assets/imgs/logo nganjuk.png" alt="Ayo Donor Darah">
-        </div>
-        </div>
-        
-        
-        <div class="footer-container">
-            <!-- Address Column -->
-            <div class="footer-column"> 
-                <h3>Markas PMI Kabupaten Nganjuk</h3>
-                <p>Jl. Mayjen Sungkono No.10, Kauman,
-                Kec. Nganjuk, Kabupaten Nganjuk,
-                <br>Jawa Timur 64415</p>
-                <p class="footer-quote">"Tidak ada sukacita yang lebih besar daripada menyelamatkan satu jiwa."</p>
-            </div>
-
-            <!-- Services Column -->
-            <div class="footer-column">
-                <h3>Layanan</h3>
-                <p>Unit Donor Darah</p>
-                <p>Markas</p>
-            </div>
-
-            <!-- Help Column -->
-            <div class="footer-column">
-                <h3>Beri Bantuan</h3>
-                <p>Donor Darah</p>
-                <p>Donasi</p>
-            </div>
-
-            <!-- Social Media Column -->
-            <div class="footer-column">
-                <h3>Sosial Media Kami</h3>
-                <div class="social-media-item">
-                    <img src="assets/imgs/icons8-instagram-48 1.png" alt="">
-                    <a href="#">@udd.pminganjuk</a>
+            <div class="blog-wrapper">
+                <div class="img-wrapper">
+                    <img src="assets/imgs/kisah inspiratif 2.png" alt="kisah inspiratif 2">
                 </div>
-                <div class="social-media-item">
-                <img src="assets/imgs/icons8-whatsapp-100 1.png" alt="">
-                    <a href="tel:+6285142279393">+62 851 4227 9393</a>
+                <div class="txt-wrapper">
+                    <h4 class="blog-title">Cerita Inspiratif Edward Mandala, Pegawai Bank TLM Yang Aktif Donor Apheresis, Ternyata Pernah Alami Darah Kental</h4>
+                    <p class="description-blog">
+                    Sebuah cerita inspiratif terkait donor darah datang dari salah satu pegawai Bank TLM, Edward Mandala. Kepala Seksi Funding Bank TLM ini, bukan cuma aktif sebagai pendonor untuk donor darah, tetapi kini aktif juga sebagai pendonor apheresis.  Ceritanya berawal ketika saya menjadi orang pertama di Bank TLM yang terkena penyakit Covid-19 pada tahun 2020, ketika pandemic covid-19 merebak pertama di wilayah Provinsi NTT,” kata Edward Mandala mengawali ceritanya.
+                    </p>
+                    <a class="nav-link btn btn-primary" href="components.html" style="width: 20%; text-align: center;">SELENGKAPNYA</a></div>
                 </div>
-                <div class="social-media-item">
-                <img src="assets/imgs/icons8-facebook-circled-50 2.png" alt="">
-                    <p>udd pmi nganjuk</p>
+                <div class="blog-wrapper">
+            
+            </div>
+            <div class="blog-wrapper">
+                <div class="img-wrapper">
+                    <img src="assets/imgs/kisah inspiratif 3.png" alt="kisah inspiratif 2">
                 </div>
-                <div class="social-media-item">
-                <img src="assets/imgs/icons8-gmail-99 1.png" alt="">
-                    <a href="mailto:udd.pmi.nganjuk@gmail.com">udd.pmi.nganjuk@gmail.com</a>
+                <div class="txt-wrapper">
+                <h4 class="blog-title">Seorang gadis berusia 11 tahun yang selamat berkat transfusi darah sedang memulihkan diri di rumah setelah transplantasi sel punca.</h4>
+                <p class="description-blog">
+                Chloe Gray dari Sunderland menerima transfusi darah pertamanya saat masih dalam kandungan dan telah keluar masuk rumah sakit untuk perawatan sejak saat itu. Dia menderita penyakit darah langka yang disebut Anemia Blackfan Diamond (DBA) yang berarti tubuhnya tidak dapat memproduksi cukup sel darah merah.Orangtua Chloe, Francesca dan Craig, memulai kampanye untuk menemukan kecocokan dan lebih dari 6.000 orang mendaftar untuk menjadi donor sel punca.
+                </p>
+                    <a class="nav-link btn btn-primary" href="components.html" style="width: 20%; text-align: center;">SELENGKAPNYA</a></div>
+                </div>
+                <div class="blog-wrapper">
+            
+            </div>
+
+                </section>
+                <div id="services" class="requirement-container"></div>
+                <div class="main-container">
+                    <div class="content-wrapper">
+                        <div class="heading">SYARAT MELAKUKAN DONOR DARAH</div>
+                        <div class="requirements-container">
+                <!-- Left Column (Text, Icon) -->
+                <div class="requirements-column left">
+                    <div class="requirement-item">
+                        <span>Sehat Jasmani dan Rohani</span>
+                        <img class="requirement-icon" src="assets/imgs/icon 1.png" alt="Sehat Jasmani dan Rohani">
+                    </div>
+                    <div class="requirement-item">
+                        <span>Berat badan minimal 45kg</span>
+                        <img class="requirement-icon" src="assets/imgs/icon 4.png" alt="Berat Badan">
+                    </div>
+                    <div class="requirement-item">
+                        <span>Tidak minum obat yang mengandung antibiotik dalam seminggu terakhir</span>
+                        <img class="requirement-icon" src="assets/imgs/icon 8.png" alt="Tidak minum obat">
+                    </div>
+                    <div class="requirement-item">
+                        <span>Usia minimal 17 tahun</span>
+                        <img class="requirement-icon" src="assets/imgs/icon 5.png" alt="Usia minimal">
+                    </div>
+                </div>
+
+                <!-- Right Column (Icon, Text) -->
+                <div class="requirements-column right">
+                    <div class="requirement-item">
+                        <img class="requirement-icon" src="assets/imgs/icon 2.png" alt="Tekanan Darah">
+                        <span>Tekanan darah: Sistol 90-160, Diastol 60-100</span>
+                    </div>
+                    <div class="requirement-item">
+                        <img class="requirement-icon" src="assets/imgs/icon 6.png" alt="Jarak Donor Darah">
+                        <span>Jarak donor darah sebelumnya 12 minggu atau 3 bulan</span>
+                    </div>
+                    <div class="requirement-item">
+                        <img class="requirement-icon" src="assets/imgs/icon 3.png" alt="Tidak hamil">
+                        <span>Perempuan tidak sedang hamil dan menyusui</span>
+                    </div>
+                    <div class="requirement-item">
+                        <img class="requirement-icon" src="assets/imgs/icon 7.png" alt="Kadar Hemoglobin">
+                        <span>Kadar hemoglobin 12.5 - 17 g/dl</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-        </div>
+
+
+                    </div>
+                </div>
+                <div class="custom-body">
+                    <div class="container-card">
+                        <div class="text-section">
+                            <h1>Ayo Donor Darah<br>Sekarang!</h1>
+                            <div class="button-container">
+                <button class="btn btn-primary" onclick="window.location.href='auth/masuk.php'">DONOR SEKARANG!</button>
+            </div>
+
+                        </div>
+                        <div class="image-section">
+                            <img src="assets/imgs/ayo donor darah.png" alt="Ayo Donor Darah">
+                        </div>
+                    </div>
+                </div>
+
+                    <footer class="footer">
+                    <div id="contact" class="footer"></div>
+                    <div class="footer-container">
+                    <div class="footer-logo-row">
+                        <div class="footer-logo"></div>
+                        <img src="assets/imgs/logopmi 2.png" alt="Ayo Donor Darah">
+                        <img src="assets/imgs/line 1.png" alt="Ayo Donor Darah">
+                        <div class="footer-logo">KABUPATEN <br>NGANJUK </div>
+                        <div class="footer-logo"></div>
+                        <img src="assets/imgs/logo nganjuk.png" alt="Ayo Donor Darah">
+                    </div>
+                    </div>
+                    
+                    
+                    <div class="footer-container">
+                        <!-- Address Column -->
+                        <div class="footer-column"> 
+                            <h3>Markas PMI Kabupaten Nganjuk</h3>
+                            <p>Jl. Mayjen Sungkono No.10, Kauman,
+                            Kec. Nganjuk, Kabupaten Nganjuk,
+                            <br>Jawa Timur 64415</p>
+                            <p class="footer-quote">"Tidak ada sukacita yang lebih besar daripada menyelamatkan satu jiwa."</p>
+                        </div>
+
+                        <!-- Services Column -->
+                        <div class="footer-column">
+                            <h3>Layanan</h3>
+                            <p>Unit Donor Darah</p>
+                            <p>Markas</p>
+                        </div>
+
+                        <!-- Help Column -->
+                        <div class="footer-column">
+                            <h3>Beri Bantuan</h3>
+                            <p>Donor Darah</p>
+                            <p>Donasi</p>
+                        </div>
+
+                        <!-- Social Media Column -->
+                        <div class="footer-column">
+                            <h3>Sosial Media Kami</h3>
+                            <div class="social-media-item">
+                                <img src="assets/imgs/icons8-instagram-48 1.png" alt="">
+                                <a href="#">@udd.pminganjuk</a>
+                            </div>
+                            <div class="social-media-item">
+                            <img src="assets/imgs/icons8-whatsapp-100 1.png" alt="">
+                                <a href="tel:+6285142279393">+62 851 4227 9393</a>
+                            </div>
+                            <div class="social-media-item">
+                            <img src="assets/imgs/icons8-facebook-circled-50 2.png" alt="">
+                                <p>udd pmi nganjuk</p>
+                            </div>
+                            <div class="social-media-item">
+                            <img src="assets/imgs/icons8-gmail-99 1.png" alt="">
+                                <a href="mailto:udd.pmi.nganjuk@gmail.com">udd.pmi.nganjuk@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                    </div>
 	
-	<!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+                <!-- core  -->
+                <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+                <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
 
-    <!-- bootstrap 3 affix -->
-	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
-    
-    <!-- Owl carousel  -->
-    <script src="assets/vendors/owl-carousel/js/owl.carousel.js"></script>
+                <!-- bootstrap 3 affix -->
+                <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+                
+                <!-- Owl carousel  -->
+                <script src="assets/vendors/owl-carousel/js/owl.carousel.js"></script>
 
 
-    <!-- Ollie js -->
-    <script src="assets/js/Ollie.js"></script>
+                <!-- Ollie js -->
+                <script src="assets/js/Ollie.js"></script>
 
 </body>
 
