@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,33 +14,33 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Tambahkan SweetAlert2 -->
-    <style>
-        /* Sembunyikan tombol bawaan "show password" di semua browser */
-input[type="password"]::-webkit-reveal-button,
-input[type="password"]::-ms-reveal,
-input[type="password"]::-webkit-clear-button {
-  display: none !important; /* Pastikan ini tidak muncul sama sekali */
-  visibility: hidden;
-}
+            <style>
+                /* Sembunyikan tombol bawaan "show password" di semua browser */
+        input[type="password"]::-webkit-reveal-button,
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-webkit-clear-button {
+        display: none !important; /* Pastikan ini tidak muncul sama sekali */
+        visibility: hidden;
+        }
 
-/* Menonaktifkan semua ikon bawaan */
-input[type="password"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-clip: padding-box;
-}
-    /* Target the icon specifically */
-    #toggle-password i {
-    color: #bebebe; /* Set color of the icon */
-    transition: color 0.2s ease; /* Smooth transition for color change */
-  }
+        /* Menonaktifkan semua ikon bawaan */
+        input[type="password"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-clip: padding-box;
+        }
+            /* Target the icon specifically */
+            #toggle-password i {
+            color: #bebebe; /* Set color of the icon */
+            transition: color 0.2s ease; /* Smooth transition for color change */
+        }
 
-  /* Optional: Change icon color on hover for better user experience */
-  #toggle-password:hover i {
-    color: #a8a8a8; /* Slightly darker color on hover */
-  }
-    </style>
+        /* Optional: Change icon color on hover for better user experience */
+        #toggle-password:hover i {
+            color: #a8a8a8; /* Slightly darker color on hover */
+        }
+            </style>
   
     <!-- Link CSS -->
     <link rel="stylesheet" href="./style.css">
@@ -65,21 +66,24 @@ input[type="password"] {
                 <p class="form-box__subtitle">buat akun baru untuk bergabung dengan kami.</p>
                 <body>
 
-    <form class="form-box__form" action="../../../api/website/register_website.php" method="POST">
-        <div class="input-group">
-            <input type="text" id="name"                 oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+        <form class="form-box__form" action="../../../api/website/register_website.php" method="POST">
+            <div class="input-group">
+                <input type="text" id="name" oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
 
              name="name" class="form-box__input" required placeholder=" ">
             <label for="name" class="form-box__label">NAMA</label>
         </div>
+
         <div class="input-group">
             <input type="tel" id="phone" name="phone" class="form-box__input" required placeholder=" ">
             <label for="phone" class="form-box__label">NO.HP</label>
         </div>
+
         <div class="input-group">
             <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
             <label for="email" class="form-box__label">EMAIL</label>
         </div>
+        
         <div class="input-group" style="position: relative;">
             <input 
                 type="text" 
@@ -180,10 +184,10 @@ input[type="password"] {
             }
         });
 
-    });
-    const usernameInput = document.getElementById("username");
-    const usernameError = document.getElementById("username-error");
-    const usernameInputGroup = usernameInput.parentElement; // Mengacu ke input-group
+        });
+        const usernameInput = document.getElementById("username");
+        const usernameError = document.getElementById("username-error");
+        const usernameInputGroup = usernameInput.parentElement; // Mengacu ke input-group
 
     // Fungsi untuk validasi username
     function validateUsername() {
