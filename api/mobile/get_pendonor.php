@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 // Query untuk mengambil semua data pendonor
-$sql = "SELECT id_pendonor, nama_pendonor, tanggal_lahir, no_telp, alamat, lokasi_donor, berat_badan, goldar, tekanan_darah, rhesus FROM data_pendonor";
+$sql = "SELECT id_pendonor, nama_pendonor, tanggal_lahir, no_telp, alamat, lokasi_donor, berat_badan, goldar, tekanan_darah, rhesus, id_akun FROM data_pendonor";
 $result = $conn->query($sql);
 
 $data = array();
