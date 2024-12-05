@@ -2,14 +2,8 @@
 header("Content-Type: application/json");
 session_start();
 
-// Database credentials
-$servername = "localhost";
-$username = "root"; // Ganti dengan username database Anda
-$password = ""; // Ganti dengan password database Anda
-$dbname = "bloodcarec3"; // Ganti dengan nama database Anda
-
-// Create connection nnn
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Check connection
 if ($conn->connect_error) {
@@ -44,11 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if profile is complete
             $isComplete = !empty($row['nama_lengkap']) && !empty($row['no_hp']) && !empty($row['alamat']) && !empty($row['tanggal_lahir']);
 
-            if ($isComplete) {
-                echo json_encode(["status" => "success", "redirect_to" => "main_activity", "user_id" => $row['id_akun']]);
-            } else {
-                echo json_encode(["status" => "success", "redirect_to" => "page_editprofil", "user_id" => $row['id_akun']]);
-            }
+            // Tambahkan username dan email ke response
+            $response = [
+                "status" => "success",
+                "redirect_to" => $isComplete ? "main_activity" : "page_editprofil",
+                "user_id" => $row['id_akun'],
+                "username" => $row['username'],
+                "email" => $row['email']
+            ];
+
+            echo json_encode($response);
         } else {
             // Jika password salah
             echo json_encode(["status" => "error", "message" => "Password salah"]);

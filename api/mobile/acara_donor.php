@@ -1,14 +1,8 @@
 <?php
 header("Content-Type: application/json");
 
-// Database credentials
-$servername = "localhost";
-$username = "root"; // ganti dengan username database Anda
-$password = ""; // ganti dengan password database Anda
-$dbname = "bloodcarec3";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Check connection
 if ($conn->connect_error) {

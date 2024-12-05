@@ -2,18 +2,12 @@
 
 header("Content-Type: application/json; charset=UTF-8");
 
-// Konfigurasi koneksi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-// Koneksi ke database
-$conn = new mysqli($host, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Periksa koneksi
 if ($conn->connect_error) {
-    echo json_encode(["success" => false, "message" => "Koneksi gagal: " . $conn->connect_error]);
+    echo json_encode (["success" => false, "message" => "Koneksi gagal: " . $conn->connect_error]);
     exit();
 }
 

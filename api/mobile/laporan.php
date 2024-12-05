@@ -4,14 +4,8 @@ header("Content-Type: application/json");
 // Debug awal untuk memastikan API berjalan
 echo json_encode(["status" => "debug", "message" => "API berjalan"]);
 
-// Database credentials
-$servername = "localhost";
-$username = "root"; // Ganti dengan username database Anda
-$password = ""; // Ganti dengan password database Anda
-$dbname = "bloodcarec3";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Check connection
 if ($conn->connect_error) {

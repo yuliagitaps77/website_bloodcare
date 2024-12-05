@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>Jika Anda tidak merasa meminta kode ini, abaikan email ini atau hubungi tim dukungan kami.</p>
                     <p style="color: #777; font-size: 14px; text-align: center; margin-top: 20px;">
                         <em>BloodCare - Peduli pada setiap tetes kehidupan.</em><br>
-                        <strong>Hubungi Kami:</strong> support@bloodcare.com
+                        <strong>Hubungi Kami:</strong> support@bloodcare.com    
                     </p>
                 </div>';
 

@@ -1,44 +1,36 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-
-// Konfigurasi database
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
-
-// Koneksi ke database
-$conn = new mysqli($host, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Periksa koneksi
-if ($conn->connect_error) {
-    die(json_encode(array("status" => "error", "message" => "Connection failed: " . $conn->connect_error)));
+if (!$conn) {
+    die(json_encode(array("success" => false, "message" => "Koneksi ke database gagal")));
 }
 
-// Ambil data dari request
-$id = isset($_POST['id']) ? $_POST['id'] : '';
+// Periksa apakah parameter `id` tersedia dalam permintaan POST
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
 
-// Validasi input
-if (empty($id)) {
-    echo json_encode(array("status" => "error", "message" => "ID tidak ditemukan"));
-    exit();
-}
+    // Query untuk menghapus data berdasarkan ID
+    $query = "DELETE FROM acara_donor WHERE id_acara = ?"; // Sesuaikan nama tabel dan kolom sesuai database Anda
+    $stmt = mysqli_prepare($conn, $query);
 
-// Query untuk menghapus data pendonor
-$sql = "DELETE FROM data_pendonor WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
-
-if ($stmt->execute()) {
-    echo json_encode(array("status" => "success", "message" => "Data berhasil dihapus"));
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id); // Menggunakan prepared statement untuk keamanan
+        if (mysqli_stmt_execute($stmt)) {
+            echo json_encode(array("success" => true, "message" => "Data berhasil dihapus"));
+        } else {
+            echo json_encode(array("success" => false, "message" => "Gagal menghapus data"));
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        echo json_encode(array("success" => false, "message" => "Kesalahan pada query SQL"));
+    }
 } else {
-    echo json_encode(array("status" => "error", "message" => "Gagal menghapus data"));
+    // Jika parameter `id` tidak ditemukan
+    echo json_encode(array("success" => false, "message" => "Parameter ID tidak ditemukan"));
 }
 
 // Tutup koneksi
-$stmt->close();
-$conn->close();
+mysqli_close($conn);
 ?>

@@ -6,11 +6,8 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 header("Content-Type: application/json");
 
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bloodcarec3";
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Buat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);

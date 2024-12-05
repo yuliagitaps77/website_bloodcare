@@ -2,14 +2,8 @@
 // Set header untuk JSON response
 header('Content-Type: application/json');
 
-// Menghubungkan ke database
-$servername = "localhost";
-$username = "root"; // Sesuaikan dengan username MySQL Anda
-$password = ""; // Sesuaikan dengan password MySQL Anda
-$dbname = "bloodcarec3"; // Nama database Anda
-
-// Membuat koneksi ke database
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Impor koneksi database
+require_once __DIR__ . '/../koneksi.php';
 
 // Cek koneksi
 if ($conn->connect_error) {
