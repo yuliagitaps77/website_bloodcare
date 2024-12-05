@@ -3,14 +3,6 @@ session_start();
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'User not authenticated.'
-    ]);
-    exit();
-}
-
 require_once __DIR__ . '/../koneksi.php';
 
 if ($conn->connect_error) {
@@ -22,11 +14,24 @@ if ($conn->connect_error) {
 }
 
 // Ambil data dari POST request
-$id_akun = $_POST['id_akun'] ?? null;  // Ambil id_akun dari POST
-$nama = $_POST['nama'] ?? null;
+$id_akun = $_POST['id_akun'] ?? null;
+$username = $_POST['username'] ?? null;
+$nama_lengkap = $_POST['nama_lengkap'] ?? null;
+$no_hp = $_POST['no_hp'] ?? null;
 $alamat = $_POST['alamat'] ?? null;
 $tanggal_lahir = $_POST['tanggal_lahir'] ?? null;
-$no_hp = $_POST['no_hp'] ?? null;
+
+// Log input yang diterima
+error_log("Data diterima: id_akun=$id_akun, username=$username, nama_lengkap=$nama_lengkap, alamat=$alamat, tanggal_lahir=$tanggal_lahir, no_hp=$no_hp");
+
+// Validasi input (Anda bisa menyesuaikan sesuai kebutuhan)
+if (!$id_akun || !$username || !$nama_lengkap || !$no_hp || !$alamat || !$tanggal_lahir) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Semua field wajib diisi.'
+    ]);
+    exit();
+}
 
 // Validasi tanggal lahir (tidak boleh lebih dari tanggal hari ini)
 $current_date = date('Y-m-d');
@@ -66,6 +71,7 @@ if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] ===
     if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
         $profile_picture_path = $target_file; // Simpan path gambar untuk database
         $update_picture = true; // Tandai bahwa gambar harus diperbarui
+        error_log("Gambar berhasil diunggah ke: $target_file");
     } else {
         echo json_encode([
             'status' => 'error',
@@ -78,7 +84,7 @@ if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] ===
 // Query untuk memperbarui profil
 if ($update_picture) {
     // Update dengan gambar
-    $query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ?, profile_picture = ? WHERE id_akun = ?";
+    $query = "UPDATE akun SET username = ?, nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ?, profile_picture = ? WHERE id_akun = ?";
     $stmt = $conn->prepare($query);
     if (!$stmt) {
         echo json_encode([
@@ -87,10 +93,11 @@ if ($update_picture) {
         ]);
         exit();
     }
-    $stmt->bind_param("sssssi", $nama, $alamat, $tanggal_lahir, $no_hp, $profile_picture_path, $user_id);
+    // Pastikan urutan variabel sesuai dengan urutan placeholder
+    $stmt->bind_param("ssssssi", $username, $nama_lengkap, $alamat, $tanggal_lahir, $no_hp, $profile_picture_path, $id_akun);
 } else {
     // Update tanpa gambar
-    $query = "UPDATE akun SET nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ? WHERE id_akun = ?";
+    $query = "UPDATE akun SET username = ?, nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, no_hp = ? WHERE id_akun = ?";
     $stmt = $conn->prepare($query);
     if (!$stmt) {
         echo json_encode([
@@ -99,15 +106,19 @@ if ($update_picture) {
         ]);
         exit();
     }
-    $stmt->bind_param("ssssi", $nama, $alamat, $tanggal_lahir, $no_hp, $user_id);
+    // Pastikan urutan variabel sesuai dengan urutan placeholder
+    $stmt->bind_param("sssssi", $username, $nama_lengkap, $alamat, $tanggal_lahir, $no_hp, $id_akun);
 }
 
+// Eksekusi query
 if ($stmt->execute()) {
+    error_log("Profil berhasil diperbarui untuk id_akun=$id_akun");
     echo json_encode([
         'status' => 'success',
         'message' => 'Profil Anda berhasil diperbarui.'
     ]);
 } else {
+    error_log("Terjadi kesalahan saat memperbarui profil: " . $stmt->error);
     echo json_encode([
         'status' => 'error',
         'message' => 'Terjadi kesalahan saat memperbarui profil: ' . $stmt->error
