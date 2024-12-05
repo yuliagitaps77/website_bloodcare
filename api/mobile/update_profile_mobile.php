@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 }
 
 // Ambil data dari POST request
-$user_id = $_SESSION['user_id'];
+$id_akun = $_POST['id_akun'] ?? null;  // Ambil id_akun dari POST
 $nama = $_POST['nama'] ?? null;
 $alamat = $_POST['alamat'] ?? null;
 $tanggal_lahir = $_POST['tanggal_lahir'] ?? null;
