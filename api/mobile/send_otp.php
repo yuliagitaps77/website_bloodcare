@@ -10,7 +10,7 @@ header("Content-Type: application/json");
 require_once __DIR__ . '/../koneksi.php';
 
 // Buat koneksi ke database
-$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 // Cek koneksi
 if ($conn->connect_error) {

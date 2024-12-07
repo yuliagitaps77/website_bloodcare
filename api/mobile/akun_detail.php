@@ -21,7 +21,7 @@ require_once __DIR__ . '/../koneksi.php';
     }
 
     // Query untuk mengambil data akun berdasarkan email atau username
-    $sql = "SELECT email, username, nama_lengkap, tanggal_lahir, no_hp, alamat FROM akun WHERE email = ? OR username = ?";
+    $sql = "SELECT email, username, nama_lengkap, tanggal_lahir, no_hp, alamat, id_akun FROM akun WHERE email = ? OR username = ?";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {

@@ -11,25 +11,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ambil data dari body POST
     $data = json_decode(file_get_contents("php://input"), true);
     
-    if (isset($data['goldar'], $data['jenis_darah'], $data['rhesus'], $data['stok'], $data['kebutuhan'])) {
+    if (isset($data['goldar'], $data['jenis_darah'], $data['rhesus'], $data['stok'])) {
         // Ambil data input
         $goldar = $data['goldar'];
         $jenis_darah = $data['jenis_darah'];
         $rhesus = $data['rhesus'];
         $stok_baru = $data['stok'];  // stok baru yang ingin ditambahkan
-        $kebutuhan = $data['kebutuhan'];
+    
         $tanggal_pembaruan = date('Y-m-d H:i:s'); // Timestamp saat ini
 
         // Query update: Menambahkan stok darah yang baru
         $query = "UPDATE stok_darah 
-                  SET stok = stok + ?, kebutuhan = ?, tanggal_pembaruan = ? 
+                  SET stok = stok + ?, tanggal_pembaruan = ? 
                   WHERE goldar = ? AND jenis_darah = ? AND rhesus = ?";
 
         // Siapkan statement
         $stmt = $conn->prepare($query);
         if ($stmt) {
-            // Bind parameter
-            $stmt->bind_param("iissss", $stok_baru, $kebutuhan, $tanggal_pembaruan, $goldar, $jenis_darah, $rhesus);
+            // Bind parameter (hapus $kebutuhan)
+            $stmt->bind_param("issss", $stok_baru, $tanggal_pembaruan, $goldar, $jenis_darah, $rhesus);
             
             // Eksekusi query
             if ($stmt->execute()) {

@@ -11,8 +11,16 @@ if ($conn->connect_error) {
     die(json_encode(array("status" => "error", "message" => "Connection failed: " . $conn->connect_error)));
 }
 
-// Query untuk mengambil semua data pendonor
-$sql = "SELECT id_pendonor, nama_pendonor, tanggal_lahir, no_telp, alamat, lokasi_donor, berat_badan, goldar, tekanan_darah, rhesus, id_akun FROM data_pendonor";
+// Ambil parameter pencarian dari URL jika ada
+$nama_pendonor = isset($_GET['nama_pendonor']) ? $_GET['nama_pendonor'] : '';
+
+// Query untuk mengambil data pendonor berdasarkan nama pendonor
+if ($nama_pendonor) {
+    $sql = "SELECT id_pendonor, nama_pendonor, tanggal_lahir, no_telp, alamat, lokasi_donor, berat_badan, goldar, tekanan_darah, rhesus, id_akun FROM data_pendonor WHERE nama_pendonor LIKE '%$nama_pendonor%'";
+} else {
+    $sql = "SELECT id_pendonor, nama_pendonor, tanggal_lahir, no_telp, alamat, lokasi_donor, berat_badan, goldar, tekanan_darah, rhesus, id_akun FROM data_pendonor";
+}
+
 $result = $conn->query($sql);
 
 $data = array();
@@ -20,12 +28,12 @@ $data = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $row_status = "Lengkap"; // Set default status untuk setiap pendonor
-        foreach ($row as $key => $value) {
-            if (empty($value)) {
-                $row_status = "Belum Lengkap"; // Ubah status jika ada kolom kosong
-                break;
-            }
+
+        // Periksa kolom yang spesifik: goldar, rhesus, berat_badan, tekanan_darah
+        if (empty($row['goldar']) || empty($row['rhesus']) || empty($row['berat_badan']) || empty($row['tekanan_darah'])) {
+            $row_status = "Belum Lengkap";
         }
+
         $row['status'] = $row_status; // Tambahkan status ke data pendonor
         $data[] = $row;
     }
@@ -34,7 +42,6 @@ if ($result->num_rows > 0) {
     http_response_code(404);
     echo json_encode(array("status" => "error", "message" => "No data found"));
 }
-
 
 // Tutup koneksi
 $conn->close();
