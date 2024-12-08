@@ -85,7 +85,7 @@ $profile_picture = !empty($user['profile_picture']) ?  BASE_URL . '/api/website/
             }
         });
         </script>
-<div class="form-group" style="margin-bottom: 1rem;">
+<div class="form-group" style="margin-bottom: 2rem; position: relative;">
     <label for="nama" style="display: block; margin-bottom: 0.5rem;">Nama</label>
     <input 
         type="text" 
@@ -95,8 +95,24 @@ $profile_picture = !empty($user['profile_picture']) ?  BASE_URL . '/api/website/
         placeholder="Masukkan nama" 
         value="<?php echo htmlspecialchars($user['nama_lengkap'] ?? ''); ?>" 
         oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+        onkeydown="validateInput(event)" 
         style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
     >
+    <small 
+        id="nama-error" 
+        style="
+            color: red; 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            font-size: 0.85rem;
+            margin-top: 5px;
+            width: 100%;
+        "
+    >
+        Tidak boleh angka dan simbol selain petik atas (').
+    </small>
 </div>
 
 <div class="form-group" style="margin-bottom: 1rem;">
@@ -142,7 +158,7 @@ $profile_picture = !empty($user['profile_picture']) ?  BASE_URL . '/api/website/
     >
 </div>
 
-<div class="form-group" style="margin-bottom: 1rem;">
+<div class="form-group" style="margin-bottom: 2rem; position: relative;">
     <label for="no_hp" style="display: block; margin-bottom: 0.5rem;">No Telepon</label>
     <input 
         type="text" 
@@ -154,16 +170,67 @@ $profile_picture = !empty($user['profile_picture']) ?  BASE_URL . '/api/website/
         maxlength="14" 
         pattern="\d+" 
         title="Nomor telepon harus berupa angka" 
-        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 14)" 
+        oninput="this.value = this.value.replace(/\D/g, '').slice(0, 13); validatePhone()" 
         style="width: 100%; padding: 0.5rem; border: 2px solid #BE7171; border-radius: 4px; box-sizing: border-box; background-color: white;"
     >
+    <small 
+        id="no_hp-error" 
+        style="
+            color: red; 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            font-size: 0.85rem;
+            margin-top: 5px;
+            width: 100%;
+        "
+    >
+    
+    Nomor telepon harus antara 11 hingga 13 digit.
+    </small>
 </div>
-
 
     <div class="form-buttons">
         <button type="submit" class="btn-save">SIMPAN</button>
     </div>
     <script>
+       function validatePhone() {
+    const phoneInput = document.getElementById('no_hp');
+    const errorElement = document.getElementById('no_hp-error');
+    const phoneLength = phoneInput.value.length;
+
+    // Validasi: jika panjang nomor telepon lebih dari 13 atau kurang dari 11, tampilkan pesan error
+    if (phoneLength < 11 || phoneLength >= 13) {
+        errorElement.style.display = 'block';
+    } else {
+        errorElement.style.display = 'none';
+    }
+}
+
+
+function validateInput(event) {
+    const validKeys = [
+        'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 
+        'Tab', 'Shift', 'Control', 'Alt', 'Meta'
+    ]; // Keys that should not trigger error
+    const key = event.key;
+
+    // If it's a number or symbol (except for apostrophe), prevent the input
+    const isInvalidKey = /[^a-zA-Z\s']/g.test(key) && !validKeys.includes(key);
+    
+    if (isInvalidKey) {
+        // Show error message
+        const errorElement = document.getElementById('nama-error');
+        errorElement.style.display = 'block';
+        errorElement.textContent = "Tidak boleh angka dan simbol selain petik atas (').";
+        
+        event.preventDefault(); // Prevent invalid input
+    } else {
+        // Hide error message if the input is valid
+        document.getElementById('nama-error').style.display = 'none';
+    }
+}
 document.addEventListener('DOMContentLoaded', function () {
     const formFields = document.querySelectorAll('#nama, #alamat, #tanggal-lahir, #email, #no_hp, #profile-picture-input');
     const saveButton = document.querySelector('.btn-save');

@@ -67,22 +67,62 @@
                 <body>
 
         <form class="form-box__form" action="../../../api/website/register_website.php" method="POST">
-            <div class="input-group">
-                <input type="text" id="name" oninput="this.value = this.value.replace(/[^a-zA-Z\s']/g, '')" 
+            <div class="input-group" style="position: relative;">
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    class="form-box__input" 
+                    required 
+                    placeholder=" "
+                >
+                <label for="name" class="form-box__label">NAMA</label>
+                <small 
+                    id="name-error" 
+                    style="display: none; position: absolute; top: calc(100% + 5px); left: 0; color: red;"
+                >
+                    &nbsp;
+                </small>
+            </div>
+            
+            <div class="input-group" style="position: relative;">
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    class="form-box__input" 
+                    required 
+                    placeholder=" " 
+                    maxlength="13" 
+                >
+                <label for="phone" class="form-box__label">NO.HP</label>
+                <small 
+                    id="phone-error" 
+                    style="display: none; position: absolute; top: calc(100% + 5px); left: 0; color: red;"
+                >
+                    &nbsp;
+                </small>
+            </div>
+            
 
-             name="name" class="form-box__input" required placeholder=" ">
-            <label for="name" class="form-box__label">NAMA</label>
-        </div>
-
-        <div class="input-group">
-            <input type="tel" id="phone" name="phone" class="form-box__input" required placeholder=" ">
-            <label for="phone" class="form-box__label">NO.HP</label>
-        </div>
-
-        <div class="input-group">
-            <input type="email" id="email" name="email" class="form-box__input" required placeholder=" ">
+        <div class="input-group" style="position: relative;">
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-box__input" 
+                required 
+                placeholder=" "
+            >
             <label for="email" class="form-box__label">EMAIL</label>
+            <small 
+                id="email-error" 
+                style="display: none; position: absolute; top: calc(100% + 5px); left: 0; color: red;"
+            >
+                &nbsp;
+            </small>
         </div>
+        
         
         <div class="input-group" style="position: relative;">
             <input 
@@ -152,29 +192,104 @@
   document.addEventListener("DOMContentLoaded", () => {
         // Nama: Batas maksimal karakter
         const nameInput = document.getElementById("name");
-        nameInput.addEventListener("input", () => {
-            const maxLength = 50; // Misal panjang maksimum 50 karakter
-            if (nameInput.value.length > maxLength) {
-                nameInput.value = nameInput.value.slice(0, maxLength);
-            }
-        });
+const nameError = document.getElementById("name-error");
+const nameInputGroup = nameInput.parentElement;
 
-        // Nomor Telepon: Hanya angka dan batas panjang karakter
-        const phoneInput = document.getElementById("phone");
-        phoneInput.addEventListener("input", () => {
-            phoneInput.value = phoneInput.value.replace(/\D/g, ""); // Hanya angka
-            const maxLength = 13;
-            const minLength = 11;
-            if (phoneInput.value.length > maxLength) {
-                phoneInput.value = phoneInput.value.slice(0, maxLength);
-            }
-            if (phoneInput.value.length < minLength) {
-                phoneInput.setCustomValidity("Nomor telepon minimal 11 karakter.");
-            } else {
-                phoneInput.setCustomValidity("");
-            }
-        });
+const phoneInput = document.getElementById("phone");
+const phoneError = document.getElementById("phone-error");
+const phoneInputGroup = phoneInput.parentElement;
 
+// Fungsi untuk validasi nomor HP
+function validatePhone() {
+    const phoneValue = phoneInput.value;
+    
+    // Regex untuk memeriksa hanya angka, dan menambahkan kemungkinan simbol + di awal
+    const regex = /^[+]?\d+$/; 
+
+    // Validasi panjang nomor HP
+    if (phoneValue.length < 11 || phoneValue.length > 13) {
+        phoneError.textContent = "Nomor HP harus antara 11 dan 13 digit.";
+        phoneError.style.display = "block";
+        phoneInputGroup.style.marginBottom = "40px";
+    } 
+    // Memeriksa apakah input hanya mengandung angka dan simbol + (jika ada)
+    else if (!regex.test(phoneValue)) {
+        phoneError.textContent = "Hanya angka dan simbol + yang diperbolehkan.";
+        phoneError.style.display = "block";
+        phoneInputGroup.style.marginBottom = "40px";
+    } else {
+        phoneError.style.display = "none"; // Sembunyikan pesan error jika valid
+        phoneInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
+    }
+}
+
+// Menambahkan event listener untuk validasi saat input berubah
+phoneInput.addEventListener("input", validatePhone);
+
+// Fungsi untuk validasi nama
+function validateName() {
+    // Hanya mengizinkan huruf, spasi, dan petik atas (')
+    const regex = /^[a-zA-Z\s']*$/;
+
+    if (!regex.test(nameInput.value)) {
+        // Hapus karakter yang tidak valid secara langsung
+        nameInput.value = nameInput.value.replace(/[^a-zA-Z\s']/g, "");
+        nameError.textContent = "Hanya huruf, spasi, dan petik atas (') yang diperbolehkan.";
+        nameError.style.display = "block";
+        nameInputGroup.style.marginBottom = "40px";
+    } else {
+        nameError.style.display = "none"; // Sembunyikan pesan error jika valid
+        nameInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
+    }
+}
+
+// Event listener untuk validasi nama saat pengguna mengetik
+nameInput.addEventListener("input", validateName);
+
+        
+        const emailInput = document.getElementById("email");
+const emailError = document.getElementById("email-error");
+const emailInputGroup = emailInput.parentElement;
+
+// Fungsi untuk validasi dan membatasi input email
+function validateEmail() {
+    // Regex untuk memvalidasi email yang hanya mengizinkan karakter alfanumerik, titik (.) dan garis bawah (_)
+    const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Pastikan email tidak mengandung spasi
+    if (/\s/.test(emailInput.value)) {
+        emailError.textContent = "Email tidak boleh mengandung spasi.";
+        emailError.style.display = "block";
+        emailInputGroup.style.marginBottom = "40px";
+    }
+    // Memeriksa apakah email sesuai dengan pola regex yang telah ditentukan
+    else if (!regex.test(emailInput.value)) {
+        emailError.textContent = "Email hanya boleh mengandung huruf, angka, titik (.), dan garis bawah (_).";
+        emailError.style.display = "block";
+        emailInputGroup.style.marginBottom = "40px";
+    } else {
+        emailError.style.display = "none"; // Sembunyikan pesan error jika valid
+        emailInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
+    }
+}
+
+// Fungsi untuk membatasi karakter yang dimasukkan
+function restrictInvalidChars(event) {
+    const validChars = /[a-zA-Z0-9._@-]/;  // Karakter yang diperbolehkan: huruf, angka, titik, garis bawah, at, dan minus
+    const value = event.target.value;
+
+    // Cek setiap karakter yang dimasukkan, jika tidak valid, hapus karakter tersebut
+    if (!validChars.test(event.key) && event.key !== "Backspace" && event.key !== "Delete") {
+        event.preventDefault();
+    }
+}
+
+// Menambahkan event listener untuk validasi saat input berubah
+emailInput.addEventListener("input", validateEmail);
+// Menambahkan event listener untuk membatasi karakter yang dimasukkan
+emailInput.addEventListener("keydown", restrictInvalidChars);
+
+        
         // Username: Batas maksimal karakter
         const usernameInput = document.getElementById("username");
         usernameInput.addEventListener("input", () => {
