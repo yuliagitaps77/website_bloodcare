@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt_insert_donor->close();
 
-        // Query untuk mendapatkan tgl_acara dari acara_donor berdasarkan lokasi_donor menggunakan LIKE
+        // Query untuk mendapatkan tgl_acsara dari acara_donor berdasarkan lokasi_donor menggunakan LIKE
         // Pastikan bahwa ada acara_donor dengan lokasi yang sesuai dan tgl_acara >= CURDATE()
         $query_tgl_acara = "SELECT tgl_acara FROM acara_donor 
                             WHERE lokasi LIKE CONCAT('%', ?, '%') 
