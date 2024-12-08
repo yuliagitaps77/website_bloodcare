@@ -254,23 +254,23 @@ const emailInputGroup = emailInput.parentElement;
 // Fungsi untuk validasi dan membatasi input email
 function validateEmail() {
     // Regex untuk memvalidasi email yang hanya mengizinkan karakter alfanumerik, titik (.) dan garis bawah (_)
-    const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    // Pastikan email tidak mengandung spasi
-    if (/\s/.test(emailInput.value)) {
-        emailError.textContent = "Email tidak boleh mengandung spasi.";
-        emailError.style.display = "block";
-        emailInputGroup.style.marginBottom = "40px";
-    }
-    // Memeriksa apakah email sesuai dengan pola regex yang telah ditentukan
-    else if (!regex.test(emailInput.value)) {
-        emailError.textContent = "Email hanya boleh mengandung huruf, angka, titik (.), dan garis bawah (_).";
-        emailError.style.display = "block";
-        emailInputGroup.style.marginBottom = "40px";
-    } else {
-        emailError.style.display = "none"; // Sembunyikan pesan error jika valid
-        emailInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
-    }
+    // // Pastikan email tidak mengandung spasi
+    // if (/\s/.test(emailInput.value)) {
+    //     emailError.textContent = "Email tidak boleh mengandung spasi.";
+    //     emailError.style.display = "block";
+    //     emailInputGroup.style.marginBottom = "40px";
+    // }
+    // // Memeriksa apakah email sesuai dengan pola regex yang telah ditentukan
+    // else if (!regex.test(emailInput.value)) {
+    //     emailError.textContent = "Email hanya boleh mengandung huruf, angka, titik (.), dan garis bawah (_).";
+    //     emailError.style.display = "block";
+    //     emailInputGroup.style.marginBottom = "40px";
+    // } else {
+    //     emailError.style.display = "none"; // Sembunyikan pesan error jika valid
+    //     emailInputGroup.style.marginBottom = "10px"; // Reset margin-bottom
+    // }
 }
 
 // Fungsi untuk membatasi karakter yang dimasukkan
